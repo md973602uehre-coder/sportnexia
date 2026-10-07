@@ -1,10 +1,8 @@
-# SPORTNEXIA Free Static Website
+SPORTNEXIA Supabase publishing site
 
-This is a simple static sports website. It has no database, admin panel, login system, or server-side code, which keeps the initial attack surface small.
+Public site: index.html
+Private admin: admin.html (not linked publicly)
+Supabase config: config.js
 
-## Free publishing
-You can publish these files with GitHub Pages or Cloudflare Pages.
-
-## Important
-- Do not put passwords, API keys, NID information, or private data in the files.
-- If you later add an admin panel/CMS, use strong passwords, 2FA, updates, backups, and trusted hosting.
+Keep your existing Google Search Console verification HTML file in the repository when replacing/updating files.
+Never add a Supabase service_role/secret key to the site.
