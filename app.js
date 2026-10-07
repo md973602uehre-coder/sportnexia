@@ -1,7 +1,7 @@
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-const esc = s => String(s ?? '').replace(/[&<>'"]/g,c=>({
+const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({
   '&':'&amp;',
   '<':'&lt;',
   '>':'&gt;',
@@ -9,27 +9,48 @@ const esc = s => String(s ?? '').replace(/[&<>'"]/g,c=>({
   '"':'&quot;'
 }[c]));
 
-const dateFmt = s => new Date(s).toLocaleDateString('en-GB',{
+const dateFmt = s => new Date(s).toLocaleDateString('en-GB', {
   day:'2-digit',
   month:'short',
   year:'numeric'
 }).toUpperCase();
 
 function card(n, featured=false){
+
   return `
     <article class="news-card ${featured ? 'featured' : ''}">
-      ${
-        n.image_url
-          ? `<img src="${esc(n.image_url)}" alt="${esc(n.title)}" loading="lazy">`
-          : `<div class="pic">${
-              n.category?.toLowerCase().includes('cricket') ? '🏏' : '⚽'
-            }</div>`
-      }
 
-      <div class="pad">
-        <label>${esc(n.category || 'SPORTS')}</label>
+      <div
+        class="news-click-area"
+        onclick="openNews('${esc(n.id)}')"
+        style="cursor:pointer"
+      >
 
-        <h3>${esc(n.title)}</h3>
+        ${
+          n.image_url
+            ? `<img
+                src="${esc(n.image_url)}"
+                alt="${esc(n.title)}"
+                loading="lazy"
+              >`
+            : `<div class="pic">${
+                n.category?.toLowerCase().includes('cricket')
+                  ? '🏏'
+                  : '⚽'
+              }</div>`
+        }
+
+        <div class="pad">
+
+          <label>${esc(n.category || 'SPORTS')}</label>
+
+          <h3>${esc(n.title)}</h3>
+
+        </div>
+
+      </div>
+
+      <div class="pad news-text-area">
 
         <p
           class="news-content"
@@ -42,11 +63,23 @@ function card(n, featured=false){
         <small>
           ${dateFmt(n.created_at)} • SPORTNEXIA
         </small>
+
       </div>
+
     </article>
   `;
 }
 
+
+/* প্রতিটি নিউজের আলাদা পেজে নিয়ে যাবে */
+function openNews(id){
+
+  window.location.href = `news.html?id=${encodeURIComponent(id)}`;
+
+}
+
+
+/* ৩ লাইন ↔ পুরো লেখা */
 function setupContentToggle(){
 
   document.querySelectorAll('.news-content').forEach(el => {
@@ -62,13 +95,21 @@ function setupContentToggle(){
 
     };
 
-    el.addEventListener('click', toggle);
+    el.addEventListener('click', e => {
+
+      e.stopPropagation();
+
+      toggle();
+
+    });
 
     el.addEventListener('keydown', e => {
 
       if(e.key === 'Enter' || e.key === ' '){
 
         e.preventDefault();
+
+        e.stopPropagation();
 
         toggle();
 
@@ -79,6 +120,7 @@ function setupContentToggle(){
   });
 
 }
+
 
 async function load(){
 
@@ -98,20 +140,22 @@ async function load(){
 
   const rows = data || [];
 
+
+  /* Latest News */
+
   document.getElementById('newsGrid').innerHTML =
     rows.length
-      ? rows.slice(0,9).map((n,i) => card(n,i === 0)).join('')
+      ? rows.slice(0,9).map((n,i) => card(n, i === 0)).join('')
       : `<div class="empty">
           No news published yet.
           New SPORTNEXIA stories will appear here.
         </div>`;
 
+
+  /* Football */
+
   const football = rows.filter(n =>
     (n.category || '').toLowerCase().includes('football')
-  );
-
-  const cricket = rows.filter(n =>
-    (n.category || '').toLowerCase().includes('cricket')
   );
 
   document.getElementById('footballGrid').innerHTML =
@@ -119,14 +163,28 @@ async function load(){
       ? football.slice(0,6).map(n => card(n)).join('')
       : '<p class="empty">Football news will appear here.</p>';
 
+
+  /* Cricket */
+
+  const cricket = rows.filter(n =>
+    (n.category || '').toLowerCase().includes('cricket')
+  );
+
   document.getElementById('cricketGrid').innerHTML =
     cricket.length
       ? cricket.slice(0,6).map(n => card(n)).join('')
       : '<p class="empty">Cricket news will appear here.</p>';
 
+
+  /* Breaking News */
+
   if(rows[0]){
-    document.getElementById('breakingText').textContent = rows[0].title;
+
+    document.getElementById('breakingText').textContent =
+      rows[0].title;
+
   }
+
 
   setupContentToggle();
 
