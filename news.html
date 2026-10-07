@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SPORTNEXIA - News</title>
+
+  <meta name="description" content="SPORTNEXIA - Latest football, cricket and sports news.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="nav">
+    <a href="index.html" class="logo">
+      SPORT<span>NEXIA</span>
+    </a>
+
+    <nav>
+      <a href="index.html">🏠 Home</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="single-news" id="singleNews">
+
+      <div class="news-loading">
+        Loading news...
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <b>SPORT<span>NEXIA</span></b>
+    <p>© 2026 SPORTNEXIA. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+
+  <script>
+
+    const { createClient } = supabase;
+
+    const db = createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      "'":'&#39;',
+      '"':'&quot;'
+    }[c]));
+
+    const dateFmt = s => new Date(s).toLocaleDateString(
+      'en-GB',
+      {
+        day:'2-digit',
+        month:'short',
+        year:'numeric'
+      }
+    ).toUpperCase();
+
+    async function loadNews(){
+
+      const params = new URLSearchParams(window.location.search);
+
+      const id = params.get('id');
+
+      const container = document.getElementById('singleNews');
+
+      if(!id){
+
+        container.innerHTML = `
+          <div class="news-error">
+            <h2>News not found</h2>
+            <a href="index.html">🏠 Back to Home</a>
+          </div>
+        `;
+
+        return;
+      }
+
+      const { data, error } = await db
+        .from('news')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if(error || !data){
+
+        container.innerHTML = `
+          <div class="news-error">
+            <h2>News not found</h2>
+            <a href="index.html">🏠 Back to Home</a>
+          </div>
+        `;
+
+        return;
+      }
+
+      container.innerHTML = `
+
+        <div class="single-news-wrap">
+
+          <a href="index.html" class="home-button">
+            🏠 Home
+          </a>
+
+          ${
+            data.image_url
+              ? `<img
+                  class="single-news-image"
+                  src="${esc(data.image_url)}"
+                  alt="${esc(data.title)}"
+                >`
+              : ''
+          }
+
+          <div class="single-news-content">
+
+            <label>${esc(data.category || 'SPORTS')}</label>
+
+            <h1>${esc(data.title)}</h1>
+
+            <div class="single-news-meta">
+              ${dateFmt(data.created_at)} • SPORTNEXIA
+            </div>
+
+            <div class="single-news-text">
+              ${esc(data.content || '')}
+            </div>
+
+            <button class="share-button" onclick="shareNews()">
+              🔗 Share News
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+    async function shareNews(){
+
+      const shareData = {
+        title: document.title,
+        text: 'Read this news on SPORTNEXIA',
+        url: window.location.href
+      };
+
+      try{
+
+        if(navigator.share){
+
+          await navigator.share(shareData);
+
+        }else{
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          alert('News link copied!');
+
+        }
+
+      }catch(e){
+
+        console.log(e);
+
+      }
+
+    }
+
+    loadNews();
+
+  </script>
+
+</body>
+
+</html>
