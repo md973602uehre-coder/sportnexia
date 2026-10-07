@@ -1,5 +1,8 @@
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+html{
+  scroll-behavior:smooth
+}
 
 body{
   margin:0;
@@ -8,7 +11,10 @@ body{
   color:#0a1020
 }
 
-a{text-decoration:none;color:inherit}
+a{
+  text-decoration:none;
+  color:inherit
+}
 
 .nav{
   max-width:1180px;
@@ -26,7 +32,10 @@ a{text-decoration:none;color:inherit}
   font-size:21px
 }
 
-.logo span,footer span{color:#198cff}
+.logo span,
+footer span{
+  color:#198cff
+}
 
 nav{
   display:flex;
@@ -35,7 +44,9 @@ nav{
   font-weight:700
 }
 
-nav a:hover{color:#198cff}
+nav a:hover{
+  color:#198cff
+}
 
 .breaking{
   background:#091222;
@@ -46,7 +57,9 @@ nav a:hover{color:#198cff}
   font-size:13px
 }
 
-.breaking b{color:#58b0ff}
+.breaking b{
+  color:#58b0ff
+}
 
 .hero{
   max-width:1180px;
@@ -58,7 +71,8 @@ nav a:hover{color:#198cff}
   align-items:center
 }
 
-.hero small,section small{
+.hero small,
+section small{
   font-weight:800;
   letter-spacing:1.8px;
   color:#198cff
@@ -70,7 +84,9 @@ nav a:hover{color:#198cff}
   margin:18px 0
 }
 
-.hero h1 span{color:#198cff}
+.hero h1 span{
+  color:#198cff
+}
 
 .hero p{
   max-width:620px;
@@ -102,8 +118,14 @@ nav a:hover{color:#198cff}
   box-shadow:0 25px 70px #09122222
 }
 
-.hero-card div{font-size:100px}
-.hero-card small{color:#8cc8ff}
+.hero-card div{
+  font-size:100px
+}
+
+.hero-card small{
+  color:#8cc8ff
+}
+
 .hero-card strong{
   font-size:26px;
   letter-spacing:3px
@@ -146,7 +168,6 @@ nav a:hover{color:#198cff}
   border:1px solid #e9edf3
 }
 
-/* ছবির পুরো অংশ দেখা যাবে */
 .news-card img{
   width:100%;
   height:auto;
@@ -165,7 +186,9 @@ nav a:hover{color:#198cff}
   background:#e8eef7
 }
 
-.pad{padding:20px}
+.pad{
+  padding:20px
+}
 
 .pad label{
   font-size:11px;
@@ -180,7 +203,6 @@ nav a:hover{color:#198cff}
   margin:9px 0
 }
 
-/* প্রথমে শুধু ৩ লাইন দেখা যাবে */
 .pad p{
   color:#687283;
   line-height:1.6;
@@ -193,7 +215,6 @@ nav a:hover{color:#198cff}
   margin-bottom:12px
 }
 
-/* চাপ দিলে পুরো লেখা দেখা যাবে */
 .pad p.expanded{
   display:block;
   -webkit-line-clamp:unset;
@@ -204,6 +225,18 @@ nav a:hover{color:#198cff}
   color:#929aaa!important;
   font-size:10px!important;
   letter-spacing:1px
+}
+
+.news-click-area{
+  transition:.2s ease
+}
+
+.news-click-area:hover{
+  opacity:.96
+}
+
+.news-text-area{
+  padding-top:0
 }
 
 .dark{
@@ -229,8 +262,14 @@ nav a:hover{color:#198cff}
   gap:22px
 }
 
-.grid .news-card{color:#0a1020}
-.grid .empty,.grid .loading{color:#8fa0b5}
+.grid .news-card{
+  color:#0a1020
+}
+
+.grid .empty,
+.grid .loading{
+  color:#8fa0b5
+}
 
 .light{
   max-width:1180px;
@@ -266,19 +305,25 @@ footer{
   padding:35px
 }
 
-footer b{font-size:20px}
+footer b{
+  font-size:20px
+}
 
 footer p{
   color:#8b98aa;
   font-size:12px
 }
 
-.loading,.empty,.error{
+.loading,
+.empty,
+.error{
   padding:30px;
   color:#7a8494
 }
 
-.error{color:#c33}
+.error{
+  color:#c33
+}
 
 .news-grid>.news-card.featured{
   grid-column:span 2
@@ -293,18 +338,163 @@ footer p{
   height:auto
 }
 
+
+/* ============================= */
+/* SINGLE NEWS PAGE */
+/* ============================= */
+
+.single-news{
+  max-width:1000px;
+  margin:0 auto;
+  padding:45px 22px 90px
+}
+
+.single-news-wrap{
+  background:#fff;
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 15px 50px #0b142014;
+  border:1px solid #e9edf3
+}
+
+.home-button{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin:22px;
+  padding:11px 17px;
+  background:#091222;
+  color:#fff;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:800;
+  transition:.2s ease
+}
+
+.home-button:hover{
+  background:#198cff
+}
+
+.single-news-image{
+  width:100%;
+  height:auto;
+  max-height:650px;
+  display:block;
+  object-fit:contain;
+  background:#e8eef7
+}
+
+.single-news-content{
+  padding:30px 34px 40px
+}
+
+.single-news-content label{
+  display:inline-block;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  color:#198cff;
+  text-transform:uppercase
+}
+
+.single-news-content h1{
+  font-size:clamp(30px,5vw,52px);
+  line-height:1.12;
+  margin:12px 0 15px;
+  color:#0a1020
+}
+
+.single-news-meta{
+  color:#929aaa;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+  padding-bottom:25px;
+  border-bottom:1px solid #edf0f4
+}
+
+.single-news-text{
+  margin-top:28px;
+  color:#4f5969;
+  font-size:18px;
+  line-height:1.9;
+  white-space:pre-wrap;
+  word-break:break-word
+}
+
+.share-button{
+  margin-top:30px;
+  border:0;
+  background:#198cff;
+  color:#fff;
+  padding:13px 20px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s ease
+}
+
+.share-button:hover{
+  background:#0a1020
+}
+
+.news-loading{
+  background:#fff;
+  padding:50px;
+  text-align:center;
+  border-radius:18px;
+  color:#7a8494
+}
+
+.news-error{
+  background:#fff;
+  padding:60px 30px;
+  text-align:center;
+  border-radius:18px;
+  box-shadow:0 10px 35px #0b14200d
+}
+
+.news-error h2{
+  margin-top:0
+}
+
+.news-error a{
+  display:inline-block;
+  margin-top:15px;
+  background:#091222;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:800
+}
+
+.news-error a:hover{
+  background:#198cff
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
 @media(max-width:800px){
 
-  nav{display:none}
+  nav{
+    display:none
+  }
 
   .hero{
     grid-template-columns:1fr;
     padding-top:55px
   }
 
-  .hero-card{min-height:240px}
+  .hero-card{
+    min-height:240px
+  }
 
-  .news-grid,.grid{
+  .news-grid,
+  .grid{
     grid-template-columns:1fr
   }
 
@@ -312,7 +502,8 @@ footer p{
     grid-column:auto
   }
 
-  .head h2,.dark h2{
+  .head h2,
+  .dark h2{
     font-size:34px
   }
 
@@ -324,8 +515,31 @@ footer p{
     padding:10px 18px
   }
 
-  .news-grid,.light{
+  .news-grid,
+  .light{
     padding-left:18px;
     padding-right:18px
   }
-      }
+
+  .single-news{
+    padding:20px 12px 60px
+  }
+
+  .single-news-content{
+    padding:25px 20px 30px
+  }
+
+  .single-news-content h1{
+    font-size:30px
+  }
+
+  .single-news-text{
+    font-size:16px;
+    line-height:1.8
+  }
+
+  .home-button{
+    margin:16px
+  }
+
+}
