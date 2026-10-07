@@ -1,1 +1,331 @@
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#0a1020}a{text-decoration:none;color:inherit}.nav{max-width:1180px;margin:auto;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 22px}.logo{font-weight:900;letter-spacing:1.5px;font-size:21px}.logo span,footer span{color:#198cff}nav{display:flex;gap:28px;font-size:14px;font-weight:700}nav a:hover{color:#198cff}.breaking{background:#091222;color:#fff;padding:10px calc((100% - 1180px)/2 + 22px);display:flex;gap:15px;font-size:13px}.breaking b{color:#58b0ff}.hero{max-width:1180px;margin:auto;padding:85px 22px 90px;display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:center}.hero small,section small{font-weight:800;letter-spacing:1.8px;color:#198cff}.hero h1{font-size:clamp(52px,8vw,94px);line-height:.94;margin:18px 0}.hero h1 span{color:#198cff}.hero p{max-width:620px;font-size:18px;color:#5f6878;line-height:1.7}.btn{display:inline-block;margin-top:20px;background:#0a1020;color:#fff;padding:14px 20px;border-radius:10px;font-weight:800}.hero-card{min-height:340px;border-radius:28px;background:linear-gradient(145deg,#091222,#152b4d);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;box-shadow:0 25px 70px #09122222}.hero-card div{font-size:100px}.hero-card small{color:#8cc8ff}.hero-card strong{font-size:26px;letter-spacing:3px}.hero-card strong::first-letter{color:#198cff}.head{max-width:1180px;margin:auto;padding:0 22px 25px;display:flex;justify-content:space-between;align-items:end}.head h2{font-size:42px;margin:8px 0}.head>b{font-size:12px;letter-spacing:2px;color:#7b8493}.news-grid{max-width:1180px;margin:auto;padding:0 22px 90px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.news-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 35px #0b14200d;border:1px solid #e9edf3}.news-card img,.pic{width:100%;height:190px;object-fit:cover;background:#e8eef7}.pic{display:flex;align-items:center;justify-content:center;font-size:68px}.pad{padding:20px}.pad label{font-size:11px;font-weight:900;letter-spacing:1.4px;color:#198cff}.pad h3{font-size:21px;line-height:1.25;margin:9px 0}.pad p{color:#687283;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.pad small{color:#929aaa!important;font-size:10px!important;letter-spacing:1px}.dark{background:#091222;color:#fff;padding:80px 0}.dark>div{max-width:1180px;margin:auto;padding:0 22px}.dark h2{font-size:42px;margin:8px 0 30px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.grid .news-card{color:#0a1020}.grid .empty,.grid .loading{color:#8fa0b5}.light{max-width:1180px;margin:auto;padding:0 22px 90px}.about{background:#e9f3ff;padding:85px 22px}.about>div{max-width:800px;margin:auto}.about h2{font-size:48px;margin:10px 0}.about p{font-size:18px;line-height:1.8;color:#5d6879}footer{background:#06101e;color:#fff;text-align:center;padding:35px}footer b{font-size:20px}footer p{color:#8b98aa;font-size:12px}.loading,.empty,.error{padding:30px;color:#7a8494}.error{color:#c33}.news-grid>.news-card.featured{grid-column:span 2}.news-grid>.news-card.featured img,.news-grid>.news-card.featured .pic{height:280px}@media(max-width:800px){nav{display:none}.hero{grid-template-columns:1fr;padding-top:55px}.hero-card{min-height:240px}.news-grid,.grid{grid-template-columns:1fr}.news-grid>.news-card.featured{grid-column:auto}.head h2,.dark h2{font-size:34px}.about h2{font-size:38px}.breaking{padding:10px 18px}.news-grid,.light{padding-left:18px;padding-right:18px}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+  background:#f5f7fb;
+  color:#0a1020
+}
+
+a{text-decoration:none;color:inherit}
+
+.nav{
+  max-width:1180px;
+  margin:auto;
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px
+}
+
+.logo{
+  font-weight:900;
+  letter-spacing:1.5px;
+  font-size:21px
+}
+
+.logo span,footer span{color:#198cff}
+
+nav{
+  display:flex;
+  gap:28px;
+  font-size:14px;
+  font-weight:700
+}
+
+nav a:hover{color:#198cff}
+
+.breaking{
+  background:#091222;
+  color:#fff;
+  padding:10px calc((100% - 1180px)/2 + 22px);
+  display:flex;
+  gap:15px;
+  font-size:13px
+}
+
+.breaking b{color:#58b0ff}
+
+.hero{
+  max-width:1180px;
+  margin:auto;
+  padding:85px 22px 90px;
+  display:grid;
+  grid-template-columns:1.35fr .65fr;
+  gap:50px;
+  align-items:center
+}
+
+.hero small,section small{
+  font-weight:800;
+  letter-spacing:1.8px;
+  color:#198cff
+}
+
+.hero h1{
+  font-size:clamp(52px,8vw,94px);
+  line-height:.94;
+  margin:18px 0
+}
+
+.hero h1 span{color:#198cff}
+
+.hero p{
+  max-width:620px;
+  font-size:18px;
+  color:#5f6878;
+  line-height:1.7
+}
+
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  background:#0a1020;
+  color:#fff;
+  padding:14px 20px;
+  border-radius:10px;
+  font-weight:800
+}
+
+.hero-card{
+  min-height:340px;
+  border-radius:28px;
+  background:linear-gradient(145deg,#091222,#152b4d);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:16px;
+  box-shadow:0 25px 70px #09122222
+}
+
+.hero-card div{font-size:100px}
+.hero-card small{color:#8cc8ff}
+.hero-card strong{
+  font-size:26px;
+  letter-spacing:3px
+}
+
+.head{
+  max-width:1180px;
+  margin:auto;
+  padding:0 22px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end
+}
+
+.head h2{
+  font-size:42px;
+  margin:8px 0
+}
+
+.head>b{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#7b8493
+}
+
+.news-grid{
+  max-width:1180px;
+  margin:auto;
+  padding:0 22px 90px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px
+}
+
+.news-card{
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 10px 35px #0b14200d;
+  border:1px solid #e9edf3
+}
+
+/* ছবির পুরো অংশ দেখা যাবে */
+.news-card img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  background:#e8eef7
+}
+
+.news-card .pic{
+  width:100%;
+  min-height:190px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:68px;
+  background:#e8eef7
+}
+
+.pad{padding:20px}
+
+.pad label{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  color:#198cff
+}
+
+.pad h3{
+  font-size:21px;
+  line-height:1.25;
+  margin:9px 0
+}
+
+/* প্রথমে শুধু ৩ লাইন দেখা যাবে */
+.pad p{
+  color:#687283;
+  line-height:1.6;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  cursor:pointer;
+  white-space:pre-wrap;
+  margin-bottom:12px
+}
+
+/* চাপ দিলে পুরো লেখা দেখা যাবে */
+.pad p.expanded{
+  display:block;
+  -webkit-line-clamp:unset;
+  overflow:visible
+}
+
+.pad small{
+  color:#929aaa!important;
+  font-size:10px!important;
+  letter-spacing:1px
+}
+
+.dark{
+  background:#091222;
+  color:#fff;
+  padding:80px 0
+}
+
+.dark>div{
+  max-width:1180px;
+  margin:auto;
+  padding:0 22px
+}
+
+.dark h2{
+  font-size:42px;
+  margin:8px 0 30px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px
+}
+
+.grid .news-card{color:#0a1020}
+.grid .empty,.grid .loading{color:#8fa0b5}
+
+.light{
+  max-width:1180px;
+  margin:auto;
+  padding:0 22px 90px
+}
+
+.about{
+  background:#e9f3ff;
+  padding:85px 22px
+}
+
+.about>div{
+  max-width:800px;
+  margin:auto
+}
+
+.about h2{
+  font-size:48px;
+  margin:10px 0
+}
+
+.about p{
+  font-size:18px;
+  line-height:1.8;
+  color:#5d6879
+}
+
+footer{
+  background:#06101e;
+  color:#fff;
+  text-align:center;
+  padding:35px
+}
+
+footer b{font-size:20px}
+
+footer p{
+  color:#8b98aa;
+  font-size:12px
+}
+
+.loading,.empty,.error{
+  padding:30px;
+  color:#7a8494
+}
+
+.error{color:#c33}
+
+.news-grid>.news-card.featured{
+  grid-column:span 2
+}
+
+.news-grid>.news-card.featured img{
+  height:auto
+}
+
+.news-grid>.news-card.featured .pic{
+  min-height:280px;
+  height:auto
+}
+
+@media(max-width:800px){
+
+  nav{display:none}
+
+  .hero{
+    grid-template-columns:1fr;
+    padding-top:55px
+  }
+
+  .hero-card{min-height:240px}
+
+  .news-grid,.grid{
+    grid-template-columns:1fr
+  }
+
+  .news-grid>.news-card.featured{
+    grid-column:auto
+  }
+
+  .head h2,.dark h2{
+    font-size:34px
+  }
+
+  .about h2{
+    font-size:38px
+  }
+
+  .breaking{
+    padding:10px 18px
+  }
+
+  .news-grid,.light{
+    padding-left:18px;
+    padding-right:18px
+  }
+      }
