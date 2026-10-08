@@ -1,54 +1,93 @@
 const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  "'":'&#39;',
-  '"':'&quot;'
-}[c]));
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
-const dateFmt = s => new Date(s).toLocaleDateString('en-GB', {
-  day:'2-digit',
-  month:'short',
-  year:'numeric'
-}).toUpperCase();
 
-function card(n, featured=false){
+/* =========================================================
+   HELPERS
+========================================================= */
+
+const esc = s =>
+  String(s ?? '').replace(/[&<>'"]/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    "'":'&#39;',
+    '"':'&quot;'
+  }[c]));
+
+
+const dateFmt = s =>
+  new Date(s).toLocaleDateString(
+    'en-GB',
+    {
+      day:'2-digit',
+      month:'short',
+      year:'numeric'
+    }
+  ).toUpperCase();
+
+
+/* =========================================================
+   NEWS CARD
+========================================================= */
+
+function card(news, featured = false) {
 
   return `
-    <article class="news-card ${featured ? 'featured' : ''}">
+
+    <article
+      class="news-card ${featured ? 'featured' : ''}"
+    >
 
       <div
         class="news-click-area"
-        onclick="openNews('${esc(n.id)}')"
+        onclick="openNews('${esc(news.id)}')"
         style="cursor:pointer"
       >
 
         ${
-          n.image_url
-            ? `<img
-                src="${esc(n.image_url)}"
-                alt="${esc(n.title)}"
-                loading="lazy"
-              >`
-            : `<div class="pic">${
-                n.category?.toLowerCase().includes('cricket')
+          news.image_url
+
+          ? `
+            <img
+              src="${esc(news.image_url)}"
+              alt="${esc(news.title)}"
+              loading="lazy"
+            >
+          `
+
+          : `
+            <div class="pic">
+              ${
+                (news.category || '')
+                  .toLowerCase()
+                  .includes('cricket')
                   ? '🏏'
                   : '⚽'
-              }</div>`
+              }
+            </div>
+          `
         }
+
 
         <div class="pad">
 
-          <label>${esc(n.category || 'SPORTS')}</label>
+          <label>
+            ${esc(news.category || 'SPORTS')}
+          </label>
 
-          <h3>${esc(n.title)}</h3>
+          <h3>
+            ${esc(news.title)}
+          </h3>
 
         </div>
 
       </div>
+
 
       <div class="pad news-text-area">
 
@@ -58,136 +97,330 @@ function card(n, featured=false){
           tabindex="0"
           aria-expanded="false"
           title="Click to read more"
-        >${esc(n.content || '')}</p>
+        >
+          ${esc(news.content || '')}
+        </p>
+
 
         <small>
-          ${dateFmt(n.created_at)} • SPORTNEXIA
+          ${dateFmt(news.created_at)}
+          • SPORTNEXIA
         </small>
+
+
+        <!-- REACTIONS -->
+
+        <div
+          class="reaction-wrapper"
+          id="reactions-${esc(news.id)}"
+          data-reaction-news-id="${esc(news.id)}"
+        >
+          <div class="reaction-loading">
+            Loading reactions...
+          </div>
+        </div>
 
       </div>
 
     </article>
+
   `;
-}
-
-
-/* প্রতিটি নিউজের আলাদা পেজে নিয়ে যাবে */
-function openNews(id){
-
-  window.location.href = `news.html?id=${encodeURIComponent(id)}`;
 
 }
 
 
-/* ৩ লাইন ↔ পুরো লেখা */
-function setupContentToggle(){
+/* =========================================================
+   OPEN NEWS
+========================================================= */
 
-  document.querySelectorAll('.news-content').forEach(el => {
+function openNews(id) {
 
-    const toggle = () => {
+  window.location.href =
+    `news.html?id=${encodeURIComponent(id)}`;
 
-      el.classList.toggle('expanded');
+}
 
-      el.setAttribute(
-        'aria-expanded',
-        el.classList.contains('expanded') ? 'true' : 'false'
+
+/* =========================================================
+   CONTENT TOGGLE
+========================================================= */
+
+function setupContentToggle() {
+
+  document
+    .querySelectorAll('.news-content')
+    .forEach(element => {
+
+      const toggle = () => {
+
+        element.classList.toggle('expanded');
+
+        element.setAttribute(
+          'aria-expanded',
+          element.classList.contains('expanded')
+            ? 'true'
+            : 'false'
+        );
+
+      };
+
+
+      element.addEventListener(
+        'click',
+        event => {
+
+          event.stopPropagation();
+
+          toggle();
+
+        }
       );
 
-    };
 
-    el.addEventListener('click', e => {
+      element.addEventListener(
+        'keydown',
+        event => {
 
-      e.stopPropagation();
+          if (
+            event.key === 'Enter' ||
+            event.key === ' '
+          ) {
 
-      toggle();
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            toggle();
+
+          }
+
+        }
+      );
 
     });
-
-    el.addEventListener('keydown', e => {
-
-      if(e.key === 'Enter' || e.key === ' '){
-
-        e.preventDefault();
-
-        e.stopPropagation();
-
-        toggle();
-
-      }
-
-    });
-
-  });
 
 }
 
 
-async function load(){
+/* =========================================================
+   LOAD REACTIONS
+========================================================= */
 
-  const { data, error } = await db
+async function setupReactions() {
+
+  if (
+    typeof initializeReactions ===
+    'function'
+  ) {
+
+    await initializeReactions();
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD NEWS
+========================================================= */
+
+async function load() {
+
+  const newsGrid =
+    document.getElementById(
+      'newsGrid'
+    );
+
+
+  if (!newsGrid) return;
+
+
+  const {
+    data,
+    error
+  } = await db
+
     .from('news')
+
     .select('*')
-    .order('created_at', { ascending:false });
 
-  if(error){
+    .order(
+      'created_at',
+      {
+        ascending:false
+      }
+    );
 
-    document.getElementById('newsGrid').innerHTML =
-      '<p class="error">News could not be loaded right now.</p>';
+
+  if (error) {
+
+    console.error(
+      'SPORTNEXIA news error:',
+      error
+    );
+
+
+    newsGrid.innerHTML = `
+      <p class="error">
+        News could not be loaded right now.
+      </p>
+    `;
 
     return;
 
   }
 
-  const rows = data || [];
+
+  const rows =
+    data || [];
 
 
-  /* Latest News */
+  /* =====================================================
+     LATEST NEWS
+  ====================================================== */
 
-  document.getElementById('newsGrid').innerHTML =
+  newsGrid.innerHTML =
+
     rows.length
-      ? rows.slice(0,9).map((n,i) => card(n, i === 0)).join('')
-      : `<div class="empty">
+
+      ? rows
+          .slice(0, 9)
+          .map(
+            (news, index) =>
+              card(
+                news,
+                index === 0
+              )
+          )
+          .join('')
+
+      : `
+        <div class="empty">
           No news published yet.
           New SPORTNEXIA stories will appear here.
-        </div>`;
+        </div>
+      `;
 
 
-  /* Football */
+  /* =====================================================
+     FOOTBALL NEWS
+  ====================================================== */
 
-  const football = rows.filter(n =>
-    (n.category || '').toLowerCase().includes('football')
-  );
-
-  document.getElementById('footballGrid').innerHTML =
-    football.length
-      ? football.slice(0,6).map(n => card(n)).join('')
-      : '<p class="empty">Football news will appear here.</p>';
+  const footballGrid =
+    document.getElementById(
+      'footballGrid'
+    );
 
 
-  /* Cricket */
+  if (footballGrid) {
 
-  const cricket = rows.filter(n =>
-    (n.category || '').toLowerCase().includes('cricket')
-  );
-
-  document.getElementById('cricketGrid').innerHTML =
-    cricket.length
-      ? cricket.slice(0,6).map(n => card(n)).join('')
-      : '<p class="empty">Cricket news will appear here.</p>';
+    const football =
+      rows.filter(news =>
+        (news.category || '')
+          .toLowerCase()
+          .includes('football')
+      );
 
 
-  /* Breaking News */
+    footballGrid.innerHTML =
 
-  if(rows[0]){
+      football.length
 
-    document.getElementById('breakingText').textContent =
+        ? football
+            .slice(0, 6)
+            .map(news =>
+              card(news)
+            )
+            .join('')
+
+        : `
+          <p class="empty">
+            Football news will appear here.
+          </p>
+        `;
+
+  }
+
+
+  /* =====================================================
+     CRICKET NEWS
+  ====================================================== */
+
+  const cricketGrid =
+    document.getElementById(
+      'cricketGrid'
+    );
+
+
+  if (cricketGrid) {
+
+    const cricket =
+      rows.filter(news =>
+        (news.category || '')
+          .toLowerCase()
+          .includes('cricket')
+      );
+
+
+    cricketGrid.innerHTML =
+
+      cricket.length
+
+        ? cricket
+            .slice(0, 6)
+            .map(news =>
+              card(news)
+            )
+            .join('')
+
+        : `
+          <p class="empty">
+            Cricket news will appear here.
+          </p>
+        `;
+
+  }
+
+
+  /* =====================================================
+     BREAKING NEWS
+  ====================================================== */
+
+  const breakingText =
+    document.getElementById(
+      'breakingText'
+    );
+
+
+  if (
+    breakingText &&
+    rows[0]
+  ) {
+
+    breakingText.textContent =
       rows[0].title;
 
   }
 
 
+  /* =====================================================
+     CONTENT EXPAND
+  ====================================================== */
+
   setupContentToggle();
 
+
+  /* =====================================================
+     REACTIONS
+  ====================================================== */
+
+  await setupReactions();
+
 }
+
+
+/* =========================================================
+   START
+========================================================= */
 
 load();
