@@ -4,12 +4,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>SPORTNEXIA - News</title>
-
   <meta name="description" content="SPORTNEXIA - Latest football, cricket and sports news.">
-
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .single-news-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .news-language-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+
+    .news-language-buttons a {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 25px;
+      text-decoration: none;
+      background: #edf2f7;
+      color: #172033;
+      font-weight: 700;
+    }
+
+    .news-language-buttons a.active {
+      background: #1687ee;
+      color: white;
+    }
+
+    .single-news-text {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.8;
+    }
+
+    .news-error {
+      padding: 25px;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -25,15 +65,9 @@
   </header>
 
   <main>
-
     <section class="single-news" id="singleNews">
-
-      <div class="news-loading">
-        Loading news...
-      </div>
-
+      <div class="news-loading">Loading news...</div>
     </section>
-
   </main>
 
   <footer>
@@ -45,7 +79,6 @@
   <script src="config.js"></script>
 
   <script>
-
     const { createClient } = supabase;
 
     const db = createClient(
@@ -53,40 +86,40 @@
       SUPABASE_PUBLISHABLE_KEY
     );
 
-    const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      "'":'&#39;',
-      '"':'&quot;'
+    const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
     }[c]));
 
-    const dateFmt = s => new Date(s).toLocaleDateString(
-      'en-GB',
-      {
-        day:'2-digit',
-        month:'short',
-        year:'numeric'
-      }
-    ).toUpperCase();
+    const dateFmt = value => {
+      const date = new Date(value);
 
-    async function loadNews(){
+      if (Number.isNaN(date.getTime())) return '';
 
-      const params = new URLSearchParams(window.location.search);
+      return date.toLocaleDateString(
+        currentLanguage === 'bn' ? 'bn-BD' : 'en-GB',
+        {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        }
+      );
+    };
 
+    const params = new URLSearchParams(window.location.search);
+    const currentLanguage = params.get('lang') === 'bn' ? 'bn' : 'en';
+
+    async function loadNews() {
       const id = params.get('id');
-
       const container = document.getElementById('singleNews');
 
-      if(!id){
+      document.documentElement.lang = currentLanguage;
 
-        container.innerHTML = `
-          <div class="news-error">
-            <h2>News not found</h2>
-            <a href="index.html">🏠 Back to Home</a>
-          </div>
-        `;
-
+      if (!id) {
+        showError('News not found');
         return;
       }
 
@@ -96,98 +129,118 @@
         .eq('id', id)
         .single();
 
-      if(error || !data){
-
-        container.innerHTML = `
-          <div class="news-error">
-            <h2>News not found</h2>
-            <a href="index.html">🏠 Back to Home</a>
-          </div>
-        `;
-
+      if (error || !data) {
+        showError('News not found');
         return;
       }
 
-      container.innerHTML = `
+      let title;
+      let content;
+      let image;
 
+      if (currentLanguage === 'bn') {
+        title = data.title_bn || data.title;
+        content = data.content_bn || data.content;
+        image = data.image_bn || data.image_url;
+      } else {
+        // English must use English fields only.
+        title = data.title_en;
+        content = data.content_en;
+        image = data.image_en;
+
+        if (!title || !content) {
+          showError('English version is not available for this news yet.');
+          return;
+        }
+      }
+
+      const banglaUrl = `news.html?id=${encodeURIComponent(id)}&lang=bn`;
+      const englishUrl = `news.html?id=${encodeURIComponent(id)}&lang=en`;
+
+      document.title = `${title} | SPORTNEXIA`;
+
+      container.innerHTML = `
         <div class="single-news-wrap">
 
           <a href="index.html" class="home-button">
-            🏠 Home
+            🏠 ${currentLanguage === 'bn' ? 'হোম' : 'Home'}
           </a>
 
-          ${
-            data.image_url
-              ? `<img
-                  class="single-news-image"
-                  src="${esc(data.image_url)}"
-                  alt="${esc(data.title)}"
-                >`
-              : ''
-          }
+          <div class="news-language-buttons">
+            <a href="${banglaUrl}"
+               class="${currentLanguage === 'bn' ? 'active' : ''}">
+              🇧🇩 বাংলা
+            </a>
+
+            <a href="${englishUrl}"
+               class="${currentLanguage === 'en' ? 'active' : ''}">
+              🇬🇧 English
+            </a>
+          </div>
+
+          ${image ? `
+            <img
+              class="single-news-image"
+              src="${esc(image)}"
+              alt="${esc(title)}"
+            >
+          ` : ''}
 
           <div class="single-news-content">
-
             <label>${esc(data.category || 'SPORTS')}</label>
 
-            <h1>${esc(data.title)}</h1>
+            <h1>${esc(title)}</h1>
 
             <div class="single-news-meta">
-              ${dateFmt(data.created_at)} • SPORTNEXIA
+              ${esc(dateFmt(data.created_at))} • SPORTNEXIA
             </div>
 
-            <div class="single-news-text">
-              ${esc(data.content || '')}
-            </div>
+            <div class="single-news-text">${esc(content)}</div>
 
             <button class="share-button" onclick="shareNews()">
-              🔗 Share News
+              🔗 ${currentLanguage === 'bn' ? 'খবর শেয়ার করুন' : 'Share News'}
             </button>
-
           </div>
 
         </div>
-
       `;
-
     }
 
-    async function shareNews(){
+    function showError(message) {
+      document.getElementById('singleNews').innerHTML = `
+        <div class="news-error">
+          <h2>${esc(message)}</h2>
+          <a href="index.html">🏠 Home</a>
+        </div>
+      `;
+    }
+
+    async function shareNews() {
+      const title = document.querySelector('.single-news-content h1')?.textContent
+        || 'SPORTNEXIA News';
 
       const shareData = {
-        title: document.title,
-        text: 'Read this news on SPORTNEXIA',
+        title,
+        text: title,
         url: window.location.href
       };
 
-      try{
-
-        if(navigator.share){
-
+      try {
+        if (navigator.share) {
           await navigator.share(shareData);
-
-        }else{
-
-          await navigator.clipboard.writeText(
-            window.location.href
-          );
-
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(window.location.href);
           alert('News link copied!');
-
+        } else {
+          prompt('Copy this news link:', window.location.href);
         }
-
-      }catch(e){
-
-        console.log(e);
-
+      } catch (error) {
+        console.log(error);
       }
-
     }
 
     loadNews();
-
   </script>
 
 </body>
-
 </html>
