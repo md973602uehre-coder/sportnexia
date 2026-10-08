@@ -34,21 +34,19 @@
 
   <style>
 
-    /* =====================================================
-       SPORTNEXIA NEW HOME
-    ===================================================== */
+    /* ================================
+       SPORTNEXIA HOME
+    ================================= */
 
     .home-page {
       background: #f5f7fb;
       min-height: 100vh;
     }
 
-
-    /* ================= HERO ================= */
-
     .home-hero {
       position: relative;
       overflow: hidden;
+
       background:
         radial-gradient(
           circle at 85% 15%,
@@ -70,45 +68,41 @@
       color: #fff;
     }
 
-
     .home-hero-inner {
       max-width: 1180px;
       margin: auto;
+
       padding: 90px 22px 105px;
 
       display: grid;
       grid-template-columns: 1.2fr .8fr;
+
       gap: 60px;
       align-items: center;
     }
 
-
     .home-kicker {
       color: #58b0ff;
+
       font-size: 12px;
       font-weight: 900;
+
       letter-spacing: 3px;
     }
-
 
     .home-hero h1 {
       margin: 16px 0 22px;
 
-      font-size: clamp(
-        52px,
-        8vw,
-        100px
-      );
+      font-size: clamp(52px, 8vw, 100px);
 
       line-height: .9;
+
       letter-spacing: -4px;
     }
-
 
     .home-hero h1 span {
       color: #198cff;
     }
-
 
     .home-hero p {
       max-width: 650px;
@@ -119,17 +113,19 @@
       line-height: 1.75;
     }
 
-
     .home-buttons {
       display: flex;
+
       gap: 12px;
+
       flex-wrap: wrap;
+
       margin-top: 30px;
     }
 
-
     .home-button {
       display: inline-flex;
+
       align-items: center;
       justify-content: center;
 
@@ -143,32 +139,32 @@
       transition: .2s;
     }
 
-
     .home-button.primary {
       background: #198cff;
       color: #fff;
     }
-
 
     .home-button.primary:hover {
       transform: translateY(-2px);
       background: #0d7eea;
     }
 
-
     .home-button.secondary {
       border: 1px solid #ffffff30;
+
       color: #fff;
+
       background: #ffffff0b;
     }
-
 
     .home-button.secondary:hover {
       background: #ffffff15;
     }
 
 
-    /* ================= HERO CARD ================= */
+    /* ================================
+       SPORTS VISUAL
+    ================================= */
 
     .sports-orbit {
       position: relative;
@@ -190,10 +186,10 @@
         0 30px 80px #00000035;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
     }
-
 
     .sports-orbit::before {
       content: "";
@@ -208,7 +204,6 @@
       border: 1px solid #198cff55;
     }
 
-
     .sports-orbit::after {
       content: "";
 
@@ -222,9 +217,9 @@
       border: 1px solid #ffffff20;
     }
 
-
     .sport-ball {
       position: relative;
+
       z-index: 2;
 
       font-size: 100px;
@@ -235,23 +230,22 @@
         );
     }
 
-
     .orbit-label {
       position: absolute;
 
       font-size: 11px;
+
       font-weight: 900;
+
       letter-spacing: 2px;
 
       color: #8dcaff;
     }
 
-
     .orbit-label.one {
       top: 55px;
       right: 55px;
     }
-
 
     .orbit-label.two {
       bottom: 55px;
@@ -259,18 +253,21 @@
     }
 
 
-    /* ================= QUICK SPORTS ================= */
+    /* ================================
+       QUICK SPORTS
+    ================================= */
 
     .quick-sports {
       max-width: 1180px;
+
       margin: -32px auto 0;
 
       padding: 0 22px;
 
       position: relative;
+
       z-index: 5;
     }
-
 
     .quick-sports-grid {
       display: grid;
@@ -280,7 +277,6 @@
 
       gap: 15px;
     }
-
 
     .quick-card {
       background: #fff;
@@ -298,7 +294,6 @@
       transition: .2s;
     }
 
-
     .quick-card:hover {
       transform: translateY(-4px);
 
@@ -306,12 +301,11 @@
         0 20px 45px #07112018;
     }
 
-
     .quick-icon {
       font-size: 30px;
+
       margin-bottom: 10px;
     }
-
 
     .quick-card strong {
       display: block;
@@ -320,7 +314,6 @@
 
       margin-bottom: 5px;
     }
-
 
     .quick-card span {
       color: #7b8594;
@@ -331,7 +324,9 @@
     }
 
 
-    /* ================= LATEST ================= */
+    /* ================================
+       LATEST NEWS
+    ================================= */
 
     .home-section {
       max-width: 1180px;
@@ -342,16 +337,15 @@
         85px 22px 25px;
     }
 
-
     .home-section-head {
       display: flex;
 
       justify-content: space-between;
+
       align-items: end;
 
       margin-bottom: 25px;
     }
-
 
     .home-section-head small {
       color: #198cff;
@@ -363,13 +357,11 @@
       letter-spacing: 2px;
     }
 
-
     .home-section-head h2 {
       margin: 8px 0 0;
 
       font-size: 38px;
     }
-
 
     .view-all {
       color: #198cff;
@@ -380,7 +372,9 @@
     }
 
 
-    /* ================= SPORT FEATURE ================= */
+    /* ================================
+       SPORT FEATURE
+    ================================= */
 
     .sport-feature {
       max-width: 1180px;
@@ -396,7 +390,6 @@
 
       gap: 22px;
     }
-
 
     .sport-feature-card {
       position: relative;
@@ -421,7 +414,6 @@
         0 20px 55px #07112018;
     }
 
-
     .sport-feature-card.football {
       background:
         radial-gradient(
@@ -435,7 +427,6 @@
           #0d2b4e
         );
     }
-
 
     .sport-feature-card.cricket {
       background:
@@ -451,7 +442,6 @@
         );
     }
 
-
     .feature-icon {
       position: absolute;
 
@@ -463,7 +453,6 @@
       opacity: .9;
     }
 
-
     .sport-feature-card small {
       color: #7fc5ff;
 
@@ -472,18 +461,15 @@
       letter-spacing: 2px;
     }
 
-
     .sport-feature-card.cricket small {
       color: #72e0b0;
     }
-
 
     .sport-feature-card h3 {
       margin: 8px 0;
 
       font-size: 30px;
     }
-
 
     .sport-feature-card p {
       max-width: 420px;
@@ -496,7 +482,6 @@
 
       font-size: 13px;
     }
-
 
     .feature-link {
       width: fit-content;
@@ -515,14 +500,15 @@
     }
 
 
-    /* ================= ABOUT ================= */
+    /* ================================
+       ABOUT
+    ================================= */
 
     .home-about {
       background: #eaf4ff;
 
       padding: 80px 22px;
     }
-
 
     .home-about-inner {
       max-width: 800px;
@@ -531,7 +517,6 @@
 
       text-align: center;
     }
-
 
     .home-about small {
       color: #198cff;
@@ -543,13 +528,11 @@
       letter-spacing: 2px;
     }
 
-
     .home-about h2 {
       font-size: 45px;
 
       margin: 12px 0 20px;
     }
-
 
     .home-about p {
       color: #647083;
@@ -560,7 +543,9 @@
     }
 
 
-    /* ================= MOBILE ================= */
+    /* ================================
+       MOBILE
+    ================================= */
 
     @media(max-width: 800px) {
 
@@ -571,42 +556,34 @@
           65px 18px 85px;
       }
 
-
       .home-hero h1 {
         letter-spacing: -2px;
       }
-
 
       .sports-orbit {
         min-height: 260px;
       }
 
-
       .sport-ball {
         font-size: 75px;
       }
-
 
       .quick-sports {
         padding: 0 14px;
       }
 
-
       .quick-sports-grid {
         grid-template-columns: 1fr;
       }
-
 
       .home-section {
         padding-left: 18px;
         padding-right: 18px;
       }
 
-
       .home-section-head h2 {
         font-size: 31px;
       }
-
 
       .sport-feature {
         grid-template-columns: 1fr;
@@ -614,7 +591,6 @@
         padding-left: 18px;
         padding-right: 18px;
       }
-
 
       .home-about h2 {
         font-size: 36px;
@@ -630,9 +606,7 @@
 <body class="home-page">
 
 
-  <!-- =====================================================
-       HEADER
-  ====================================================== -->
+  <!-- HEADER -->
 
   <header>
 
@@ -667,9 +641,7 @@
   </header>
 
 
-  <!-- =====================================================
-       BREAKING
-  ====================================================== -->
+  <!-- BREAKING -->
 
   <div class="breaking">
 
@@ -684,9 +656,7 @@
   </div>
 
 
-  <!-- =====================================================
-       HERO
-  ====================================================== -->
+  <!-- HERO -->
 
   <section class="home-hero">
 
@@ -736,8 +706,6 @@
       </div>
 
 
-      <!-- SPORTS VISUAL -->
-
       <div class="sports-orbit">
 
         <span class="orbit-label one">
@@ -759,9 +727,7 @@
   </section>
 
 
-  <!-- =====================================================
-       QUICK SPORTS
-  ====================================================== -->
+  <!-- QUICK SPORTS -->
 
   <section class="quick-sports">
 
@@ -830,12 +796,9 @@
   </section>
 
 
-  <!-- =====================================================
-       LATEST NEWS
-  ====================================================== -->
+  <!-- LATEST NEWS -->
 
   <section class="home-section">
-
 
     <div class="home-section-head">
 
@@ -873,13 +836,10 @@
 
     </div>
 
-
   </section>
 
 
-  <!-- =====================================================
-       SPORT FEATURE
-  ====================================================== -->
+  <!-- SPORT FEATURE -->
 
   <section class="sport-feature">
 
@@ -946,9 +906,7 @@
   </section>
 
 
-  <!-- =====================================================
-       ABOUT
-  ====================================================== -->
+  <!-- ABOUT -->
 
   <section class="home-about">
 
@@ -976,9 +934,7 @@
   </section>
 
 
-  <!-- =====================================================
-       FOOTER
-  ====================================================== -->
+  <!-- FOOTER -->
 
   <footer>
 
@@ -997,16 +953,18 @@
   </footer>
 
 
-  <!-- =====================================================
-       SUPABASE
-  ====================================================== -->
+  <!-- SUPABASE -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="config.js"></script>
 
+  <!-- REACTIONS MUST LOAD BEFORE APP.JS -->
+
+  <script src="reactions.js"></script>
+
   <script src="app.js"></script>
 
 
 </body>
-</html>
+  </html>
