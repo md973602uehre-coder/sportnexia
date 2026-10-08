@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="SPORTNEXIA Football Live - Live football scores, upcoming matches and results."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <title>Football Live | SPORTNEXIA</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sport.css">
+
+  <style>
+
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
+
+    .page-navigation {
+
+      display: block !important;
+
+      visibility: visible !important;
+
+      opacity: 1 !important;
+
+      width: 100%;
+
+      background: #ffffff !important;
+
+      border-bottom: 1px solid #e5e9f0;
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 9999;
+    }
+
+
+    .page-navigation-inner {
+
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding: 10px 16px;
+
+      display: flex !important;
+
+      align-items: center;
+
+      gap: 8px;
+
+      overflow-x: auto;
+
+      scrollbar-width: none;
+    }
+
+
+    .page-navigation-inner::-webkit-scrollbar {
+
+      display: none;
+    }
+
+
+    .page-navigation a {
+
+      display: inline-flex !important;
+
+      align-items: center;
+
+      justify-content: center;
+
+      flex: 0 0 auto;
+
+      min-height: 38px;
+
+      padding: 9px 14px;
+
+      border: 1px solid #e3e7ee !important;
+
+      border-radius: 999px;
+
+      background: #f5f7fa !important;
+
+      color: #111827 !important;
+
+      font-family: inherit;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      text-decoration: none;
+
+      white-space: nowrap;
+    }
+
+
+    .page-navigation .home-button {
+
+      background: #238cff !important;
+
+      color: #ffffff !important;
+
+      border-color: #238cff !important;
+    }
+
+
+    .page-navigation a:hover {
+
+      background: #238cff !important;
+
+      color: #ffffff !important;
+
+      border-color: #238cff !important;
+    }
+
+
+    /* =========================
+       LIVE PAGE
+    ========================= */
+
+    .football-live-page {
+
+      padding: 35px 0 60px;
+    }
+
+
+    .football-live-page .section-heading {
+
+      margin-bottom: 25px;
+    }
+
+
+    .football-live-page .section-heading h1 {
+
+      margin: 8px 0;
+    }
+
+
+    .football-live-page .section-heading p {
+
+      margin: 0;
+
+      color: #6b7280;
+    }
+
+  </style>
+
+</head>
+
+
+<body class="sport-page">
+
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header class="site-header">
+
+    <div class="container header-inner">
+
+      <a
+        href="index.html"
+        class="brand"
+      >
+        SPORT<span>NEXIA</span>
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       PAGE NAVIGATION
+  ========================= -->
+
+  <nav
+    class="page-navigation"
+    id="pageNavigation"
+  >
+
+    <div class="page-navigation-inner">
+
+      <a
+        href="index.html"
+        class="home-button"
+      >
+        🏠 Home
+      </a>
+
+
+      <a
+        href="javascript:history.back()"
+      >
+        ← Back
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       BREAKING
+  ========================= -->
+
+  <div class="breaking-bar">
+
+    <div class="container">
+
+      <span class="breaking-label">
+        LIVE
+      </span>
+
+      <span>
+        Football live scores and match updates
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       FOOTBALL LIVE
+  ========================= -->
+
+  <main>
+
+    <section class="football-live-page">
+
+      <div class="container">
+
+
+        <div class="section-heading">
+
+          <span class="hero-kicker">
+            LIVE • UPCOMING • RESULTS
+          </span>
+
+
+          <h1>
+            Football Live
+          </h1>
+
+
+          <p>
+            Live football scores, upcoming matches
+            and results from around the world.
+          </p>
+
+        </div>
+
+
+        <div
+          id="footballMatches"
+          class="matches-grid"
+        >
+
+          <div class="loading">
+            Loading football matches...
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <strong>
+        SPORTNEXIA
+      </strong>
+
+
+      <p>
+        Football • Cricket • Sports Updates
+      </p>
+
+
+      <p>
+        © 2026 SPORTNEXIA. All rights reserved.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       SUPABASE
+  ========================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="sport.js"></script>
+
+
+</body>
+
+</html>
