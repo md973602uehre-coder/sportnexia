@@ -20,10 +20,6 @@
 
   <style>
 
-    /* =========================
-       BASIC RESET
-    ========================= */
-
     * {
       box-sizing: border-box;
     }
@@ -33,10 +29,7 @@
       background: #f5f7fb;
     }
 
-
-    /* =========================
-       HEADER
-    ========================= */
+    /* HEADER */
 
     .site-header {
       display: block !important;
@@ -44,10 +37,7 @@
       opacity: 1 !important;
     }
 
-
-    /* =========================
-       LIVE NAVIGATION
-    ========================= */
+    /* NAVIGATION */
 
     .sport-live-nav {
       display: block !important;
@@ -56,25 +46,30 @@
 
       width: 100%;
       background: #ffffff;
+
       border-bottom: 1px solid #e7eaf0;
 
       position: sticky;
       top: 0;
+
       z-index: 9999;
     }
 
     .sport-live-nav-inner {
       max-width: 1200px;
+
       margin: 0 auto;
 
       padding: 10px 16px;
 
       display: flex !important;
+
       align-items: center;
 
       gap: 8px;
 
       overflow-x: auto;
+
       scrollbar-width: none;
     }
 
@@ -105,6 +100,7 @@
       text-decoration: none;
 
       font-size: 13px;
+
       font-weight: 700;
 
       white-space: nowrap;
@@ -112,29 +108,29 @@
 
     .sport-live-nav .home-btn {
       background: #238cff !important;
+
       color: #ffffff !important;
+
       border-color: #238cff !important;
     }
 
-
-    /* =========================
-       BREAKING BAR
-    ========================= */
+    /* BREAKING BAR */
 
     .breaking-bar {
       display: block !important;
+
       visibility: visible !important;
+
       opacity: 1 !important;
     }
 
-
-    /* =========================
-       CRICKET LIVE INTRO
-    ========================= */
+    /* CRICKET LIVE INTRO */
 
     .cricket-live-intro {
       display: block !important;
+
       visibility: visible !important;
+
       opacity: 1 !important;
 
       width: 100%;
@@ -162,6 +158,7 @@
       color: #ffffff !important;
 
       font-size: 32px;
+
       line-height: 1.2;
 
       font-weight: 800;
@@ -177,14 +174,13 @@
       font-size: 14px;
     }
 
-
-    /* =========================
-       LIVE MATCH SECTION
-    ========================= */
+    /* MATCH SECTION */
 
     .cricket-live-section {
       display: block !important;
+
       visibility: visible !important;
+
       opacity: 1 !important;
 
       width: 100%;
@@ -206,7 +202,9 @@
 
     .cricket-live-title {
       display: block !important;
+
       visibility: visible !important;
+
       opacity: 1 !important;
 
       margin: 0 0 25px;
@@ -220,10 +218,7 @@
       font-weight: 800;
     }
 
-
-    /* =========================
-       CRICKET MATCHES
-    ========================= */
+    /* CRICKET MATCHES */
 
     #cricketMatches {
       display: grid !important;
@@ -239,10 +234,7 @@
       width: 100%;
     }
 
-
-    /* =========================
-       LOADING
-    ========================= */
+    /* LOADING */
 
     #cricketMatches .loading {
       display: block !important;
@@ -260,10 +252,7 @@
       border-radius: 14px;
     }
 
-
-    /* =========================
-       MOBILE
-    ========================= */
+    /* MOBILE */
 
     @media (max-width: 800px) {
 
@@ -273,6 +262,7 @@
 
       .sport-live-nav a {
         font-size: 12px;
+
         padding: 8px 12px;
       }
 
@@ -294,6 +284,7 @@
 
       .cricket-live-title {
         font-size: 28px;
+
         margin-bottom: 20px;
       }
 
@@ -311,9 +302,7 @@
 <body>
 
 
-  <!-- =========================
-       HEADER
-  ========================= -->
+  <!-- HEADER -->
 
   <header class="site-header">
 
@@ -331,9 +320,7 @@
   </header>
 
 
-  <!-- =========================
-       NAVIGATION
-  ========================= -->
+  <!-- NAVIGATION -->
 
   <nav class="sport-live-nav">
 
@@ -355,9 +342,7 @@
   </nav>
 
 
-  <!-- =========================
-       BREAKING BAR
-  ========================= -->
+  <!-- BREAKING BAR -->
 
   <div class="breaking-bar">
 
@@ -376,9 +361,7 @@
   </div>
 
 
-  <!-- =========================
-       CRICKET LIVE INTRO
-  ========================= -->
+  <!-- CRICKET LIVE INTRO -->
 
   <section
     class="cricket-live-intro"
@@ -396,9 +379,7 @@
   </section>
 
 
-  <!-- =========================
-       CRICKET MATCHES
-  ========================= -->
+  <!-- CRICKET MATCHES -->
 
   <section
     class="cricket-live-section"
@@ -424,15 +405,34 @@
   </section>
 
 
-  <!-- =========================
-       SCRIPTS
-  ========================= -->
+  <!-- SCRIPTS -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="config.js"></script>
 
   <script src="sport.js"></script>
+
+
+  <!-- FORCE CRICKET BREAKING TEXT -->
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const breakingText =
+        document.getElementById("breakingText");
+
+      if (breakingText) {
+
+        breakingText.textContent =
+          "Live cricket matches and scores";
+
+      }
+
+    });
+
+  </script>
 
 
 </body>
