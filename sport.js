@@ -23,7 +23,6 @@ function sportEsc(value) {
   }[char]));
 }
 
-
 function formatDate(value) {
   if (!value) return '';
 
@@ -36,7 +35,6 @@ function formatDate(value) {
     }
   ).toUpperCase();
 }
-
 
 function formatTime(value) {
   if (!value) return '';
@@ -52,7 +50,7 @@ function formatTime(value) {
 
 
 /* =========================
-   NEWS
+   NEWS CARD
 ========================= */
 
 function createNewsCard(news, sport) {
@@ -127,6 +125,10 @@ function createNewsCard(news, sport) {
 }
 
 
+/* =========================
+   OPEN NEWS
+========================= */
+
 function sportOpenNews(id) {
 
   window.location.href =
@@ -134,6 +136,10 @@ function sportOpenNews(id) {
 
 }
 
+
+/* =========================
+   NEWS TEXT TOGGLE
+========================= */
 
 function setupNewsToggle() {
 
@@ -158,7 +164,6 @@ function setupNewsToggle() {
 
       };
 
-
       element.addEventListener(
         'click',
         event => {
@@ -169,7 +174,6 @@ function setupNewsToggle() {
 
         }
       );
-
 
       element.addEventListener(
         'keydown',
@@ -209,13 +213,11 @@ async function loadSportNews(sport) {
 
   if (!container) return;
 
-
   container.innerHTML = `
     <div class="loading">
       Loading ${sport} news...
     </div>
   `;
-
 
   const {
     data,
@@ -234,7 +236,6 @@ async function loadSportNews(sport) {
       }
     );
 
-
   if (error) {
 
     console.error(
@@ -250,13 +251,10 @@ async function loadSportNews(sport) {
     `;
 
     return;
-
   }
-
 
   const news =
     data || [];
-
 
   if (!news.length) {
 
@@ -268,9 +266,7 @@ async function loadSportNews(sport) {
     `;
 
     return;
-
   }
-
 
   container.innerHTML =
     news
@@ -284,15 +280,12 @@ async function loadSportNews(sport) {
       )
       .join('');
 
-
   setupNewsToggle();
-
 
   const breakingText =
     document.getElementById(
       'breakingText'
     );
-
 
   if (
     breakingText &&
@@ -544,7 +537,7 @@ function createFootballMatch(match) {
 
 
 /* =========================
-   LOAD REAL FOOTBALL API
+   REAL FOOTBALL API
 ========================= */
 
 async function loadFootballMatches() {
@@ -595,9 +588,30 @@ async function loadFootballMatches() {
     );
 
 
+    /*
+      IMPORTANT:
+      API-Football normally returns:
+
+      "errors": []
+
+      Empty array means NO error.
+    */
+
+    const apiErrors =
+      data.errors;
+
+    const hasApiErrors =
+      Array.isArray(apiErrors)
+        ? apiErrors.length > 0
+        : apiErrors &&
+          typeof apiErrors === 'object'
+            ? Object.keys(apiErrors).length > 0
+            : Boolean(apiErrors);
+
+
     if (
       data.error ||
-      data.errors
+      hasApiErrors
     ) {
 
       console.error(
@@ -621,14 +635,18 @@ async function loadFootballMatches() {
         : [];
 
 
-    /* NO LIVE MATCH */
+    /*
+      NO LIVE MATCH
+    */
 
     if (!matches.length) {
 
       container.innerHTML = `
         <div class="empty">
+
           ⚽ No live football
           matches right now.
+
         </div>
       `;
 
@@ -637,7 +655,9 @@ async function loadFootballMatches() {
     }
 
 
-    /* REAL MATCHES */
+    /*
+      REAL MATCHES
+    */
 
     container.innerHTML =
       matches
@@ -705,7 +725,7 @@ function loadCricketMatches() {
 
 
 /* =========================
-   INITIALIZE PAGE
+   INITIALIZE SPORT PAGE
 ========================= */
 
 async function initSportPage(
@@ -789,7 +809,7 @@ document.addEventListener(
 
 
 /* =========================
-   GLOBAL
+   GLOBAL FUNCTIONS
 ========================= */
 
 window.sportOpenNews =
