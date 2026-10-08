@@ -6,7 +6,9 @@
   <title>SPORTNEXIA Admin Panel</title>
 
   <style>
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
 
     body{
       margin:0;
@@ -17,12 +19,11 @@
 
     header{
       background:#07111f;
-      color:white;
+      color:#fff;
       padding:18px 20px;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:15px;
     }
 
     header h1{
@@ -38,13 +39,13 @@
       border:0;
       border-radius:8px;
       padding:11px 16px;
-      font-weight:bold;
+      font-weight:700;
       cursor:pointer;
     }
 
     .logout{
       background:#ef4444;
-      color:white;
+      color:#fff;
     }
 
     .container{
@@ -53,7 +54,7 @@
     }
 
     .box{
-      background:white;
+      background:#fff;
       padding:22px;
       border-radius:14px;
       margin-bottom:22px;
@@ -72,7 +73,7 @@
     label{
       display:block;
       margin:14px 0 7px;
-      font-weight:bold;
+      font-weight:700;
     }
 
     input,
@@ -83,6 +84,7 @@
       border:1px solid #d1d5db;
       border-radius:8px;
       font-size:15px;
+      outline:none;
     }
 
     textarea{
@@ -95,7 +97,7 @@
       width:100%;
       margin-top:18px;
       background:#0284c7;
-      color:white;
+      color:#fff;
       font-size:16px;
     }
 
@@ -105,7 +107,7 @@
       gap:22px;
     }
 
-    .title{
+    .sectionTitle{
       border-left:4px solid #0284c7;
       padding-left:10px;
     }
@@ -147,7 +149,7 @@
 
     .delete{
       background:#dc2626;
-      color:white;
+      color:#fff;
       margin-top:10px;
     }
 
@@ -155,6 +157,15 @@
       color:#6b7280;
       font-size:13px;
       margin-top:8px;
+    }
+
+    .info{
+      background:#eff6ff;
+      color:#1e40af;
+      padding:12px;
+      border-radius:8px;
+      margin-top:12px;
+      font-size:14px;
     }
 
     @media(max-width:700px){
@@ -176,7 +187,7 @@
   <button
     id="logoutBtn"
     class="logout"
-    style="display:none"
+    style="display:none;"
   >
     Logout
   </button>
@@ -230,20 +241,29 @@
 </div>
 
 
-<!-- ================= ADMIN PANEL ================= -->
+<!-- ================= ADMIN ================= -->
 
-<div id="adminPanel">
+<div
+  id="adminPanel"
+>
 
   <div class="container">
 
 
-    <!-- ================= PUBLISH ================= -->
+    <!-- PUBLISH -->
 
     <div class="box">
 
       <h2>📰 Publish News</h2>
 
-      <label>Category</label>
+      <div class="info">
+        Admin: mdnaimeholader02@gmail.com
+      </div>
+
+
+      <label>
+        Category
+      </label>
 
       <select id="category">
 
@@ -269,7 +289,7 @@
 
         <div>
 
-          <h3 class="title">
+          <h3 class="sectionTitle">
             🇧🇩 বাংলা
           </h3>
 
@@ -315,7 +335,7 @@
 
         <div>
 
-          <h3 class="title">
+          <h3 class="sectionTitle">
             🇬🇧 English
           </h3>
 
@@ -374,7 +394,7 @@
     </div>
 
 
-    <!-- ================= OLD NEWS ================= -->
+    <!-- PUBLISHED NEWS -->
 
     <div class="box">
 
@@ -393,68 +413,80 @@
 </div>
 
 
-<!-- SUPABASE -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="config.js"></script>
 
-
 <script>
 
-/* ==========================================
+
+/* ========================================
    SUPABASE
-========================================== */
+======================================== */
 
-const db = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+const db =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
-/* ==========================================
-   NEW ADMIN
-========================================== */
+/* ========================================
+   ADMIN EMAIL
+======================================== */
 
 const ADMIN_EMAIL =
   "mdnaimeholader02@gmail.com";
 
-const ADMIN_UID =
-  "1d524237-7533-4d6b-a282-f5282d92b299";
 
-
-/* ==========================================
+/* ========================================
    ELEMENTS
-========================================== */
+======================================== */
 
 const loginPanel =
-  document.getElementById("loginPanel");
+  document.getElementById(
+    "loginPanel"
+  );
 
 const adminPanel =
-  document.getElementById("adminPanel");
+  document.getElementById(
+    "adminPanel"
+  );
 
 const loginBtn =
-  document.getElementById("loginBtn");
+  document.getElementById(
+    "loginBtn"
+  );
 
 const logoutBtn =
-  document.getElementById("logoutBtn");
+  document.getElementById(
+    "logoutBtn"
+  );
 
 const loginStatus =
-  document.getElementById("loginStatus");
+  document.getElementById(
+    "loginStatus"
+  );
 
 const publishBtn =
-  document.getElementById("publishBtn");
+  document.getElementById(
+    "publishBtn"
+  );
 
 const publishStatus =
-  document.getElementById("publishStatus");
+  document.getElementById(
+    "publishStatus"
+  );
 
 const newsList =
-  document.getElementById("newsList");
+  document.getElementById(
+    "newsList"
+  );
 
 
-/* ==========================================
+/* ========================================
    STATUS
-========================================== */
+======================================== */
 
 function showStatus(
   element,
@@ -470,12 +502,13 @@ function showStatus(
 
   element.style.display =
     "block";
+
 }
 
 
-/* ==========================================
-   SHOW LOGIN
-========================================== */
+/* ========================================
+   LOGIN SCREEN
+======================================== */
 
 function showLogin(){
 
@@ -487,12 +520,13 @@ function showLogin(){
 
   logoutBtn.style.display =
     "none";
+
 }
 
 
-/* ==========================================
-   SHOW ADMIN
-========================================== */
+/* ========================================
+   ADMIN SCREEN
+======================================== */
 
 function showAdmin(){
 
@@ -504,12 +538,35 @@ function showAdmin(){
 
   logoutBtn.style.display =
     "block";
+
 }
 
 
-/* ==========================================
+/* ========================================
+   CHECK ADMIN
+======================================== */
+
+function isAdminUser(user){
+
+  if(!user){
+    return false;
+  }
+
+  if(!user.email){
+    return false;
+  }
+
+  return (
+    user.email.toLowerCase() ===
+    ADMIN_EMAIL.toLowerCase()
+  );
+
+}
+
+
+/* ========================================
    LOGIN
-========================================== */
+======================================== */
 
 loginBtn.onclick =
 async function(){
@@ -526,14 +583,39 @@ async function(){
 
   const email =
     document
-      .getElementById("email")
+      .getElementById(
+        "email"
+      )
       .value
       .trim();
 
   const password =
     document
-      .getElementById("password")
+      .getElementById(
+        "password"
+      )
       .value;
+
+
+  if(
+    email.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ){
+
+    showStatus(
+      loginStatus,
+      "শুধু SPORTNEXIA Admin Email ব্যবহার করুন।",
+      "error"
+    );
+
+    loginBtn.disabled =
+      false;
+
+    loginBtn.textContent =
+      "Login";
+
+    return;
+  }
 
 
   const {
@@ -542,9 +624,11 @@ async function(){
   } =
     await db.auth.signInWithPassword({
 
-      email:email,
+      email:
+        email,
 
-      password:password
+      password:
+        password
 
     });
 
@@ -558,6 +642,11 @@ async function(){
 
   if(error){
 
+    console.error(
+      "Login error:",
+      error
+    );
+
     showStatus(
       loginStatus,
       "Login failed: " +
@@ -569,20 +658,17 @@ async function(){
   }
 
 
-  /*
-    Check exact Admin UID
-  */
-
   if(
-    !data.user ||
-    data.user.id !== ADMIN_UID
+    !isAdminUser(
+      data.user
+    )
   ){
 
     await db.auth.signOut();
 
     showStatus(
       loginStatus,
-      "এই Account SPORTNEXIA Admin Account নয়।",
+      "এই Email Admin Email-এর সাথে মিলছে না।",
       "error"
     );
 
@@ -597,9 +683,9 @@ async function(){
 };
 
 
-/* ==========================================
+/* ========================================
    LOGOUT
-========================================== */
+======================================== */
 
 logoutBtn.onclick =
 async function(){
@@ -619,6 +705,11 @@ async function(){
 
   if(error){
 
+    console.error(
+      "Logout error:",
+      error
+    );
+
     alert(
       "Logout হয়নি: " +
       error.message
@@ -635,7 +726,7 @@ async function(){
 
 
   /*
-    Clear Supabase session
+    Clear browser auth cache
   */
 
   try{
@@ -646,8 +737,12 @@ async function(){
       key => {
 
         if(
-          key.includes("supabase") ||
-          key.includes("auth-token")
+          key.includes(
+            "supabase"
+          ) ||
+          key.includes(
+            "auth-token"
+          )
         ){
 
           localStorage.removeItem(
@@ -659,15 +754,19 @@ async function(){
       }
     );
 
-  }catch(e){}
+  }catch(error){
 
+    console.log(error);
 
-  showLogin();
+  }
 
 
   document.getElementById(
     "password"
   ).value = "";
+
+
+  showLogin();
 
 
   logoutBtn.disabled =
@@ -679,9 +778,91 @@ async function(){
 };
 
 
-/* ==========================================
+/* ========================================
+   SESSION CHECK
+======================================== */
+
+async function checkSession(){
+
+  const {
+    data,
+    error
+  } =
+    await db.auth.getSession();
+
+
+  if(error){
+
+    console.error(
+      "Session error:",
+      error
+    );
+
+    showLogin();
+
+    return;
+  }
+
+
+  const user =
+    data?.session?.user;
+
+
+  /*
+    Old account session হলে
+    automatically logout
+  */
+
+  if(
+    user &&
+    isAdminUser(user)
+  ){
+
+    showAdmin();
+
+    await loadNews();
+
+  }else{
+
+    if(user){
+
+      await db.auth.signOut();
+
+    }
+
+    showLogin();
+
+  }
+
+}
+
+
+/* ========================================
+   AUTH STATE
+======================================== */
+
+db.auth.onAuthStateChange(
+  function(
+    event,
+    session
+  ){
+
+    if(
+      event ===
+      "SIGNED_OUT"
+    ){
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+/* ========================================
    IMAGE PREVIEW
-========================================== */
+======================================== */
 
 function setupPreview(
   inputId,
@@ -693,13 +874,14 @@ function setupPreview(
       inputId
     );
 
-  const image =
+  const preview =
     document.getElementById(
       previewId
     );
 
 
-  input.onchange =
+  input.addEventListener(
+    "change",
     function(){
 
       const file =
@@ -708,24 +890,26 @@ function setupPreview(
 
       if(!file){
 
-        image.style.display =
-          "none";
+        preview.src =
+          "";
 
-        image.src = "";
+        preview.style.display =
+          "none";
 
         return;
       }
 
 
-      image.src =
+      preview.src =
         URL.createObjectURL(
           file
         );
 
-      image.style.display =
+      preview.style.display =
         "block";
 
-    };
+    }
+  );
 
 }
 
@@ -741,9 +925,9 @@ setupPreview(
 );
 
 
-/* ==========================================
+/* ========================================
    UPLOAD IMAGE
-========================================== */
+======================================== */
 
 async function uploadImage(
   file,
@@ -764,7 +948,7 @@ async function uploadImage(
       .toLowerCase();
 
 
-  const fileName =
+  const filename =
     Date.now() +
     "-" +
     Math.random()
@@ -777,14 +961,16 @@ async function uploadImage(
   const path =
     folder +
     "/" +
-    fileName;
+    filename;
 
 
   const {
     error
   } =
     await db.storage
-      .from("news-images")
+      .from(
+        "news-images"
+      )
       .upload(
         path,
         file,
@@ -808,7 +994,9 @@ async function uploadImage(
     data
   } =
     db.storage
-      .from("news-images")
+      .from(
+        "news-images"
+      )
       .getPublicUrl(
         path
       );
@@ -819,9 +1007,9 @@ async function uploadImage(
 }
 
 
-/* ==========================================
-   PUBLISH NEWS
-========================================== */
+/* ========================================
+   PUBLISH
+======================================== */
 
 publishBtn.onclick =
 async function(){
@@ -882,7 +1070,7 @@ async function(){
         .trim();
 
 
-    const imageBn =
+    const fileBn =
       document
         .getElementById(
           "imageBn"
@@ -890,7 +1078,7 @@ async function(){
         .files[0];
 
 
-    const imageEn =
+    const fileEn =
       document
         .getElementById(
           "imageEn"
@@ -924,14 +1112,14 @@ async function(){
 
     const imageBnUrl =
       await uploadImage(
-        imageBn,
+        fileBn,
         "bangla"
       );
 
 
     const imageEnUrl =
       await uploadImage(
-        imageEn,
+        fileEn,
         "english"
       );
 
@@ -940,7 +1128,9 @@ async function(){
       error
     } =
       await db
-        .from("news")
+        .from(
+          "news"
+        )
         .insert({
 
           category:
@@ -1036,7 +1226,6 @@ async function(){
       error
     );
 
-
     showStatus(
       publishStatus,
       "❌ " +
@@ -1056,9 +1245,9 @@ async function(){
 };
 
 
-/* ==========================================
-   LOAD NEWS
-========================================== */
+/* ========================================
+   LOAD OLD NEWS
+======================================== */
 
 async function loadNews(){
 
@@ -1071,7 +1260,9 @@ async function loadNews(){
     error
   } =
     await db
-      .from("news")
+      .from(
+        "news"
+      )
       .select(
         "id,title,title_bn,title_en,category,created_at"
       )
@@ -1084,6 +1275,12 @@ async function loadNews(){
 
 
   if(error){
+
+    console.error(
+      "News load error:",
+      error
+    );
+
 
     newsList.innerHTML = `
 
@@ -1113,9 +1310,9 @@ async function loadNews(){
 
     newsList.innerHTML = `
 
-      <p>
-        কোনো Published News নেই।
-      </p>
+      <div>
+        এখনো কোনো Published News নেই।
+      </div>
 
     `;
 
@@ -1174,7 +1371,6 @@ async function loadNews(){
                 )}
 
                 •
-
                 ${escapeHtml(date)}
 
               </div>
@@ -1183,9 +1379,7 @@ async function loadNews(){
                 class="delete"
                 onclick="deleteNews(${Number(news.id)})"
               >
-
                 🗑️ Delete
-
               </button>
 
             </div>
@@ -1199,21 +1393,19 @@ async function loadNews(){
 }
 
 
-/* ==========================================
+/* ========================================
    DELETE NEWS
-========================================== */
+======================================== */
 
-async function deleteNews(
-  id
-){
+async function deleteNews(id){
 
-  const ok =
+  const confirmDelete =
     confirm(
       "এই News টি Delete করতে চান?"
     );
 
 
-  if(!ok){
+  if(!confirmDelete){
 
     return;
 
@@ -1224,7 +1416,9 @@ async function deleteNews(
     error
   } =
     await db
-      .from("news")
+      .from(
+        "news"
+      )
       .delete()
       .eq(
         "id",
@@ -1258,92 +1452,37 @@ async function deleteNews(
 }
 
 
-/* ==========================================
+/* ========================================
    ESCAPE HTML
-========================================== */
+======================================== */
 
-function escapeHtml(
-  value
-){
+function escapeHtml(value){
 
   return String(
     value ?? ""
   ).replace(
     /[&<>'"]/g,
-    character => ({
+    function(character){
 
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      "'":"&#39;",
-      '"':"&quot;"
+      return {
 
-    }[character])
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "'":"&#39;",
+        '"':"&quot;"
+
+      }[character];
+
+    }
   );
 
 }
 
 
-/* ==========================================
-   CHECK SESSION
-========================================== */
-
-async function checkSession(){
-
-  const {
-    data
-  } =
-    await db.auth.getSession();
-
-
-  const user =
-    data?.session?.user;
-
-
-  if(
-    user &&
-    user.id === ADMIN_UID
-  ){
-
-    showAdmin();
-
-    await loadNews();
-
-  }else{
-
-    showLogin();
-
-  }
-
-}
-
-
-/* ==========================================
-   AUTH LISTENER
-========================================== */
-
-db.auth.onAuthStateChange(
-  async (
-    event,
-    session
-  ) => {
-
-    if(
-      event ===
-      "SIGNED_OUT"
-    ){
-
-      showLogin();
-
-    }
-
-  }
-);
-
-
-/* ==========================================
+/* ========================================
    START
-========================================== */
+======================================== */
 
 checkSession();
 
