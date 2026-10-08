@@ -3,309 +3,272 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <meta
-    name="robots"
-    content="noindex, nofollow"
-  >
+<meta
+  name="robots"
+  content="noindex,nofollow"
+>
 
-  <title>SPORTNEXIA Admin</title>
+<title>SPORTNEXIA Admin</title>
 
-  <style>
+<style>
 
-    * {
-      box-sizing: border-box;
-    }
+*{
+  box-sizing:border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #111827;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#111827;
+}
 
-    .admin-header {
-      background: #071426;
-      color: #fff;
-      padding: 18px 20px;
-    }
+.admin-header{
+  background:#071426;
+  color:#fff;
+  padding:18px 20px;
+}
 
-    .admin-header-inner {
-      max-width: 950px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
+.admin-header-inner{
+  max-width:950px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
 
-    .brand {
-      color: #fff;
-      text-decoration: none;
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
+.brand{
+  color:#fff;
+  text-decoration:none;
+  font-size:22px;
+  font-weight:900;
+}
 
-    .brand span {
-      color: #238cff;
-    }
+.brand span{
+  color:#238cff;
+}
 
-    .logout-button {
-      border: 0;
-      background: #ef4444;
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+.logout-button{
+  border:0;
+  background:#ef4444;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
 
-    .admin-container {
-      max-width: 950px;
-      margin: 30px auto;
-      padding: 0 16px;
-    }
+.admin-container{
+  max-width:950px;
+  margin:30px auto;
+  padding:0 16px;
+}
 
-    .admin-card {
-      background: #fff;
-      border-radius: 18px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.07);
-    }
+.admin-card{
+  background:#fff;
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:25px;
+  box-shadow:0 8px 30px rgba(0,0,0,.07);
+}
 
-    .admin-title {
-      margin: 0 0 8px;
-      font-size: 30px;
-    }
+.admin-title{
+  margin:0 0 8px;
+  font-size:30px;
+}
 
-    .admin-subtitle {
-      margin: 0 0 28px;
-      color: #6b7280;
-    }
+.admin-subtitle{
+  margin:0 0 25px;
+  color:#6b7280;
+}
 
-    .language-section {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 14px;
-      border: 1px solid #e5e7eb;
-      background: #fafbfc;
-    }
+.language-section{
+  margin-top:25px;
+  padding:20px;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  background:#fafbfc;
+}
 
-    .language-title {
-      margin: 0 0 18px;
-      font-size: 20px;
-    }
+.language-title{
+  margin:0 0 18px;
+  font-size:20px;
+}
 
-    .bangla-title {
-      color: #008f5a;
-    }
+.bangla-title{
+  color:#008f5a;
+}
 
-    .english-title {
-      color: #238cff;
-    }
+.english-title{
+  color:#238cff;
+}
 
-    label {
-      display: block;
-      margin: 15px 0 7px;
-      font-weight: 700;
-    }
+label{
+  display:block;
+  margin:15px 0 7px;
+  font-weight:700;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      border: 1px solid #d8dee8;
-      border-radius: 10px;
-      padding: 13px;
-      font-size: 15px;
-      outline: none;
-      background: #fff;
-    }
+input,
+textarea,
+select{
+  width:100%;
+  border:1px solid #d8dee8;
+  border-radius:10px;
+  padding:13px;
+  font-size:15px;
+  outline:none;
+  background:#fff;
+}
 
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: #238cff;
-      box-shadow: 0 0 0 3px rgba(35,140,255,.10);
-    }
+textarea{
+  min-height:180px;
+  resize:vertical;
+  line-height:1.6;
+}
 
-    textarea {
-      min-height: 180px;
-      resize: vertical;
-      line-height: 1.6;
-    }
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#238cff;
+}
 
-    .image-preview {
-      display: none;
-      width: 100%;
-      max-height: 300px;
-      object-fit: contain;
-      border-radius: 12px;
-      margin-top: 12px;
-      background: #f1f3f6;
-    }
+.image-preview{
+  display:none;
+  width:100%;
+  max-height:280px;
+  object-fit:contain;
+  border-radius:12px;
+  margin-top:12px;
+  background:#f1f3f6;
+}
 
-    .publish-area {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid #e5e7eb;
-    }
+.publish-area{
+  margin-top:25px;
+  padding-top:20px;
+  border-top:1px solid #e5e7eb;
+}
 
-    .publish-button {
-      width: 100%;
-      border: 0;
-      border-radius: 12px;
-      padding: 16px;
-      background: #238cff;
-      color: #fff;
-      font-size: 17px;
-      font-weight: 800;
-      cursor: pointer;
-    }
+.publish-button{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:16px;
+  background:#238cff;
+  color:#fff;
+  font-size:17px;
+  font-weight:800;
+  cursor:pointer;
+}
 
-    .publish-button:hover {
-      background: #147be8;
-    }
+.publish-button:disabled{
+  opacity:.6;
+}
 
-    .publish-button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
+.status-message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:9px;
+  display:none;
+  font-weight:700;
+}
 
-    .status-message {
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 9px;
-      display: none;
-      font-weight: 700;
-    }
+.status-success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
 
-    .status-success {
-      display: block;
-      background: #dcfce7;
-      color: #166534;
-    }
+.status-error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
 
-    .status-error {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
-    }
+.required{
+  color:#ef4444;
+}
 
-    .required {
-      color: #ef4444;
-    }
+.news-list{
+  display:grid;
+  gap:14px;
+}
 
-    /* PUBLISHED NEWS */
+.admin-news-item{
+  border:1px solid #e1e5eb;
+  border-radius:14px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  background:#fafbfc;
+}
 
-    .published-title {
-      margin: 0 0 20px;
-      font-size: 27px;
-    }
+.admin-news-info{
+  min-width:0;
+}
 
-    .news-list {
-      display: grid;
-      gap: 14px;
-    }
+.admin-news-category{
+  color:#238cff;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+}
 
-    .admin-news-item {
-      border: 1px solid #e1e5eb;
-      border-radius: 14px;
-      padding: 15px;
+.admin-news-item h3{
+  margin:6px 0;
+  font-size:17px;
+}
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+.admin-news-date{
+  color:#7b8493;
+  font-size:12px;
+}
 
-      gap: 15px;
+.delete-button{
+  flex:0 0 auto;
+  border:0;
+  background:#fee2e2;
+  color:#dc2626;
+  padding:10px 13px;
+  border-radius:9px;
+  font-weight:800;
+  cursor:pointer;
+}
 
-      background: #fafbfc;
-    }
+.loading-news,
+.empty-news{
+  color:#7b8493;
+  padding:20px;
+  text-align:center;
+}
 
-    .admin-news-info {
-      min-width: 0;
-    }
+@media(max-width:600px){
 
-    .admin-news-category {
-      display: inline-block;
-      color: #238cff;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin-bottom: 5px;
-    }
+  .admin-card{
+    padding:18px;
+  }
 
-    .admin-news-item h3 {
-      margin: 0 0 5px;
-      font-size: 17px;
-    }
+  .admin-title{
+    font-size:25px;
+  }
 
-    .admin-news-date {
-      color: #7b8493;
-      font-size: 12px;
-    }
+  .admin-news-item{
+    align-items:flex-start;
+  }
 
-    .delete-button {
-      flex: 0 0 auto;
-      border: 0;
-      background: #fee2e2;
-      color: #dc2626;
-      padding: 10px 13px;
-      border-radius: 9px;
-      font-weight: 800;
-      cursor: pointer;
-    }
+}
 
-    .delete-button:hover {
-      background: #dc2626;
-      color: #fff;
-    }
-
-    .empty-news {
-      padding: 25px;
-      text-align: center;
-      color: #7b8493;
-      border: 1px dashed #d7dce4;
-      border-radius: 12px;
-    }
-
-    .loading-news {
-      color: #7b8493;
-    }
-
-    @media (max-width: 600px) {
-
-      .admin-card {
-        padding: 18px;
-      }
-
-      .admin-title {
-        font-size: 25px;
-      }
-
-      .admin-news-item {
-        align-items: flex-start;
-      }
-
-      .admin-news-item h3 {
-        white-space: normal;
-      }
-
-      .delete-button {
-        padding: 9px 11px;
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
@@ -313,231 +276,856 @@
 <body>
 
 
-  <!-- HEADER -->
+<header class="admin-header">
 
-  <header class="admin-header">
+  <div class="admin-header-inner">
 
-    <div class="admin-header-inner">
+    <a href="index.html" class="brand">
+      SPORT<span>NEXIA</span>
+    </a>
 
-      <a
-        href="index.html"
-        class="brand"
-      >
-        SPORT<span>NEXIA</span>
-      </a>
+    <button
+      id="logoutButton"
+      class="logout-button"
+      type="button"
+    >
+      Logout
+    </button>
 
-      <button
-        id="logoutButton"
-        class="logout-button"
-        type="button"
-      >
-        Logout
-      </button>
+  </div>
 
-    </div>
+</header>
 
-  </header>
 
+<main class="admin-container">
 
-  <main class="admin-container">
 
+<section class="admin-card">
 
-    <!-- PUBLISH NEWS -->
+<h1 class="admin-title">
+  Publish News
+</h1>
 
-    <section class="admin-card">
+<p class="admin-subtitle">
+  Publish Bengali and English versions together.
+</p>
 
-      <h1 class="admin-title">
-        Publish News
-      </h1>
 
-      <p class="admin-subtitle">
-        Publish Bengali and English versions together.
-      </p>
+<label>
+  Category
+  <span class="required">*</span>
+</label>
 
+<select id="category">
 
-      <!-- CATEGORY -->
+  <option value="Football">
+    Football
+  </option>
 
-      <label for="category">
-        Category
-        <span class="required">*</span>
-      </label>
+  <option value="Cricket">
+    Cricket
+  </option>
 
-      <select id="category">
+  <option value="Sports">
+    Sports
+  </option>
 
-        <option value="Football">
-          Football
-        </option>
+</select>
 
-        <option value="Cricket">
-          Cricket
-        </option>
 
-        <option value="Sports">
-          Sports
-        </option>
+<!-- BANGLA -->
 
-      </select>
+<section class="language-section">
 
+<h2 class="language-title bangla-title">
+  🇧🇩 বাংলা নিউজ
+</h2>
 
-      <!-- BANGLA -->
+<label>
+  বাংলা শিরোনাম
+  <span class="required">*</span>
+</label>
 
-      <section class="language-section">
+<input
+  id="title_bn"
+  type="text"
+  placeholder="বাংলা নিউজের শিরোনাম লিখুন"
+>
 
-        <h2 class="language-title bangla-title">
-          🇧🇩 বাংলা নিউজ
-        </h2>
+<label>
+  বাংলা নিউজ
+  <span class="required">*</span>
+</label>
 
+<textarea
+  id="content_bn"
+  placeholder="বাংলা নিউজের বিস্তারিত লিখুন"
+></textarea>
 
-        <label for="title_bn">
-          বাংলা শিরোনাম
-          <span class="required">*</span>
-        </label>
+<label>
+  বাংলা নিউজের ছবি
+</label>
 
-        <input
-          id="title_bn"
-          type="text"
-          placeholder="বাংলা নিউজের শিরোনাম লিখুন"
-        >
+<input
+  id="image_bn"
+  type="file"
+  accept="image/*"
+>
 
+<img
+  id="imageBnPreview"
+  class="image-preview"
+  alt="Bangla preview"
+>
 
-        <label for="content_bn">
-          বাংলা নিউজ
-          <span class="required">*</span>
-        </label>
+</section>
 
-        <textarea
-          id="content_bn"
-          placeholder="বাংলা নিউজের বিস্তারিত লিখুন"
-        ></textarea>
 
+<!-- ENGLISH -->
 
-        <label for="image_bn">
-          বাংলা নিউজের ছবি
-        </label>
+<section class="language-section">
 
-        <input
-          id="image_bn"
-          type="file"
-          accept="image/*"
-        >
+<h2 class="language-title english-title">
+  🇬🇧 English News
+</h2>
 
-        <img
-          id="imageBnPreview"
-          class="image-preview"
-          alt="Bangla image preview"
-        >
+<label>
+  English Title
+  <span class="required">*</span>
+</label>
 
-      </section>
+<input
+  id="title_en"
+  type="text"
+  placeholder="Enter English news title"
+>
 
+<label>
+  English News
+  <span class="required">*</span>
+</label>
 
-      <!-- ENGLISH -->
+<textarea
+  id="content_en"
+  placeholder="Write English news content"
+></textarea>
 
-      <section class="language-section">
+<label>
+  English News Image
+</label>
 
-        <h2 class="language-title english-title">
-          🇬🇧 English News
-        </h2>
+<input
+  id="image_en"
+  type="file"
+  accept="image/*"
+>
 
+<img
+  id="imageEnPreview"
+  class="image-preview"
+  alt="English preview"
+>
 
-        <label for="title_en">
-          English Title
-          <span class="required">*</span>
-        </label>
+</section>
 
-        <input
-          id="title_en"
-          type="text"
-          placeholder="Enter English news title"
-        >
 
+<div class="publish-area">
 
-        <label for="content_en">
-          English News
-          <span class="required">*</span>
-        </label>
+<button
+  id="publishButton"
+  class="publish-button"
+  type="button"
+>
+  🚀 Publish News
+</button>
 
-        <textarea
-          id="content_en"
-          placeholder="Write English news content"
-        ></textarea>
+<div
+  id="statusMessage"
+  class="status-message"
+></div>
 
+</div>
 
-        <label for="image_en">
-          English News Image
-        </label>
+</section>
 
-        <input
-          id="image_en"
-          type="file"
-          accept="image/*"
-        >
 
-        <img
-          id="imageEnPreview"
-          class="image-preview"
-          alt="English image preview"
-        >
+<!-- PUBLISHED NEWS -->
 
-      </section>
+<section class="admin-card">
 
+<h2>
+  📰 Published News
+</h2>
 
-      <!-- PUBLISH -->
+<div
+  id="newsList"
+  class="news-list"
+>
 
-      <div class="publish-area">
+  <div class="loading-news">
+    Loading published news...
+  </div>
 
-        <button
-          id="publishButton"
-          class="publish-button"
-          type="button"
-        >
-          🚀 Publish News
-        </button>
+</div>
 
-        <div
-          id="statusMessage"
-          class="status-message"
-        ></div>
+</section>
 
-      </div>
 
-    </section>
+</main>
 
 
-    <!-- PUBLISHED NEWS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <section class="admin-card">
+<script src="config.js"></script>
 
-      <h2 class="published-title">
-        📰 Published News
-      </h2>
 
-      <div
-        id="newsList"
-        class="news-list"
-      >
+<script>
 
-        <div class="loading-news">
-          Loading published news...
-        </div>
+const {
+  createClient
+} = supabase;
 
-      </div>
 
-    </section>
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
 
-  </main>
+const ADMIN_UID =
+  "081ddd42-e9c0-4419-abd1-01d57c04dcf2";
 
 
-  <!-- SUPABASE -->
+/* =========================
+   LOGIN CHECK
+========================= */
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+async function checkAdmin(){
 
-  <script src="config.js"></script>
+  const {
+    data:{
+      session
+    }
+  } =
+    await db.auth.getSession();
 
-  <!-- Cache-busted admin.js -->
-  <script src="admin.js?v=3"></script>
+
+  if(
+    !session ||
+    !session.user ||
+    session.user.id !== ADMIN_UID
+  ){
+
+    window.location.href =
+      "admin-login.html";
+
+    return false;
+  }
+
+  return true;
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+  .getElementById("logoutButton")
+  .addEventListener(
+    "click",
+    async()=>{
+
+      await db.auth.signOut();
+
+      window.location.reload();
+
+    }
+  );
+
+
+/* =========================
+   STATUS
+========================= */
+
+function status(message,type){
+
+  const box =
+    document.getElementById(
+      "statusMessage"
+    );
+
+  box.textContent =
+    message;
+
+  box.className =
+    "status-message " +
+    (
+      type === "error"
+        ? "status-error"
+        : "status-success"
+    );
+
+}
+
+
+/* =========================
+   IMAGE PREVIEW
+========================= */
+
+function previewImage(
+  inputId,
+  previewId
+){
+
+  const input =
+    document.getElementById(
+      inputId
+    );
+
+  const preview =
+    document.getElementById(
+      previewId
+    );
+
+
+  input.addEventListener(
+    "change",
+    ()=>{
+
+      const file =
+        input.files[0];
+
+      if(!file){
+
+        preview.style.display =
+          "none";
+
+        return;
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        event=>{
+
+          preview.src =
+            event.target.result;
+
+          preview.style.display =
+            "block";
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+}
+
+
+previewImage(
+  "image_bn",
+  "imageBnPreview"
+);
+
+previewImage(
+  "image_en",
+  "imageEnPreview"
+);
+
+
+/* =========================
+   UPLOAD
+========================= */
+
+async function uploadImage(
+  file,
+  folder
+){
+
+  if(!file) return null;
+
+
+  const ext =
+    file.name
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+
+  const path =
+    `${folder}/${Date.now()}-${crypto.randomUUID()}.${ext}`;
+
+
+  const {
+    error
+  } =
+    await db
+      .storage
+      .from("news-images")
+      .upload(
+        path,
+        file,
+        {
+          cacheControl:"3600",
+          upsert:false
+        }
+      );
+
+
+  if(error)
+    throw error;
+
+
+  const {
+    data
+  } =
+    db
+      .storage
+      .from("news-images")
+      .getPublicUrl(path);
+
+
+  return data.publicUrl;
+
+}
+
+
+/* =========================
+   PUBLISH
+========================= */
+
+document
+  .getElementById("publishButton")
+  .addEventListener(
+    "click",
+    publishNews
+  );
+
+
+async function publishNews(){
+
+  const button =
+    document.getElementById(
+      "publishButton"
+    );
+
+
+  const category =
+    document.getElementById(
+      "category"
+    ).value;
+
+
+  const titleBN =
+    document.getElementById(
+      "title_bn"
+    ).value.trim();
+
+
+  const contentBN =
+    document.getElementById(
+      "content_bn"
+    ).value.trim();
+
+
+  const titleEN =
+    document.getElementById(
+      "title_en"
+    ).value.trim();
+
+
+  const contentEN =
+    document.getElementById(
+      "content_en"
+    ).value.trim();
+
+
+  const imageBN =
+    document.getElementById(
+      "image_bn"
+    ).files[0] || null;
+
+
+  const imageEN =
+    document.getElementById(
+      "image_en"
+    ).files[0] || null;
+
+
+  if(
+    !titleBN ||
+    !contentBN ||
+    !titleEN ||
+    !contentEN
+  ){
+
+    status(
+      "সব বাংলা ও English তথ্য পূরণ করুন।",
+      "error"
+    );
+
+    return;
+  }
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "Publishing...";
+
+
+  try{
+
+    let imageBNUrl =
+      null;
+
+    let imageENUrl =
+      null;
+
+
+    if(imageBN){
+
+      status(
+        "বাংলা ছবি Upload হচ্ছে...",
+        "success"
+      );
+
+      imageBNUrl =
+        await uploadImage(
+          imageBN,
+          "bangla"
+        );
+
+    }
+
+
+    if(imageEN){
+
+      status(
+        "English ছবি Upload হচ্ছে...",
+        "success"
+      );
+
+      imageENUrl =
+        await uploadImage(
+          imageEN,
+          "english"
+        );
+
+    }
+
+
+    const {
+      error
+    } =
+    await db
+      .from("news")
+      .insert({
+
+        category:category,
+
+        title:titleBN,
+
+        content:contentBN,
+
+        title_bn:titleBN,
+
+        content_bn:contentBN,
+
+        image_bn:imageBNUrl,
+
+        title_en:titleEN,
+
+        content_en:contentEN,
+
+        image_en:imageENUrl,
+
+        image_url:imageBNUrl
+
+      });
+
+
+    if(error)
+      throw error;
+
+
+    status(
+      "✅ বাংলা + English News Publish হয়েছে!",
+      "success"
+    );
+
+
+    document
+      .getElementById("title_bn")
+      .value="";
+
+    document
+      .getElementById("content_bn")
+      .value="";
+
+    document
+      .getElementById("title_en")
+      .value="";
+
+    document
+      .getElementById("content_en")
+      .value="";
+
+    document
+      .getElementById("image_bn")
+      .value="";
+
+    document
+      .getElementById("image_en")
+      .value="";
+
+
+    await loadNews();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    status(
+      error.message ||
+      "Publish failed.",
+      "error"
+    );
+
+  }finally{
+
+    button.disabled=false;
+
+    button.textContent =
+      "🚀 Publish News";
+
+  }
+
+}
+
+
+/* =========================
+   LOAD NEWS
+========================= */
+
+async function loadNews(){
+
+  const list =
+    document.getElementById(
+      "newsList"
+    );
+
+
+  list.innerHTML =
+    `<div class="loading-news">
+      Loading published news...
+    </div>`;
+
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from("news")
+    .select(
+      "id,title,title_bn,title_en,category,created_at"
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    list.innerHTML =
+      `<div class="empty-news">
+        ❌ News load failed:<br>
+        ${error.message}
+      </div>`;
+
+    return;
+  }
+
+
+  if(!data || !data.length){
+
+    list.innerHTML =
+      `<div class="empty-news">
+        No published news found.
+      </div>`;
+
+    return;
+  }
+
+
+  list.innerHTML =
+    data.map(
+      item=>{
+
+        const title =
+          item.title_bn ||
+          item.title ||
+          item.title_en ||
+          "Untitled";
+
+
+        const date =
+          item.created_at
+            ? new Date(
+                item.created_at
+              ).toLocaleDateString(
+                "en-GB"
+              )
+            : "";
+
+
+        return `
+
+          <div
+            class="admin-news-item"
+          >
+
+            <div
+              class="admin-news-info"
+            >
+
+              <div
+                class="admin-news-category"
+              >
+                ${escapeHTML(
+                  item.category ||
+                  "SPORTS"
+                )}
+              </div>
+
+              <h3>
+                ${escapeHTML(title)}
+              </h3>
+
+              <div
+                class="admin-news-date"
+              >
+                ${date}
+              </div>
+
+            </div>
+
+            <button
+              class="delete-button"
+              onclick="deleteNews(${item.id})"
+            >
+              🗑️ Delete
+            </button>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+window.deleteNews =
+async function(id){
+
+  const ok =
+    confirm(
+      "এই নিউজটি Delete করতে চান?"
+    );
+
+
+  if(!ok) return;
+
+
+  const {
+    error
+  } =
+  await db
+    .from("news")
+    .delete()
+    .eq(
+      "id",
+      id
+    );
+
+
+  if(error){
+
+    alert(
+      "Delete failed: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  await loadNews();
+
+};
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHTML(value){
+
+  return String(
+    value ?? ""
+  ).replace(
+    /[&<>'"]/g,
+    char=>({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      "'":"&#39;",
+      '"':"&quot;"
+
+    }[char])
+  );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+(async function(){
+
+  const ok =
+    await checkAdmin();
+
+  if(!ok) return;
+
+  await loadNews();
+
+})();
+
+</script>
 
 
 </body>
-
 </html>
