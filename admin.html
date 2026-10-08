@@ -1,478 +1,407 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="bn">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>SPORTNEXIA Admin Panel</title>
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<meta
-  name="robots"
-  content="noindex,nofollow"
->
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #111827;
+    }
 
-<title>SPORTNEXIA Admin</title>
+    header {
+      background: #07111f;
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-<style>
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
 
-*{
-  box-sizing:border-box;
-}
+    header span {
+      color: #38bdf8;
+    }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f7fb;
-  color:#111827;
-}
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: 700;
+    }
 
-.admin-header{
-  background:#071426;
-  color:#fff;
-  padding:18px 20px;
-}
+    .logout {
+      background: #ef4444;
+      color: white;
+    }
 
-.admin-header-inner{
-  max-width:950px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
+    .container {
+      width: min(1000px, 94%);
+      margin: 25px auto;
+    }
 
-.brand{
-  color:#fff;
-  text-decoration:none;
-  font-size:22px;
-  font-weight:900;
-}
+    .box {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    }
 
-.brand span{
-  color:#238cff;
-}
+    h2 {
+      margin-top: 0;
+    }
 
-.logout-button{
-  border:0;
-  background:#ef4444;
-  color:#fff;
-  padding:10px 15px;
-  border-radius:8px;
-  font-weight:700;
-  cursor:pointer;
-}
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: 700;
+    }
 
-.admin-container{
-  max-width:950px;
-  margin:30px auto;
-  padding:0 16px;
-}
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
 
-.admin-card{
-  background:#fff;
-  border-radius:18px;
-  padding:25px;
-  margin-bottom:25px;
-  box-shadow:0 8px 30px rgba(0,0,0,.07);
-}
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
 
-.admin-title{
-  margin:0 0 8px;
-  font-size:30px;
-}
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #0284c7;
+    }
 
-.admin-subtitle{
-  margin:0 0 25px;
-  color:#6b7280;
-}
+    .publish {
+      margin-top: 20px;
+      width: 100%;
+      background: #0284c7;
+      color: white;
+      font-size: 16px;
+    }
 
-.language-section{
-  margin-top:25px;
-  padding:20px;
-  border-radius:14px;
-  border:1px solid #e5e7eb;
-  background:#fafbfc;
-}
+    .publish:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
 
-.language-title{
-  margin:0 0 18px;
-  font-size:20px;
-}
+    .image-preview {
+      width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      margin-top: 10px;
+      border-radius: 10px;
+      display: none;
+      background: #f3f4f6;
+    }
 
-.bangla-title{
-  color:#008f5a;
-}
+    .news-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 14px;
+      background: #fafafa;
+    }
 
-.english-title{
-  color:#238cff;
-}
+    .news-item h3 {
+      margin: 0 0 8px;
+    }
 
-label{
-  display:block;
-  margin:15px 0 7px;
-  font-weight:700;
-}
+    .news-meta {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
 
-input,
-textarea,
-select{
-  width:100%;
-  border:1px solid #d8dee8;
-  border-radius:10px;
-  padding:13px;
-  font-size:15px;
-  outline:none;
-  background:#fff;
-}
+    .delete {
+      background: #dc2626;
+      color: white;
+    }
 
-textarea{
-  min-height:180px;
-  resize:vertical;
-  line-height:1.6;
-}
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+    }
 
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:#238cff;
-}
+    .success {
+      background: #dcfce7;
+      color: #166534;
+    }
 
-.image-preview{
-  display:none;
-  width:100%;
-  max-height:280px;
-  object-fit:contain;
-  border-radius:12px;
-  margin-top:12px;
-  background:#f1f3f6;
-}
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
 
-.publish-area{
-  margin-top:25px;
-  padding-top:20px;
-  border-top:1px solid #e5e7eb;
-}
+    #adminPanel {
+      display: none;
+    }
 
-.publish-button{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  padding:16px;
-  background:#238cff;
-  color:#fff;
-  font-size:17px;
-  font-weight:800;
-  cursor:pointer;
-}
+    #loginPanel {
+      max-width: 450px;
+      margin: 80px auto;
+    }
 
-.publish-button:disabled{
-  opacity:.6;
-}
+    .login-btn {
+      width: 100%;
+      margin-top: 18px;
+      background: #0284c7;
+      color: white;
+      font-size: 16px;
+    }
 
-.status-message{
-  margin-top:15px;
-  padding:12px;
-  border-radius:9px;
-  display:none;
-  font-weight:700;
-}
+    .hint {
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: 8px;
+    }
 
-.status-success{
-  display:block;
-  background:#dcfce7;
-  color:#166534;
-}
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
 
-.status-error{
-  display:block;
-  background:#fee2e2;
-  color:#991b1b;
-}
+    @media (max-width: 700px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
 
-.required{
-  color:#ef4444;
-}
+    .section-title {
+      border-left: 4px solid #0284c7;
+      padding-left: 10px;
+      margin-top: 25px;
+    }
 
-.news-list{
-  display:grid;
-  gap:14px;
-}
-
-.admin-news-item{
-  border:1px solid #e1e5eb;
-  border-radius:14px;
-  padding:15px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  background:#fafbfc;
-}
-
-.admin-news-info{
-  min-width:0;
-}
-
-.admin-news-category{
-  color:#238cff;
-  font-size:11px;
-  font-weight:800;
-  text-transform:uppercase;
-}
-
-.admin-news-item h3{
-  margin:6px 0;
-  font-size:17px;
-}
-
-.admin-news-date{
-  color:#7b8493;
-  font-size:12px;
-}
-
-.delete-button{
-  flex:0 0 auto;
-  border:0;
-  background:#fee2e2;
-  color:#dc2626;
-  padding:10px 13px;
-  border-radius:9px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.loading-news,
-.empty-news{
-  color:#7b8493;
-  padding:20px;
-  text-align:center;
-}
-
-@media(max-width:600px){
-
-  .admin-card{
-    padding:18px;
-  }
-
-  .admin-title{
-    font-size:25px;
-  }
-
-  .admin-news-item{
-    align-items:flex-start;
-  }
-
-}
-
-</style>
-
+    .empty {
+      color: #6b7280;
+      text-align: center;
+      padding: 25px;
+    }
+  </style>
 </head>
-
 
 <body>
 
+<header>
+  <h1>SPORT<span>NEXIA</span> Admin Panel</h1>
 
-<header class="admin-header">
-
-  <div class="admin-header-inner">
-
-    <a href="index.html" class="brand">
-      SPORT<span>NEXIA</span>
-    </a>
-
-    <button
-      id="logoutButton"
-      class="logout-button"
-      type="button"
-    >
-      Logout
-    </button>
-
-  </div>
-
+  <button
+    id="logoutBtn"
+    class="logout"
+    style="display:none;"
+  >
+    Logout
+  </button>
 </header>
 
 
-<main class="admin-container">
+<!-- ================= LOGIN ================= -->
 
+<div id="loginPanel" class="box">
 
-<section class="admin-card">
+  <h2>🔐 Admin Login</h2>
 
-<h1 class="admin-title">
-  Publish News
-</h1>
+  <p class="hint">
+    SPORTNEXIA Admin Panel-এ প্রবেশ করতে Login করুন।
+  </p>
 
-<p class="admin-subtitle">
-  Publish Bengali and English versions together.
-</p>
+  <label>Email</label>
+  <input
+    type="email"
+    id="loginEmail"
+    placeholder="Admin email"
+    autocomplete="email"
+  >
 
+  <label>Password</label>
+  <input
+    type="password"
+    id="loginPassword"
+    placeholder="Password"
+    autocomplete="current-password"
+  >
 
-<label>
-  Category
-  <span class="required">*</span>
-</label>
+  <button
+    id="loginBtn"
+    class="login-btn"
+  >
+    Login
+  </button>
 
-<select id="category">
-
-  <option value="Football">
-    Football
-  </option>
-
-  <option value="Cricket">
-    Cricket
-  </option>
-
-  <option value="Sports">
-    Sports
-  </option>
-
-</select>
-
-
-<!-- BANGLA -->
-
-<section class="language-section">
-
-<h2 class="language-title bangla-title">
-  🇧🇩 বাংলা নিউজ
-</h2>
-
-<label>
-  বাংলা শিরোনাম
-  <span class="required">*</span>
-</label>
-
-<input
-  id="title_bn"
-  type="text"
-  placeholder="বাংলা নিউজের শিরোনাম লিখুন"
->
-
-<label>
-  বাংলা নিউজ
-  <span class="required">*</span>
-</label>
-
-<textarea
-  id="content_bn"
-  placeholder="বাংলা নিউজের বিস্তারিত লিখুন"
-></textarea>
-
-<label>
-  বাংলা নিউজের ছবি
-</label>
-
-<input
-  id="image_bn"
-  type="file"
-  accept="image/*"
->
-
-<img
-  id="imageBnPreview"
-  class="image-preview"
-  alt="Bangla preview"
->
-
-</section>
-
-
-<!-- ENGLISH -->
-
-<section class="language-section">
-
-<h2 class="language-title english-title">
-  🇬🇧 English News
-</h2>
-
-<label>
-  English Title
-  <span class="required">*</span>
-</label>
-
-<input
-  id="title_en"
-  type="text"
-  placeholder="Enter English news title"
->
-
-<label>
-  English News
-  <span class="required">*</span>
-</label>
-
-<textarea
-  id="content_en"
-  placeholder="Write English news content"
-></textarea>
-
-<label>
-  English News Image
-</label>
-
-<input
-  id="image_en"
-  type="file"
-  accept="image/*"
->
-
-<img
-  id="imageEnPreview"
-  class="image-preview"
-  alt="English preview"
->
-
-</section>
-
-
-<div class="publish-area">
-
-<button
-  id="publishButton"
-  class="publish-button"
-  type="button"
->
-  🚀 Publish News
-</button>
-
-<div
-  id="statusMessage"
-  class="status-message"
-></div>
+  <div
+    id="loginStatus"
+    class="status"
+  ></div>
 
 </div>
 
-</section>
+
+<!-- ================= ADMIN PANEL ================= -->
+
+<div id="adminPanel">
+
+  <div class="container">
+
+    <!-- PUBLISH -->
+
+    <div class="box">
+
+      <h2>📰 Publish News</h2>
+
+      <label>Category</label>
+
+      <select id="category">
+        <option value="Football">Football</option>
+        <option value="Cricket">Cricket</option>
+        <option value="Sports">Sports</option>
+      </select>
 
 
-<!-- PUBLISHED NEWS -->
+      <div class="two-col">
 
-<section class="admin-card">
+        <!-- BANGLA -->
 
-<h2>
-  📰 Published News
-</h2>
+        <div>
 
-<div
-  id="newsList"
-  class="news-list"
->
+          <h3 class="section-title">
+            🇧🇩 বাংলা
+          </h3>
 
-  <div class="loading-news">
-    Loading published news...
+          <label>বাংলা Title</label>
+
+          <input
+            type="text"
+            id="titleBn"
+            placeholder="বাংলা শিরোনাম"
+          >
+
+          <label>বাংলা Content</label>
+
+          <textarea
+            id="contentBn"
+            placeholder="বাংলা নিউজ লিখুন..."
+          ></textarea>
+
+          <label>বাংলা Image</label>
+
+          <input
+            type="file"
+            id="imageBn"
+            accept="image/*"
+          >
+
+          <img
+            id="previewBn"
+            class="image-preview"
+            alt="Bangla preview"
+          >
+
+        </div>
+
+
+        <!-- ENGLISH -->
+
+        <div>
+
+          <h3 class="section-title">
+            🇬🇧 English
+          </h3>
+
+          <label>English Title</label>
+
+          <input
+            type="text"
+            id="titleEn"
+            placeholder="English headline"
+          >
+
+          <label>English Content</label>
+
+          <textarea
+            id="contentEn"
+            placeholder="Write English news..."
+          ></textarea>
+
+          <label>English Image</label>
+
+          <input
+            type="file"
+            id="imageEn"
+            accept="image/*"
+          >
+
+          <img
+            id="previewEn"
+            class="image-preview"
+            alt="English preview"
+          >
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="publishBtn"
+        class="publish"
+      >
+        🚀 Publish News
+      </button>
+
+      <div
+        id="publishStatus"
+        class="status"
+      ></div>
+
+    </div>
+
+
+    <!-- OLD NEWS -->
+
+    <div class="box">
+
+      <h2>📚 Published News</h2>
+
+      <div id="newsList">
+        Loading published news...
+      </div>
+
+    </div>
+
   </div>
 
 </div>
 
-</section>
 
-
-</main>
-
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -481,651 +410,1029 @@ select:focus{
 
 <script>
 
-const {
-  createClient
-} = supabase;
+  /*
+    ============================
+    SUPABASE
+    ============================
+  */
 
-
-const db = createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-
-
-const ADMIN_UID =
-  "081ddd42-e9c0-4419-abd1-01d57c04dcf2";
-
-
-/* =========================
-   LOGIN CHECK
-========================= */
-
-async function checkAdmin(){
-
-  const {
-    data:{
-      session
-    }
-  } =
-    await db.auth.getSession();
-
-
-  if(
-    !session ||
-    !session.user ||
-    session.user.id !== ADMIN_UID
-  ){
-
-    window.location.href =
-      "admin-login.html";
-
-    return false;
-  }
-
-  return true;
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-document
-  .getElementById("logoutButton")
-  .addEventListener(
-    "click",
-    async()=>{
-
-      await db.auth.signOut();
-
-      window.location.reload();
-
-    }
+  const db = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
   );
 
 
-/* =========================
-   STATUS
-========================= */
+  /*
+    ============================
+    ADMIN USER
+    ============================
+  */
 
-function status(message,type){
-
-  const box =
-    document.getElementById(
-      "statusMessage"
-    );
-
-  box.textContent =
-    message;
-
-  box.className =
-    "status-message " +
-    (
-      type === "error"
-        ? "status-error"
-        : "status-success"
-    );
-
-}
+  const ADMIN_EMAIL =
+    "mdnaimeholder@gmail.com";
 
 
-/* =========================
-   IMAGE PREVIEW
-========================= */
+  /*
+    ============================
+    ELEMENTS
+    ============================
+  */
 
-function previewImage(
-  inputId,
-  previewId
-){
+  const loginPanel =
+    document.getElementById("loginPanel");
 
-  const input =
-    document.getElementById(
-      inputId
-    );
+  const adminPanel =
+    document.getElementById("adminPanel");
 
-  const preview =
-    document.getElementById(
-      previewId
-    );
+  const logoutBtn =
+    document.getElementById("logoutBtn");
+
+  const loginBtn =
+    document.getElementById("loginBtn");
+
+  const loginStatus =
+    document.getElementById("loginStatus");
+
+  const publishBtn =
+    document.getElementById("publishBtn");
+
+  const publishStatus =
+    document.getElementById("publishStatus");
+
+  const newsList =
+    document.getElementById("newsList");
 
 
-  input.addEventListener(
-    "change",
-    ()=>{
+  /*
+    ============================
+    STATUS
+    ============================
+  */
 
-      const file =
-        input.files[0];
+  function showStatus(element, message, type) {
 
-      if(!file){
+    element.textContent = message;
 
-        preview.style.display =
-          "none";
+    element.className =
+      "status " + type;
+
+    element.style.display = "block";
+  }
+
+
+  function hideStatus(element) {
+
+    element.style.display = "none";
+
+  }
+
+
+  /*
+    ============================
+    LOGIN SCREEN
+    ============================
+  */
+
+  function showLogin() {
+
+    loginPanel.style.display = "block";
+
+    adminPanel.style.display = "none";
+
+    logoutBtn.style.display = "none";
+
+  }
+
+
+  function showAdmin() {
+
+    loginPanel.style.display = "none";
+
+    adminPanel.style.display = "block";
+
+    logoutBtn.style.display = "block";
+
+  }
+
+
+  /*
+    ============================
+    CHECK SESSION
+    ============================
+  */
+
+  async function checkSession() {
+
+    const {
+      data,
+      error
+    } = await db.auth.getSession();
+
+    if (error) {
+
+      console.error(error);
+
+      showLogin();
+
+      return;
+
+    }
+
+    const session =
+      data?.session;
+
+    const user =
+      session?.user;
+
+
+    if (
+      user &&
+      user.email &&
+      user.email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ) {
+
+      showAdmin();
+
+      await loadNews();
+
+    } else {
+
+      showLogin();
+
+    }
+
+  }
+
+
+  /*
+    ============================
+    LOGIN
+    ============================
+  */
+
+  loginBtn.addEventListener(
+    "click",
+    async () => {
+
+      hideStatus(loginStatus);
+
+      const email =
+        document.getElementById(
+          "loginEmail"
+        ).value.trim();
+
+      const password =
+        document.getElementById(
+          "loginPassword"
+        ).value;
+
+
+      if (!email || !password) {
+
+        showStatus(
+          loginStatus,
+          "Email এবং Password দিন।",
+          "error"
+        );
 
         return;
+
       }
 
 
-      const reader =
-        new FileReader();
+      loginBtn.disabled = true;
+
+      loginBtn.textContent =
+        "Logging in...";
 
 
-      reader.onload =
-        event=>{
+      const {
+        data,
+        error
+      } = await db.auth.signInWithPassword({
 
-          preview.src =
-            event.target.result;
+        email,
+        password
 
-          preview.style.display =
-            "block";
-
-        };
+      });
 
 
-      reader.readAsDataURL(file);
+      loginBtn.disabled = false;
+
+      loginBtn.textContent =
+        "Login";
+
+
+      if (error) {
+
+        console.error(
+          "Login error:",
+          error
+        );
+
+        showStatus(
+          loginStatus,
+          "Login failed: " +
+          error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        !data.user ||
+        data.user.email.toLowerCase() !==
+        ADMIN_EMAIL.toLowerCase()
+      ) {
+
+        await db.auth.signOut();
+
+        showStatus(
+          loginStatus,
+          "এই Account Admin Account নয়।",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      showAdmin();
+
+      await loadNews();
 
     }
   );
 
-}
+
+  /*
+    ============================
+    LOGOUT
+    ============================
+  */
+
+  logoutBtn.addEventListener(
+    "click",
+    async () => {
+
+      logoutBtn.disabled = true;
+
+      logoutBtn.textContent =
+        "Logging out...";
 
 
-previewImage(
-  "image_bn",
-  "imageBnPreview"
-);
-
-previewImage(
-  "image_en",
-  "imageEnPreview"
-);
+      const {
+        error
+      } = await db.auth.signOut();
 
 
-/* =========================
-   UPLOAD
-========================= */
+      if (error) {
 
-async function uploadImage(
-  file,
-  folder
-){
+        console.error(
+          "Logout error:",
+          error
+        );
 
-  if(!file) return null;
+        logoutBtn.disabled = false;
+
+        logoutBtn.textContent =
+          "Logout";
+
+        alert(
+          "Logout হয়নি: " +
+          error.message
+        );
+
+        return;
+
+      }
 
 
-  const ext =
-    file.name
-      .split(".")
-      .pop()
-      .toLowerCase();
+      /*
+        Clear local Supabase session data
+      */
+
+      try {
+
+        Object.keys(
+          localStorage
+        ).forEach(key => {
+
+          if (
+            key.includes("supabase") ||
+            key.includes("auth-token")
+          ) {
+
+            localStorage.removeItem(key);
+
+          }
+
+        });
+
+      } catch (e) {
+
+        console.log(e);
+
+      }
 
 
-  const path =
-    `${folder}/${Date.now()}-${crypto.randomUUID()}.${ext}`;
+      showLogin();
+
+      document.getElementById(
+        "loginPassword"
+      ).value = "";
+
+      logoutBtn.disabled = false;
+
+      logoutBtn.textContent =
+        "Logout";
+
+    }
+  );
 
 
-  const {
-    error
-  } =
-    await db
-      .storage
+  /*
+    ============================
+    IMAGE PREVIEW
+    ============================
+  */
+
+  function setupPreview(
+    inputId,
+    previewId
+  ) {
+
+    const input =
+      document.getElementById(inputId);
+
+    const preview =
+      document.getElementById(previewId);
+
+
+    input.addEventListener(
+      "change",
+      () => {
+
+        const file =
+          input.files?.[0];
+
+        if (!file) {
+
+          preview.style.display =
+            "none";
+
+          preview.src = "";
+
+          return;
+
+        }
+
+
+        preview.src =
+          URL.createObjectURL(file);
+
+        preview.style.display =
+          "block";
+
+      }
+    );
+
+  }
+
+
+  setupPreview(
+    "imageBn",
+    "previewBn"
+  );
+
+  setupPreview(
+    "imageEn",
+    "previewEn"
+  );
+
+
+  /*
+    ============================
+    UPLOAD IMAGE
+    ============================
+  */
+
+  async function uploadImage(
+    file,
+    folder
+  ) {
+
+    if (!file) return null;
+
+
+    const extension =
+      file.name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    const filename =
+      Date.now() +
+      "-" +
+      Math.random()
+        .toString(36)
+        .substring(2) +
+      "." +
+      extension;
+
+
+    const path =
+      folder +
+      "/" +
+      filename;
+
+
+    const {
+      error
+    } = await db.storage
       .from("news-images")
       .upload(
         path,
         file,
         {
-          cacheControl:"3600",
-          upsert:false
+          cacheControl: "3600",
+          upsert: false
         }
       );
 
 
-  if(error)
-    throw error;
+    if (error) {
 
-
-  const {
-    data
-  } =
-    db
-      .storage
-      .from("news-images")
-      .getPublicUrl(path);
-
-
-  return data.publicUrl;
-
-}
-
-
-/* =========================
-   PUBLISH
-========================= */
-
-document
-  .getElementById("publishButton")
-  .addEventListener(
-    "click",
-    publishNews
-  );
-
-
-async function publishNews(){
-
-  const button =
-    document.getElementById(
-      "publishButton"
-    );
-
-
-  const category =
-    document.getElementById(
-      "category"
-    ).value;
-
-
-  const titleBN =
-    document.getElementById(
-      "title_bn"
-    ).value.trim();
-
-
-  const contentBN =
-    document.getElementById(
-      "content_bn"
-    ).value.trim();
-
-
-  const titleEN =
-    document.getElementById(
-      "title_en"
-    ).value.trim();
-
-
-  const contentEN =
-    document.getElementById(
-      "content_en"
-    ).value.trim();
-
-
-  const imageBN =
-    document.getElementById(
-      "image_bn"
-    ).files[0] || null;
-
-
-  const imageEN =
-    document.getElementById(
-      "image_en"
-    ).files[0] || null;
-
-
-  if(
-    !titleBN ||
-    !contentBN ||
-    !titleEN ||
-    !contentEN
-  ){
-
-    status(
-      "সব বাংলা ও English তথ্য পূরণ করুন।",
-      "error"
-    );
-
-    return;
-  }
-
-
-  button.disabled = true;
-
-  button.textContent =
-    "Publishing...";
-
-
-  try{
-
-    let imageBNUrl =
-      null;
-
-    let imageENUrl =
-      null;
-
-
-    if(imageBN){
-
-      status(
-        "বাংলা ছবি Upload হচ্ছে...",
-        "success"
-      );
-
-      imageBNUrl =
-        await uploadImage(
-          imageBN,
-          "bangla"
-        );
-
-    }
-
-
-    if(imageEN){
-
-      status(
-        "English ছবি Upload হচ্ছে...",
-        "success"
-      );
-
-      imageENUrl =
-        await uploadImage(
-          imageEN,
-          "english"
-        );
+      throw error;
 
     }
 
 
     const {
-      error
-    } =
-    await db
-      .from("news")
-      .insert({
-
-        category:category,
-
-        title:titleBN,
-
-        content:contentBN,
-
-        title_bn:titleBN,
-
-        content_bn:contentBN,
-
-        image_bn:imageBNUrl,
-
-        title_en:titleEN,
-
-        content_en:contentEN,
-
-        image_en:imageENUrl,
-
-        image_url:imageBNUrl
-
-      });
+      data
+    } = db.storage
+      .from("news-images")
+      .getPublicUrl(path);
 
 
-    if(error)
-      throw error;
-
-
-    status(
-      "✅ বাংলা + English News Publish হয়েছে!",
-      "success"
-    );
-
-
-    document
-      .getElementById("title_bn")
-      .value="";
-
-    document
-      .getElementById("content_bn")
-      .value="";
-
-    document
-      .getElementById("title_en")
-      .value="";
-
-    document
-      .getElementById("content_en")
-      .value="";
-
-    document
-      .getElementById("image_bn")
-      .value="";
-
-    document
-      .getElementById("image_en")
-      .value="";
-
-
-    await loadNews();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    status(
-      error.message ||
-      "Publish failed.",
-      "error"
-    );
-
-  }finally{
-
-    button.disabled=false;
-
-    button.textContent =
-      "🚀 Publish News";
+    return data.publicUrl;
 
   }
 
-}
+
+  /*
+    ============================
+    PUBLISH NEWS
+    ============================
+  */
+
+  publishBtn.addEventListener(
+    "click",
+    async () => {
+
+      hideStatus(publishStatus);
 
 
-/* =========================
-   LOAD NEWS
-========================= */
-
-async function loadNews(){
-
-  const list =
-    document.getElementById(
-      "newsList"
-    );
+      const category =
+        document.getElementById(
+          "category"
+        ).value;
 
 
-  list.innerHTML =
-    `<div class="loading-news">
-      Loading published news...
-    </div>`;
+      const titleBn =
+        document.getElementById(
+          "titleBn"
+        ).value.trim();
+
+      const contentBn =
+        document.getElementById(
+          "contentBn"
+        ).value.trim();
 
 
-  const {
-    data,
-    error
-  } =
-  await db
-    .from("news")
-    .select(
-      "id,title,title_bn,title_en,category,created_at"
-    )
-    .order(
-      "created_at",
-      {
-        ascending:false
-      }
-    );
+      const titleEn =
+        document.getElementById(
+          "titleEn"
+        ).value.trim();
+
+      const contentEn =
+        document.getElementById(
+          "contentEn"
+        ).value.trim();
 
 
-  if(error){
+      const imageBn =
+        document.getElementById(
+          "imageBn"
+        ).files?.[0];
 
-    console.error(error);
-
-    list.innerHTML =
-      `<div class="empty-news">
-        ❌ News load failed:<br>
-        ${error.message}
-      </div>`;
-
-    return;
-  }
+      const imageEn =
+        document.getElementById(
+          "imageEn"
+        ).files?.[0];
 
 
-  if(!data || !data.length){
+      if (!titleBn) {
 
-    list.innerHTML =
-      `<div class="empty-news">
-        No published news found.
-      </div>`;
+        showStatus(
+          publishStatus,
+          "বাংলা Title দিন।",
+          "error"
+        );
 
-    return;
-  }
-
-
-  list.innerHTML =
-    data.map(
-      item=>{
-
-        const title =
-          item.title_bn ||
-          item.title ||
-          item.title_en ||
-          "Untitled";
-
-
-        const date =
-          item.created_at
-            ? new Date(
-                item.created_at
-              ).toLocaleDateString(
-                "en-GB"
-              )
-            : "";
-
-
-        return `
-
-          <div
-            class="admin-news-item"
-          >
-
-            <div
-              class="admin-news-info"
-            >
-
-              <div
-                class="admin-news-category"
-              >
-                ${escapeHTML(
-                  item.category ||
-                  "SPORTS"
-                )}
-              </div>
-
-              <h3>
-                ${escapeHTML(title)}
-              </h3>
-
-              <div
-                class="admin-news-date"
-              >
-                ${date}
-              </div>
-
-            </div>
-
-            <button
-              class="delete-button"
-              onclick="deleteNews(${item.id})"
-            >
-              🗑️ Delete
-            </button>
-
-          </div>
-
-        `;
+        return;
 
       }
-    ).join("");
-
-}
 
 
-/* =========================
-   DELETE
-========================= */
+      if (!contentBn) {
 
-window.deleteNews =
-async function(id){
+        showStatus(
+          publishStatus,
+          "বাংলা Content দিন।",
+          "error"
+        );
 
-  const ok =
-    confirm(
-      "এই নিউজটি Delete করতে চান?"
-    );
+        return;
 
-
-  if(!ok) return;
+      }
 
 
-  const {
-    error
-  } =
-  await db
-    .from("news")
-    .delete()
-    .eq(
-      "id",
-      id
-    );
+      if (!titleEn) {
+
+        showStatus(
+          publishStatus,
+          "English Title দিন।",
+          "error"
+        );
+
+        return;
+
+      }
 
 
-  if(error){
+      if (!contentEn) {
 
-    alert(
-      "Delete failed: " +
-      error.message
-    );
+        showStatus(
+          publishStatus,
+          "English Content দিন।",
+          "error"
+        );
 
-    return;
-  }
+        return;
 
-
-  await loadNews();
-
-};
+      }
 
 
-/* =========================
-   ESCAPE
-========================= */
+      publishBtn.disabled = true;
 
-function escapeHTML(value){
+      publishBtn.textContent =
+        "Publishing...";
 
-  return String(
-    value ?? ""
-  ).replace(
-    /[&<>'"]/g,
-    char=>({
 
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      "'":"&#39;",
-      '"':"&quot;"
+      try {
 
-    }[char])
+        /*
+          Upload Bangla image
+        */
+
+        let imageBnUrl = null;
+
+        if (imageBn) {
+
+          imageBnUrl =
+            await uploadImage(
+              imageBn,
+              "bangla"
+            );
+
+        }
+
+
+        /*
+          Upload English image
+        */
+
+        let imageEnUrl = null;
+
+        if (imageEn) {
+
+          imageEnUrl =
+            await uploadImage(
+              imageEn,
+              "english"
+            );
+
+        }
+
+
+        /*
+          Insert news
+        */
+
+        const {
+          error
+        } = await db
+          .from("news")
+          .insert({
+
+            category,
+
+            title: titleBn,
+
+            content: contentBn,
+
+            image_url:
+              imageBnUrl,
+
+            title_bn:
+              titleBn,
+
+            content_bn:
+              contentBn,
+
+            image_bn:
+              imageBnUrl,
+
+            title_en:
+              titleEn,
+
+            content_en:
+              contentEn,
+
+            image_en:
+              imageEnUrl
+
+          });
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        showStatus(
+          publishStatus,
+          "✅ News successfully published!",
+          "success"
+        );
+
+
+        /*
+          Clear form
+        */
+
+        document.getElementById(
+          "titleBn"
+        ).value = "";
+
+        document.getElementById(
+          "contentBn"
+        ).value = "";
+
+        document.getElementById(
+          "titleEn"
+        ).value = "";
+
+        document.getElementById(
+          "contentEn"
+        ).value = "";
+
+        document.getElementById(
+          "imageBn"
+        ).value = "";
+
+        document.getElementById(
+          "imageEn"
+        ).value = "";
+
+
+        document.getElementById(
+          "previewBn"
+        ).style.display = "none";
+
+        document.getElementById(
+          "previewEn"
+        ).style.display = "none";
+
+
+        await loadNews();
+
+      } catch (error) {
+
+        console.error(
+          "Publish error:",
+          error
+        );
+
+        showStatus(
+          publishStatus,
+          "❌ Publish failed: " +
+          error.message,
+          "error"
+        );
+
+      }
+
+
+      publishBtn.disabled = false;
+
+      publishBtn.textContent =
+        "🚀 Publish News";
+
+    }
   );
 
-}
+
+  /*
+    ============================
+    LOAD OLD NEWS
+    ============================
+  */
+
+  async function loadNews() {
+
+    newsList.innerHTML =
+      "Loading published news...";
 
 
-/* =========================
-   START
-========================= */
+    const {
+      data,
+      error
+    } = await db
+      .from("news")
+      .select(
+        "id,title,title_bn,title_en,category,created_at"
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
 
-(async function(){
 
-  const ok =
-    await checkAdmin();
+    if (error) {
 
-  if(!ok) return;
+      console.error(
+        "Load news error:",
+        error
+      );
 
-  await loadNews();
+      newsList.innerHTML = `
+        <div class="status error" style="display:block;">
+          ❌ News load হয়নি.<br><br>
+          ${escapeHtml(error.message)}
+        </div>
+      `;
 
-})();
+      return;
+
+    }
+
+
+    if (!data || data.length === 0) {
+
+      newsList.innerHTML = `
+        <div class="empty">
+          এখনো কোনো News Publish করা হয়নি।
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    newsList.innerHTML =
+      data.map(
+        news => {
+
+          const bn =
+            news.title_bn ||
+            news.title ||
+            "No Bangla Title";
+
+          const en =
+            news.title_en ||
+            "No English Title";
+
+
+          const date =
+            news.created_at
+              ? new Date(
+                  news.created_at
+                ).toLocaleString(
+                  "en-GB"
+                )
+              : "";
+
+
+          return `
+            <div
+              class="news-item"
+              id="news-item-${news.id}"
+            >
+
+              <h3>
+                🇧🇩 ${escapeHtml(bn)}
+              </h3>
+
+              <div>
+                🇬🇧 ${escapeHtml(en)}
+              </div>
+
+              <div class="news-meta">
+                ${escapeHtml(
+                  news.category || "SPORTS"
+                )}
+                •
+                ${escapeHtml(date)}
+                • ID:
+                ${escapeHtml(news.id)}
+              </div>
+
+              <button
+                class="delete"
+                onclick="deleteNews(${Number(news.id)})"
+              >
+                🗑️ Delete
+              </button>
+
+            </div>
+          `;
+
+        }
+      ).join("");
+
+  }
+
+
+  /*
+    ============================
+    DELETE NEWS
+    ============================
+  */
+
+  async function deleteNews(id) {
+
+    const confirmDelete =
+      confirm(
+        "এই News টি কি সত্যিই Delete করতে চান?"
+      );
+
+
+    if (!confirmDelete) return;
+
+
+    const {
+      error
+    } = await db
+      .from("news")
+      .delete()
+      .eq("id", id);
+
+
+    if (error) {
+
+      console.error(
+        "Delete error:",
+        error
+      );
+
+      alert(
+        "Delete হয়নি: " +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    const item =
+      document.getElementById(
+        `news-item-${id}`
+      );
+
+
+    if (item) {
+
+      item.remove();
+
+    }
+
+
+    if (
+      !newsList.querySelector(
+        ".news-item"
+      )
+    ) {
+
+      newsList.innerHTML = `
+        <div class="empty">
+          এখন আর কোনো Published News নেই।
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  /*
+    ============================
+    ESCAPE HTML
+    ============================
+  */
+
+  function escapeHtml(value) {
+
+    return String(
+      value ?? ""
+    ).replace(
+      /[&<>'"]/g,
+      function(char) {
+
+        return {
+
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "'": "&#39;",
+          '"': "&quot;"
+
+        }[char];
+
+      }
+    );
+
+  }
+
+
+  /*
+    ============================
+    AUTH STATE LISTENER
+    ============================
+  */
+
+  db.auth.onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
+
+      if (
+        event === "SIGNED_OUT"
+      ) {
+
+        showLogin();
+
+        return;
+
+      }
+
+
+      if (
+        event === "SIGNED_IN" &&
+        session?.user
+      ) {
+
+        if (
+          session.user.email
+            .toLowerCase() ===
+          ADMIN_EMAIL.toLowerCase()
+        ) {
+
+          showAdmin();
+
+          await loadNews();
+
+        }
+
+      }
+
+    }
+  );
+
+
+  /*
+    ============================
+    START
+    ============================
+  */
+
+  checkSession();
 
 </script>
 
-
 </body>
-</html>
+  </html>
