@@ -1,54 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Football | SPORTNEXIA</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
-    content="SPORTNEXIA Football - Live scores, fixtures, results and latest football news."
+    content="SPORTNEXIA Football - Football news, live scores, fixtures and results."
   >
 
-  <meta name="robots" content="index, follow">
+  <meta
+    name="robots"
+    content="index, follow"
+  >
 
-  <!-- Main Website CSS -->
+  <title>Football | SPORTNEXIA</title>
+
   <link rel="stylesheet" href="style.css">
-
-  <!-- Sports CSS -->
   <link rel="stylesheet" href="sport.css">
+
+  <style>
+
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
+
+    .page-navigation {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e9f0;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .page-navigation-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+
+      padding: 10px 16px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      overflow-x: auto;
+
+      scrollbar-width: none;
+    }
+
+    .page-navigation-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .page-navigation a,
+    .page-navigation button {
+
+      flex: 0 0 auto;
+
+      border: 1px solid #e3e7ee;
+
+      background: #f5f7fa;
+
+      color: #111827;
+
+      border-radius: 999px;
+
+      padding: 9px 14px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      text-decoration: none;
+
+      white-space: nowrap;
+
+      cursor: pointer;
+
+      font-family: inherit;
+    }
+
+    .page-navigation .home-button {
+      background: #238cff;
+      color: #ffffff;
+      border-color: #238cff;
+    }
+
+    .page-navigation .language-button.active {
+      background: #238cff;
+      color: #ffffff;
+      border-color: #238cff;
+    }
+
+    .page-navigation a:hover,
+    .page-navigation button:hover {
+      background: #238cff;
+      color: #ffffff;
+      border-color: #238cff;
+    }
+
+  </style>
+
 </head>
 
-<body>
+
+<body class="sport-page">
+
 
   <!-- =========================
        HEADER
-  ========================== -->
+  ========================= -->
 
-  <header>
+  <header class="site-header">
 
-    <div class="nav">
+    <div class="container header-inner">
 
-      <a href="index.html" class="logo">
+      <a
+        href="index.html"
+        class="brand"
+      >
         SPORT<span>NEXIA</span>
       </a>
-
-      <nav>
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="football.html">
-          Football
-        </a>
-
-        <a href="cricket.html">
-          Cricket
-        </a>
-
-      </nav>
 
     </div>
 
@@ -56,153 +134,124 @@
 
 
   <!-- =========================
-       BREAKING NEWS
-  ========================== -->
+       PAGE NAVIGATION
+  ========================= -->
 
-  <div class="breaking">
+  <nav class="page-navigation">
 
-    <b>
-      BREAKING
-    </b>
+    <div class="page-navigation-inner">
 
-    <span id="breakingText">
-      Latest football updates from SPORTNEXIA
-    </span>
+      <a
+        href="index.html"
+        class="home-button"
+      >
+        🏠 Home
+      </a>
+
+      <a
+        href="javascript:history.back()"
+      >
+        ← Back
+      </a>
+
+      <button
+        type="button"
+        class="language-button active"
+        id="banglaButton"
+      >
+        বাংলা
+      </button>
+
+      <button
+        type="button"
+        class="language-button"
+        id="englishButton"
+      >
+        English
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       BREAKING
+  ========================= -->
+
+  <div class="breaking-bar">
+
+    <div class="container">
+
+      <span class="breaking-label">
+        BREAKING
+      </span>
+
+      <span id="breakingText">
+        Latest football updates
+      </span>
+
+    </div>
 
   </div>
 
 
-  <main class="sport-page">
+  <!-- =========================
+       HERO
+  ========================= -->
 
+  <section class="sport-hero">
 
-    <!-- =========================
-         FOOTBALL HERO
-    ========================== -->
+    <div class="container">
 
-    <section class="sport-hero">
+      <span class="hero-kicker">
+        SPORTNEXIA
+      </span>
 
-      <div class="sport-hero-inner">
+      <h1>
+        Football
+      </h1>
 
-        <div class="sport-kicker">
-          SPORTNEXIA • FOOTBALL
-        </div>
-
-        <h1>
-          Football
-        </h1>
-
-        <p>
-          Follow the latest football matches, fixtures,
-          results, live scores and breaking football news —
-          all in one place.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SPORT TABS
-    ========================== -->
-
-    <div class="sport-tabs">
-
-      <div class="sport-tabs-inner">
-
-        <a
-          href="football.html"
-          class="sport-tab active"
-        >
-          ⚽ Football
-        </a>
-
-        <a
-          href="cricket.html"
-          class="sport-tab"
-        >
-          🏏 Cricket
-        </a>
-
-      </div>
+      <p>
+        Follow the latest football news,
+        live scores, fixtures and results
+        from around the world.
+      </p>
 
     </div>
 
+  </section>
 
-    <!-- =========================
-         FOOTBALL MATCHES
-    ========================== -->
+
+  <!-- =========================
+       FOOTBALL LIVE
+  ========================= -->
+
+  <main>
 
     <section class="matches-section">
 
-      <div class="section-title">
+      <div class="container">
 
-        <h2>
-          Football Matches
-        </h2>
+        <div class="section-heading">
 
-        <span>
-          LIVE • UPCOMING • RESULTS
-        </span>
+          <h2>
+            Football Live
+          </h2>
 
-      </div>
+          <p>
+            LIVE • UPCOMING • RESULTS
+          </p>
 
+        </div>
 
-      <div
-        class="matches-grid"
-        id="footballMatches"
-      >
+        <div
+          id="footballMatches"
+          class="matches-grid"
+        >
 
-        <!-- JavaScript will load matches here -->
-
-        <div class="match-card">
-
-          <div class="match-top">
-
-            <span class="league-name">
-              Football
-            </span>
-
-            <span class="match-status">
-              Loading
-            </span>
-
-          </div>
-
-
-          <div class="teams">
-
-            <div class="team">
-
-              <div class="team-logo">
-                ⚽
-              </div>
-
-              Team A
-
-            </div>
-
-
-            <div class="vs">
-              VS
-            </div>
-
-
-            <div class="team">
-
-              <div class="team-logo">
-                ⚽
-              </div>
-
-              Team B
-
-            </div>
-
-          </div>
-
-
-          <div class="match-time">
-            Loading match information...
+          <div class="loading">
+            Loading football matches...
           </div>
 
         </div>
@@ -214,35 +263,30 @@
 
     <!-- =========================
          FOOTBALL NEWS
-    ========================== -->
+    ========================= -->
 
     <section class="football-news">
 
-      <div class="football-news-inner">
+      <div class="container">
 
-        <div class="football-news-title">
+        <div class="section-heading">
 
-          <div>
+          <span class="hero-kicker">
+            LATEST STORIES
+          </span>
 
-            <span>
-              LATEST STORIES
-            </span>
-
-            <h2>
-              Football News
-            </h2>
-
-          </div>
+          <h2>
+            Football News
+          </h2>
 
         </div>
 
-
         <div
-          class="football-news-grid"
           id="footballNews"
+          class="football-news-grid"
         >
 
-          <div class="football-loading">
+          <div class="loading">
             Loading football news...
           </div>
 
@@ -252,40 +296,45 @@
 
     </section>
 
-
   </main>
 
 
   <!-- =========================
        FOOTER
-  ========================== -->
+  ========================= -->
 
-  <footer>
+  <footer class="site-footer">
 
-    <b>
-      SPORT<span>NEXIA</span>
-    </b>
+    <div class="container">
 
-    <p>
-      Football • Cricket • Sports Updates
-    </p>
+      <strong>
+        SPORTNEXIA
+      </strong>
+
+      <p>
+        Football • Cricket • Sports Updates
+      </p>
+
+      <p>
+        © 2026 SPORTNEXIA. All rights reserved.
+      </p>
+
+    </div>
 
   </footer>
 
 
   <!-- =========================
-       JAVASCRIPT
-  ========================== -->
+       SUPABASE
+  ========================= -->
 
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- Supabase Configuration -->
   <script src="config.js"></script>
 
-  <!-- SPORTNEXIA Sports Engine -->
   <script src="sport.js"></script>
 
 
 </body>
+
 </html>
