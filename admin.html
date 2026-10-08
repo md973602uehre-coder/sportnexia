@@ -43,6 +43,11 @@
       cursor:pointer;
     }
 
+    button:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+    }
+
     .logout{
       background:#ef4444;
       color:#fff;
@@ -127,6 +132,7 @@
       padding:12px;
       margin-top:12px;
       border-radius:8px;
+      word-break:break-word;
     }
 
     .success{
@@ -168,9 +174,27 @@
       font-size:14px;
     }
 
+    .userInfo{
+      background:#f0fdf4;
+      color:#166534;
+      padding:12px;
+      border-radius:8px;
+      margin-top:12px;
+      font-size:13px;
+      word-break:break-all;
+    }
+
     @media(max-width:700px){
       .two{
         grid-template-columns:1fr;
+      }
+
+      header{
+        gap:12px;
+      }
+
+      header h1{
+        font-size:19px;
       }
     }
   </style>
@@ -195,7 +219,7 @@
 </header>
 
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div
   id="loginPanel"
@@ -241,7 +265,7 @@
 </div>
 
 
-<!-- ================= ADMIN ================= -->
+<!-- ADMIN -->
 
 <div
   id="adminPanel"
@@ -258,6 +282,13 @@
 
       <div class="info">
         Admin: mdnaimeholader02@gmail.com
+      </div>
+
+      <div
+        id="userInfo"
+        class="userInfo"
+      >
+        Checking admin session...
       </div>
 
 
@@ -414,11 +445,9 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="config.js"></script>
 
 <script>
-
 
 /* ========================================
    SUPABASE
@@ -432,11 +461,14 @@ const db =
 
 
 /* ========================================
-   ADMIN EMAIL
+   ADMIN
 ======================================== */
 
 const ADMIN_EMAIL =
   "mdnaimeholader02@gmail.com";
+
+const ADMIN_UID =
+  "1d524237-7533-4d6b-a282-f5282d92b299";
 
 
 /* ========================================
@@ -444,44 +476,31 @@ const ADMIN_EMAIL =
 ======================================== */
 
 const loginPanel =
-  document.getElementById(
-    "loginPanel"
-  );
+  document.getElementById("loginPanel");
 
 const adminPanel =
-  document.getElementById(
-    "adminPanel"
-  );
+  document.getElementById("adminPanel");
 
 const loginBtn =
-  document.getElementById(
-    "loginBtn"
-  );
+  document.getElementById("loginBtn");
 
 const logoutBtn =
-  document.getElementById(
-    "logoutBtn"
-  );
+  document.getElementById("logoutBtn");
 
 const loginStatus =
-  document.getElementById(
-    "loginStatus"
-  );
+  document.getElementById("loginStatus");
 
 const publishBtn =
-  document.getElementById(
-    "publishBtn"
-  );
+  document.getElementById("publishBtn");
 
 const publishStatus =
-  document.getElementById(
-    "publishStatus"
-  );
+  document.getElementById("publishStatus");
 
 const newsList =
-  document.getElementById(
-    "newsList"
-  );
+  document.getElementById("newsList");
+
+const userInfo =
+  document.getElementById("userInfo");
 
 
 /* ========================================
@@ -502,12 +521,11 @@ function showStatus(
 
   element.style.display =
     "block";
-
 }
 
 
 /* ========================================
-   LOGIN SCREEN
+   SHOW LOGIN
 ======================================== */
 
 function showLogin(){
@@ -520,12 +538,11 @@ function showLogin(){
 
   logoutBtn.style.display =
     "none";
-
 }
 
 
 /* ========================================
-   ADMIN SCREEN
+   SHOW ADMIN
 ======================================== */
 
 function showAdmin(){
@@ -538,12 +555,11 @@ function showAdmin(){
 
   logoutBtn.style.display =
     "block";
-
 }
 
 
 /* ========================================
-   CHECK ADMIN
+   VERIFY USER
 ======================================== */
 
 function isAdminUser(user){
@@ -556,10 +572,106 @@ function isAdminUser(user){
     return false;
   }
 
-  return (
-    user.email.toLowerCase() ===
+  if(
+    user.email.toLowerCase() !==
     ADMIN_EMAIL.toLowerCase()
-  );
+  ){
+
+    return false;
+  }
+
+  if(
+    user.id !==
+    ADMIN_UID
+  ){
+
+    return false;
+  }
+
+  return true;
+}
+
+
+/* ========================================
+   GET VERIFIED USER
+======================================== */
+
+async function getVerifiedAdmin(){
+
+  /*
+    Server-side user check
+    getUser() is stronger than
+    relying only on local session.
+  */
+
+  const {
+    data,
+    error
+  } =
+    await db.auth.getUser();
+
+  if(error){
+    throw error;
+  }
+
+  const user =
+    data?.user;
+
+  if(!user){
+
+    throw new Error(
+      "Admin session পাওয়া যায়নি। আবার Login করুন।"
+    );
+
+  }
+
+  if(
+    user.id !==
+    ADMIN_UID
+  ){
+
+    await db.auth.signOut();
+
+    throw new Error(
+      "এই Login account-এর Admin UID সঠিক নয়। আবার নতুন Admin account দিয়ে Login করুন।"
+    );
+
+  }
+
+  if(
+    user.email?.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ){
+
+    await db.auth.signOut();
+
+    throw new Error(
+      "Admin Email সঠিক নয়।"
+    );
+
+  }
+
+  return user;
+}
+
+
+/* ========================================
+   UPDATE USER INFO
+======================================== */
+
+function updateUserInfo(user){
+
+  if(!userInfo){
+    return;
+  }
+
+  userInfo.innerHTML =
+    "✅ Admin verified<br>" +
+    "Email: " +
+    escapeHtml(user.email) +
+    "<br>" +
+    "UID: " +
+    escapeHtml(user.id);
 
 }
 
@@ -583,17 +695,13 @@ async function(){
 
   const email =
     document
-      .getElementById(
-        "email"
-      )
+      .getElementById("email")
       .value
       .trim();
 
   const password =
     document
-      .getElementById(
-        "password"
-      )
+      .getElementById("password")
       .value;
 
 
@@ -618,10 +726,19 @@ async function(){
   }
 
 
-  const {
-    data,
-    error
-  } =
+  try{
+
+    /*
+      Remove any stale session first.
+    */
+
+    await db.auth.signOut();
+
+
+    const {
+      data,
+      error
+    } =
     await db.auth.signInWithPassword({
 
       email:
@@ -633,52 +750,66 @@ async function(){
     });
 
 
-  loginBtn.disabled =
-    false;
-
-  loginBtn.textContent =
-    "Login";
+    if(error){
+      throw error;
+    }
 
 
-  if(error){
+    if(!data?.session){
+      throw new Error(
+        "Login session তৈরি হয়নি।"
+      );
+    }
+
+
+    /*
+      Server verification
+    */
+
+    const user =
+      await getVerifiedAdmin();
+
+
+    updateUserInfo(user);
+
+    showAdmin();
+
+    await loadNews();
+
+
+    showStatus(
+      loginStatus,
+      "",
+      "success"
+    );
+
+
+  }catch(error){
 
     console.error(
       "Login error:",
       error
     );
 
+    await db.auth.signOut();
+
+    showLogin();
+
     showStatus(
       loginStatus,
-      "Login failed: " +
+      "❌ Login failed: " +
       error.message,
       "error"
     );
 
-    return;
   }
 
 
-  if(
-    !isAdminUser(
-      data.user
-    )
-  ){
+  loginBtn.disabled =
+    false;
 
-    await db.auth.signOut();
-
-    showStatus(
-      loginStatus,
-      "এই Email Admin Email-এর সাথে মিলছে না।",
-      "error"
-    );
-
-    return;
-  }
-
-
-  showAdmin();
-
-  await loadNews();
+  loginBtn.textContent =
+    "Login";
 
 };
 
@@ -697,66 +828,16 @@ async function(){
     "Logging out...";
 
 
-  const {
-    error
-  } =
+  try{
+
     await db.auth.signOut();
 
-
-  if(error){
+  }catch(error){
 
     console.error(
       "Logout error:",
       error
     );
-
-    alert(
-      "Logout হয়নি: " +
-      error.message
-    );
-
-    logoutBtn.disabled =
-      false;
-
-    logoutBtn.textContent =
-      "Logout";
-
-    return;
-  }
-
-
-  /*
-    Clear browser auth cache
-  */
-
-  try{
-
-    Object.keys(
-      localStorage
-    ).forEach(
-      key => {
-
-        if(
-          key.includes(
-            "supabase"
-          ) ||
-          key.includes(
-            "auth-token"
-          )
-        ){
-
-          localStorage.removeItem(
-            key
-          );
-
-        }
-
-      }
-    );
-
-  }catch(error){
-
-    console.log(error);
 
   }
 
@@ -784,51 +865,60 @@ async function(){
 
 async function checkSession(){
 
-  const {
-    data,
-    error
-  } =
+  try{
+
+    /*
+      First check local session.
+    */
+
+    const {
+      data,
+      error
+    } =
     await db.auth.getSession();
 
 
-  if(error){
-
-    console.error(
-      "Session error:",
-      error
-    );
-
-    showLogin();
-
-    return;
-  }
+    if(error){
+      throw error;
+    }
 
 
-  const user =
-    data?.session?.user;
+    const session =
+      data?.session;
 
 
-  /*
-    Old account session হলে
-    automatically logout
-  */
+    if(!session){
 
-  if(
-    user &&
-    isAdminUser(user)
-  ){
+      showLogin();
+
+      return;
+
+    }
+
+
+    /*
+      Verify directly with Supabase server.
+    */
+
+    const user =
+      await getVerifiedAdmin();
+
+
+    updateUserInfo(user);
 
     showAdmin();
 
     await loadNews();
 
-  }else{
 
-    if(user){
+  }catch(error){
 
-      await db.auth.signOut();
+    console.log(
+      "No valid admin session:",
+      error.message
+    );
 
-    }
+    await db.auth.signOut();
 
     showLogin();
 
@@ -897,6 +987,7 @@ function setupPreview(
           "none";
 
         return;
+
       }
 
 
@@ -935,9 +1026,7 @@ async function uploadImage(
 ){
 
   if(!file){
-
     return null;
-
   }
 
 
@@ -967,39 +1056,31 @@ async function uploadImage(
   const {
     error
   } =
-    await db.storage
-      .from(
-        "news-images"
-      )
-      .upload(
-        path,
-        file,
-        {
-          cacheControl:
-            "3600",
-
-          upsert:false
-        }
-      );
+  await db.storage
+    .from("news-images")
+    .upload(
+      path,
+      file,
+      {
+        cacheControl:"3600",
+        upsert:false
+      }
+    );
 
 
   if(error){
-
     throw error;
-
   }
 
 
   const {
     data
   } =
-    db.storage
-      .from(
-        "news-images"
-      )
-      .getPublicUrl(
-        path
-      );
+  db.storage
+    .from("news-images")
+    .getPublicUrl(
+      path
+    );
 
 
   return data.publicUrl;
@@ -1026,63 +1107,62 @@ async function(){
 
   try{
 
+    /*
+      IMPORTANT:
+      Verify the current Supabase user
+      immediately before publishing.
+    */
+
+    const user =
+      await getVerifiedAdmin();
+
+
+    updateUserInfo(user);
+
+
     const category =
       document
-        .getElementById(
-          "category"
-        )
+        .getElementById("category")
         .value;
 
 
     const titleBn =
       document
-        .getElementById(
-          "titleBn"
-        )
+        .getElementById("titleBn")
         .value
         .trim();
 
 
     const contentBn =
       document
-        .getElementById(
-          "contentBn"
-        )
+        .getElementById("contentBn")
         .value
         .trim();
 
 
     const titleEn =
       document
-        .getElementById(
-          "titleEn"
-        )
+        .getElementById("titleEn")
         .value
         .trim();
 
 
     const contentEn =
       document
-        .getElementById(
-          "contentEn"
-        )
+        .getElementById("contentEn")
         .value
         .trim();
 
 
     const fileBn =
       document
-        .getElementById(
-          "imageBn"
-        )
+        .getElementById("imageBn")
         .files[0];
 
 
     const fileEn =
       document
-        .getElementById(
-          "imageEn"
-        )
+        .getElementById("imageEn")
         .files[0];
 
 
@@ -1110,6 +1190,10 @@ async function(){
     }
 
 
+    /*
+      Upload images
+    */
+
     const imageBnUrl =
       await uploadImage(
         fileBn,
@@ -1124,46 +1208,48 @@ async function(){
       );
 
 
+    /*
+      Insert news
+    */
+
     const {
       error
     } =
-      await db
-        .from(
-          "news"
-        )
-        .insert({
+    await db
+      .from("news")
+      .insert({
 
-          category:
-            category,
+        category:
+          category,
 
-          title:
-            titleBn,
+        title:
+          titleBn,
 
-          content:
-            contentBn,
+        content:
+          contentBn,
 
-          image_url:
-            imageBnUrl,
+        image_url:
+          imageBnUrl,
 
-          title_bn:
-            titleBn,
+        title_bn:
+          titleBn,
 
-          content_bn:
-            contentBn,
+        content_bn:
+          contentBn,
 
-          image_bn:
-            imageBnUrl,
+        image_bn:
+          imageBnUrl,
 
-          title_en:
-            titleEn,
+        title_en:
+          titleEn,
 
-          content_en:
-            contentEn,
+        content_en:
+          contentEn,
 
-          image_en:
-            imageEnUrl
+        image_en:
+          imageEnUrl
 
-        });
+      });
 
 
     if(error){
@@ -1179,6 +1265,10 @@ async function(){
       "success"
     );
 
+
+    /*
+      Clear form
+    */
 
     document.getElementById(
       "titleBn"
@@ -1246,7 +1336,7 @@ async function(){
 
 
 /* ========================================
-   LOAD OLD NEWS
+   LOAD NEWS
 ======================================== */
 
 async function loadNews(){
@@ -1259,19 +1349,17 @@ async function loadNews(){
     data,
     error
   } =
-    await db
-      .from(
-        "news"
-      )
-      .select(
-        "id,title,title_bn,title_en,category,created_at"
-      )
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+  await db
+    .from("news")
+    .select(
+      "id,title,title_bn,title_en,category,created_at"
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
 
 
   if(error){
@@ -1300,6 +1388,7 @@ async function loadNews(){
     `;
 
     return;
+
   }
 
 
@@ -1317,6 +1406,7 @@ async function loadNews(){
     `;
 
     return;
+
   }
 
 
@@ -1406,19 +1496,24 @@ async function deleteNews(id){
 
 
   if(!confirmDelete){
-
     return;
-
   }
 
 
-  const {
-    error
-  } =
+  try{
+
+    /*
+      Verify admin before delete.
+    */
+
+    await getVerifiedAdmin();
+
+
+    const {
+      error
+    } =
     await db
-      .from(
-        "news"
-      )
+      .from("news")
       .delete()
       .eq(
         "id",
@@ -1426,26 +1521,28 @@ async function deleteNews(id){
       );
 
 
-  if(error){
+    if(error){
+      throw error;
+    }
+
+
+    const item =
+      document.getElementById(
+        "news-" + id
+      );
+
+
+    if(item){
+      item.remove();
+    }
+
+
+  }catch(error){
 
     alert(
       "Delete হয়নি: " +
       error.message
     );
-
-    return;
-  }
-
-
-  const item =
-    document.getElementById(
-      "news-" + id
-    );
-
-
-  if(item){
-
-    item.remove();
 
   }
 
