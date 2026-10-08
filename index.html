@@ -42,12 +42,7 @@
 
   <style>
 
-    /* =========================
-       SPORTNEXIA NAVIGATION
-    ========================= */
-
     .top-sport-nav {
-
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
@@ -57,12 +52,9 @@
       position: sticky;
       top: 0;
       z-index: 9999;
-
     }
 
-
     .top-sport-nav-inner {
-
       max-width: 1200px;
       margin: 0 auto;
       padding: 10px 16px;
@@ -71,19 +63,13 @@
       gap: 8px;
       overflow-x: auto;
       scrollbar-width: none;
-
     }
-
 
     .top-sport-nav-inner::-webkit-scrollbar {
-
       display: none;
-
     }
 
-
     .top-sport-nav a {
-
       display: inline-flex !important;
       align-items: center;
       justify-content: center;
@@ -99,212 +85,121 @@
       font-weight: 700;
       white-space: nowrap;
       transition: 0.2s ease;
-
     }
-
 
     .top-sport-nav a:hover {
-
       background: #238cff;
       color: #ffffff;
       border-color: #238cff;
-
     }
-
 
     .top-sport-nav a.home-link {
-
       background: #238cff;
       color: #ffffff;
       border-color: #238cff;
-
     }
 
-
     .top-sport-nav a.live-link {
-
       background: #fff1f1;
       color: #d92d20;
       border-color: #ffd0d0;
-
     }
 
-
     .top-sport-nav a.live-link:hover {
-
       background: #d92d20;
       color: #ffffff;
       border-color: #d92d20;
-
     }
 
-
-    /* =========================
-       SMALL SPORTS INTRO
-    ========================= */
-
     .sports-intro {
-
       background: #061224;
       color: #ffffff;
       text-align: center;
       padding: 18px 15px;
-
     }
 
-
     .sports-intro p {
-
       margin: 0;
       color: #dbe8f7;
       font-size: 15px;
       font-weight: 700;
       line-height: 1.5;
-
     }
-
-
-    /* =========================
-       LATEST NEWS
-    ========================= */
 
     .new-latest-section {
-
       background: #f5f7fb;
       padding: 50px 20px 70px;
-
     }
-
 
     .new-latest-inner {
-
       max-width: 1200px;
       margin: 0 auto;
-
     }
 
-
     .new-section-top {
-
       display: flex;
       align-items: end;
       justify-content: space-between;
       gap: 20px;
       margin-bottom: 30px;
-
     }
 
-
     .new-section-kicker {
-
       display: block;
       color: #238cff;
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 3px;
       margin-bottom: 8px;
-
     }
 
-
     .new-section-top h2 {
-
       margin: 0;
       color: #081426;
       font-size: clamp(32px, 5vw, 54px);
       line-height: 1;
-
     }
 
-
     .explore-link {
-
       color: #238cff;
       font-weight: 800;
       text-decoration: none;
       white-space: nowrap;
-
     }
-
 
     .explore-link:hover {
-
       text-decoration: underline;
-
     }
-
-
-    /* =========================
-       NEWS GRID
-    ========================= */
 
     #newsGrid {
-
       display: grid;
-
-      grid-template-columns:
-        repeat(
-          3,
-          minmax(
-            0,
-            1fr
-          )
-        );
-
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
-
     }
-
-
-    /* =========================
-       QUICK SPORTS
-    ========================= */
 
     .quick-sports {
-
       background: #ffffff;
       padding: 45px 20px 55px;
-
     }
-
 
     .quick-sports-inner {
-
       max-width: 1200px;
       margin: 0 auto;
-
     }
 
-
     .quick-sports-title {
-
       margin: 0 0 25px;
       color: #081426;
       font-size: 28px;
-
     }
-
 
     .quick-sports-grid {
-
       display: grid;
-
-      grid-template-columns:
-        repeat(
-          4,
-          minmax(
-            0,
-            1fr
-          )
-        );
-
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 15px;
-
     }
 
-
     .quick-sport-card {
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -319,146 +214,84 @@
       font-weight: 800;
       text-align: center;
       transition: 0.2s ease;
-
     }
 
-
     .quick-sport-card:hover {
-
       transform: translateY(-2px);
       background: #238cff;
       color: #ffffff;
       border-color: #238cff;
-
     }
 
-
-    /* =========================
-       FOOTER
-    ========================= */
-
     .new-home-footer {
-
       background: #061224;
       color: #ffffff;
       padding: 45px 20px;
-
     }
 
-
     .new-home-footer-inner {
-
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 20px;
-
     }
-
 
     .new-home-footer strong {
-
       font-size: 20px;
       letter-spacing: 1px;
-
     }
 
-
     .new-home-footer p {
-
       margin: 0;
       color: #9fb0c5;
       font-size: 13px;
-
     }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
 
     @media (max-width: 800px) {
 
-
       .top-sport-nav-inner {
-
         padding: 9px 10px;
-
       }
-
 
       .top-sport-nav a {
-
         font-size: 12px;
         padding: 8px 12px;
-
       }
-
 
       .sports-intro {
-
         padding: 15px 10px;
-
       }
-
 
       .sports-intro p {
-
         font-size: 13px;
-
       }
-
 
       .new-latest-section {
-
         padding: 40px 20px 60px;
-
       }
-
 
       .new-section-top {
-
         align-items: flex-start;
         flex-direction: column;
-
       }
-
 
       #newsGrid {
-
         grid-template-columns: 1fr;
-
       }
-
 
       .quick-sports {
-
         padding: 40px 20px 50px;
-
       }
-
 
       .quick-sports-grid {
-
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(
-              0,
-              1fr
-            )
-          );
-
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-
       .new-home-footer-inner {
-
         flex-direction: column;
         align-items: flex-start;
-
       }
 
     }
@@ -470,10 +303,6 @@
 
 <body>
 
-
-  <!-- =========================
-       HEADER
-  ========================= -->
 
   <header class="site-header">
 
@@ -491,9 +320,7 @@
   </header>
 
 
-  <!-- =========================
-       SPORT NAVIGATION
-  ========================= -->
+  <!-- SPORT NAVIGATION -->
 
   <nav class="top-sport-nav">
 
@@ -506,11 +333,9 @@
         🏠 Home
       </a>
 
-
       <a href="football.html">
         ⚽ Football News
       </a>
-
 
       <a
         href="football-live.html"
@@ -519,14 +344,13 @@
         🔴 Football Live
       </a>
 
-
       <a href="cricket.html#cricketNews">
         🏏 Cricket News
       </a>
 
-
+      <!-- FIXED CRICKET LIVE LINK -->
       <a
-        href="cricket.html#cricketMatches"
+        href="cricket-live.html"
         class="live-link"
       >
         🔴 Cricket Live
@@ -537,9 +361,7 @@
   </nav>
 
 
-  <!-- =========================
-       BREAKING
-  ========================= -->
+  <!-- BREAKING -->
 
   <div class="breaking-bar">
 
@@ -558,9 +380,7 @@
   </div>
 
 
-  <!-- =========================
-       SMALL SPORTS INTRO
-  ========================= -->
+  <!-- SMALL SPORTS INTRO -->
 
   <section class="sports-intro">
 
@@ -571,14 +391,11 @@
   </section>
 
 
-  <!-- =========================
-       LATEST NEWS
-  ========================= -->
+  <!-- LATEST NEWS -->
 
   <section class="new-latest-section">
 
     <div class="new-latest-inner">
-
 
       <div class="new-section-top">
 
@@ -588,13 +405,11 @@
             FROM THE WORLD OF SPORTS
           </span>
 
-
           <h2>
             Latest News
           </h2>
 
         </div>
-
 
         <a
           href="football.html"
@@ -602,7 +417,6 @@
         >
           EXPLORE SPORTS →
         </a>
-
 
       </div>
 
@@ -615,20 +429,16 @@
 
       </div>
 
-
     </div>
 
   </section>
 
 
-  <!-- =========================
-       QUICK SPORTS
-  ========================= -->
+  <!-- QUICK SPORTS -->
 
   <section class="quick-sports">
 
     <div class="quick-sports-inner">
-
 
       <h2 class="quick-sports-title">
         Explore Sports
@@ -636,7 +446,6 @@
 
 
       <div class="quick-sports-grid">
-
 
         <a
           href="football.html"
@@ -665,14 +474,14 @@
         </a>
 
 
+        <!-- FIXED CRICKET LIVE LINK -->
         <a
-          href="cricket.html#cricketMatches"
+          href="cricket-live.html"
           class="quick-sport-card"
         >
           🔴<br>
           Cricket Live
         </a>
-
 
       </div>
 
@@ -681,9 +490,7 @@
   </section>
 
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
+  <!-- FOOTER -->
 
   <footer class="new-home-footer">
 
@@ -692,7 +499,6 @@
       <strong>
         SPORTNEXIA
       </strong>
-
 
       <p>
         Football • Cricket • Sports Updates
@@ -703,9 +509,7 @@
   </footer>
 
 
-  <!-- =========================
-       SUPABASE
-  ========================= -->
+  <!-- SUPABASE -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
