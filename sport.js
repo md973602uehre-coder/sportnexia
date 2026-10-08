@@ -46,8 +46,13 @@ function updateLanguageButtons() {
       currentLanguage === "en"
     );
   }
+
 }
 
+
+/* =========================
+   LANGUAGE BUTTONS
+========================= */
 
 function setupLanguageButtons() {
 
@@ -56,6 +61,7 @@ function setupLanguageButtons() {
 
   const englishButton =
     document.getElementById("englishButton");
+
 
   if (banglaButton) {
 
@@ -71,9 +77,7 @@ function setupLanguageButtons() {
         );
 
         updateLanguageButtons();
-
         updatePageLanguage();
-
         reloadNews();
 
       }
@@ -96,9 +100,7 @@ function setupLanguageButtons() {
         );
 
         updateLanguageButtons();
-
         updatePageLanguage();
-
         reloadNews();
 
       }
@@ -125,67 +127,190 @@ function updatePageLanguage() {
     document.querySelector(".matches-section h2");
 
   const liveDescription =
-    document.querySelector(".matches-section .section-heading p");
+    document.querySelector(
+      ".matches-section .section-heading p"
+    );
 
   const newsKicker =
-    document.querySelector(".football-news .hero-kicker");
+    document.querySelector(
+      ".football-news .hero-kicker"
+    );
 
   const newsTitle =
-    document.querySelector(".football-news h2");
+    document.querySelector(
+      ".football-news h2"
+    );
 
   const breakingText =
-    document.getElementById("breakingText");
+    document.getElementById(
+      "breakingText"
+    );
 
+
+  /* =========================
+     DETECT SPORT PAGE
+  ========================= */
+
+  const isCricketPage =
+    document.getElementById("cricketNews") ||
+    document.getElementById("cricketMatches");
+
+  const isFootballPage =
+    document.getElementById("footballNews") ||
+    document.getElementById("footballMatches");
+
+
+  /* =========================
+     HERO
+  ========================= */
 
   if (heroTitle) {
-    heroTitle.textContent =
-      t("ফুটবল", "Football");
+
+    if (isCricketPage) {
+
+      heroTitle.textContent =
+        t(
+          "ক্রিকেট",
+          "Cricket"
+        );
+
+    } else {
+
+      heroTitle.textContent =
+        t(
+          "ফুটবল",
+          "Football"
+        );
+
+    }
+
   }
 
 
   if (heroDescription) {
-    heroDescription.textContent =
-      t(
-        "সারা বিশ্বের সর্বশেষ ফুটবল খবর, লাইভ স্কোর, ম্যাচ ও ফলাফল অনুসরণ করুন।",
-        "Follow the latest football news, live scores, fixtures and results from around the world."
-      );
+
+    if (isCricketPage) {
+
+      heroDescription.textContent =
+        t(
+          "সারা বিশ্বের সর্বশেষ ক্রিকেট খবর, লাইভ স্কোর, ম্যাচ ও ফলাফল অনুসরণ করুন।",
+          "Follow the latest cricket news, live scores, fixtures and results from around the world."
+        );
+
+    } else {
+
+      heroDescription.textContent =
+        t(
+          "সারা বিশ্বের সর্বশেষ ফুটবল খবর, লাইভ স্কোর, ম্যাচ ও ফলাফল অনুসরণ করুন।",
+          "Follow the latest football news, live scores, fixtures and results from around the world."
+        );
+
+    }
+
   }
 
 
+  /* =========================
+     LIVE TITLE
+  ========================= */
+
   if (liveTitle) {
-    liveTitle.textContent =
-      t("ফুটবল লাইভ", "Football Live");
+
+    if (isCricketPage) {
+
+      liveTitle.textContent =
+        t(
+          "ক্রিকেট লাইভ",
+          "Cricket Live"
+        );
+
+    } else {
+
+      liveTitle.textContent =
+        t(
+          "ফুটবল লাইভ",
+          "Football Live"
+        );
+
+    }
+
   }
 
 
   if (liveDescription) {
+
     liveDescription.textContent =
       "LIVE • UPCOMING • RESULTS";
+
   }
 
 
+  /* =========================
+     NEWS TITLE
+  ========================= */
+
   if (newsKicker) {
+
     newsKicker.textContent =
-      t("সর্বশেষ খবর", "LATEST STORIES");
+      t(
+        "সর্বশেষ খবর",
+        "LATEST STORIES"
+      );
+
   }
 
 
   if (newsTitle) {
-    newsTitle.textContent =
-      t("ফুটবল সংবাদ", "Football News");
+
+    if (isCricketPage) {
+
+      newsTitle.textContent =
+        t(
+          "ক্রিকেট সংবাদ",
+          "Cricket News"
+        );
+
+    } else {
+
+      newsTitle.textContent =
+        t(
+          "ফুটবল সংবাদ",
+          "Football News"
+        );
+
+    }
+
   }
 
 
+  /* =========================
+     BREAKING DEFAULT
+  ========================= */
+
   if (breakingText) {
-    if (
-      !breakingText.dataset.newsTitle
-    ) {
-      breakingText.textContent =
-        t(
-          "সর্বশেষ ফুটবল আপডেট",
-          "Latest football updates"
-        );
+
+    if (!breakingText.dataset.newsTitle) {
+
+      if (isCricketPage) {
+
+        breakingText.textContent =
+          t(
+            "সর্বশেষ ক্রিকেট আপডেট",
+            "Latest cricket updates"
+          );
+
+      } else {
+
+        breakingText.textContent =
+          t(
+            "সর্বশেষ ফুটবল আপডেট",
+            "Latest football updates"
+          );
+
+      }
+
     }
+
   }
 
 }
@@ -306,29 +431,46 @@ function createFootballMatch(match) {
 
     statusText =
       status.elapsed
-        ? `${t("লাইভ", "LIVE")} ${status.elapsed}'`
-        : t("লাইভ", "LIVE");
+        ? `${t(
+            "লাইভ",
+            "LIVE"
+          )} ${status.elapsed}'`
+        : t(
+            "লাইভ",
+            "LIVE"
+          );
 
   } else if (
     statusShort === "FT"
   ) {
 
     statusText =
-      t("পূর্ণ সময়", "FULL TIME");
+      t(
+        "পূর্ণ সময়",
+        "FULL TIME"
+      );
 
   } else if (
     statusShort === "HT"
   ) {
 
     statusText =
-      t("হাফ টাইম", "HALF TIME");
+      t(
+        "হাফ টাইম",
+        "HALF TIME"
+      );
 
   } else {
 
     statusText =
       status.long ||
-      formatDate(fixture.date) ||
-      t("আসন্ন", "UPCOMING");
+      formatDate(
+        fixture.date
+      ) ||
+      t(
+        "আসন্ন",
+        "UPCOMING"
+      );
 
   }
 
@@ -338,17 +480,26 @@ function createFootballMatch(match) {
     <article class="match-card">
 
       <div class="match-league">
+
         ${escapeHTML(
           league.name ||
-          t("ফুটবল", "Football")
+          t(
+            "ফুটবল",
+            "Football"
+          )
         )}
+
       </div>
 
 
       <div class="match-status ${
         isLive ? "live" : ""
       }">
-        ${escapeHTML(statusText)}
+
+        ${escapeHTML(
+          statusText
+        )}
+
       </div>
 
 
@@ -361,7 +512,9 @@ function createFootballMatch(match) {
               ? `
                 <img
                   class="team-logo"
-                  src="${escapeHTML(home.logo)}"
+                  src="${escapeHTML(
+                    home.logo
+                  )}"
                   alt="${escapeHTML(
                     home.name ||
                     "Home"
@@ -372,10 +525,15 @@ function createFootballMatch(match) {
           }
 
           <strong>
+
             ${escapeHTML(
               home.name ||
-              t("হোম", "Home")
+              t(
+                "হোম",
+                "Home"
+              )
             )}
+
           </strong>
 
         </div>
@@ -384,13 +542,17 @@ function createFootballMatch(match) {
         <div class="score">
 
           <span>
-            ${escapeHTML(homeScore)}
+            ${escapeHTML(
+              homeScore
+            )}
           </span>
 
           <span>:</span>
 
           <span>
-            ${escapeHTML(awayScore)}
+            ${escapeHTML(
+              awayScore
+            )}
           </span>
 
         </div>
@@ -403,7 +565,9 @@ function createFootballMatch(match) {
               ? `
                 <img
                   class="team-logo"
-                  src="${escapeHTML(away.logo)}"
+                  src="${escapeHTML(
+                    away.logo
+                  )}"
                   alt="${escapeHTML(
                     away.name ||
                     "Away"
@@ -414,10 +578,15 @@ function createFootballMatch(match) {
           }
 
           <strong>
+
             ${escapeHTML(
               away.name ||
-              t("অ্যাওয়ে", "Away")
+              t(
+                "অ্যাওয়ে",
+                "Away"
+              )
             )}
+
           </strong>
 
         </div>
@@ -463,14 +632,20 @@ function createCricketMatch(match) {
   if (isLive) {
 
     statusText =
-      t("লাইভ", "LIVE");
+      t(
+        "লাইভ",
+        "LIVE"
+      );
 
   } else if (
     status === "completed"
   ) {
 
     statusText =
-      t("সম্পন্ন", "COMPLETED");
+      t(
+        "সম্পন্ন",
+        "COMPLETED"
+      );
 
   } else {
 
@@ -478,7 +653,10 @@ function createCricketMatch(match) {
       formatDate(
         match.kickoff_utc
       ) ||
-      t("আসন্ন", "UPCOMING");
+      t(
+        "আসন্ন",
+        "UPCOMING"
+      );
 
   }
 
@@ -504,7 +682,10 @@ function createCricketMatch(match) {
         ${escapeHTML(
           match.league?.name ||
           match.league_name ||
-          t("ক্রিকেট", "Cricket")
+          t(
+            "ক্রিকেট",
+            "Cricket"
+          )
         )}
 
       </div>
@@ -514,7 +695,9 @@ function createCricketMatch(match) {
         isLive ? "live" : ""
       }">
 
-        ${escapeHTML(statusText)}
+        ${escapeHTML(
+          statusText
+        )}
 
       </div>
 
@@ -546,7 +729,10 @@ function createCricketMatch(match) {
             ${escapeHTML(
               home.short_name ||
               home.name ||
-              t("হোম", "Home")
+              t(
+                "হোম",
+                "Home"
+              )
             )}
 
           </strong>
@@ -557,13 +743,17 @@ function createCricketMatch(match) {
         <div class="score">
 
           <span>
-            ${escapeHTML(homeScore)}
+            ${escapeHTML(
+              homeScore
+            )}
           </span>
 
           <span>:</span>
 
           <span>
-            ${escapeHTML(awayScore)}
+            ${escapeHTML(
+              awayScore
+            )}
           </span>
 
         </div>
@@ -594,7 +784,10 @@ function createCricketMatch(match) {
             ${escapeHTML(
               away.short_name ||
               away.name ||
-              t("অ্যাওয়ে", "Away")
+              t(
+                "অ্যাওয়ে",
+                "Away"
+              )
             )}
 
           </strong>
@@ -627,10 +820,12 @@ async function loadFootballMatches() {
 
   container.innerHTML =
     `<div class="loading">
+
       ${t(
         "ফুটবল ম্যাচ লোড হচ্ছে...",
         "Loading football matches..."
       )}
+
     </div>`;
 
 
@@ -902,57 +1097,97 @@ async function loadCricketMatches() {
 
 function createSportNews(news) {
 
-  const title =
-    currentLanguage === "en"
-      ? (
-          news.title_en ||
-          news.title_bn ||
-          news.title ||
-          ""
+  let title = "";
+  let content = "";
+  let image = "";
+
+
+  /* =========================
+     BANGLA VERSION
+  ========================= */
+
+  if (
+    currentLanguage === "bn"
+  ) {
+
+    title =
+      news.title_bn ||
+      news.title ||
+      "";
+
+    content =
+      news.content_bn ||
+      news.content ||
+      "";
+
+    image =
+      news.image_bn ||
+      news.image_url ||
+      "";
+
+  }
+
+
+  /* =========================
+     ENGLISH VERSION
+  ========================= */
+
+  else {
+
+    /*
+      IMPORTANT:
+      English version will NEVER
+      fall back to Bangla text.
+    */
+
+    title =
+      news.title_en ||
+      "English version is not available yet.";
+
+    content =
+      news.content_en ||
+      "This news is currently available in Bangla only.";
+
+    /*
+      image_url is the general/old image.
+      We do NOT use image_bn here.
+    */
+
+    image =
+      news.image_en ||
+      news.image_url ||
+      "";
+
+  }
+
+
+  const newsId =
+    news.id != null
+      ? encodeURIComponent(
+          news.id
         )
-      : (
-          news.title_bn ||
-          news.title ||
-          news.title_en ||
-          ""
-        );
+      : "";
 
 
-  const content =
-    currentLanguage === "en"
-      ? (
-          news.content_en ||
-          news.content_bn ||
-          news.content ||
-          ""
-        )
-      : (
-          news.content_bn ||
-          news.content ||
-          news.content_en ||
-          ""
-        );
+  const newsLink =
+    newsId
+      ? `news.html?id=${newsId}`
+      : "#";
 
 
-  const image =
-    currentLanguage === "en"
-      ? (
-          news.image_en ||
-          news.image_bn ||
-          news.image_url ||
-          ""
-        )
-      : (
-          news.image_bn ||
-          news.image_url ||
-          news.image_en ||
-          ""
-        );
+  const isEnglishMissing =
+    currentLanguage === "en" &&
+    !news.title_en &&
+    !news.content_en;
 
 
   return `
 
-    <article class="news-card">
+    <a
+      href="${escapeHTML(newsLink)}"
+      class="news-card news-card-link"
+      aria-label="${escapeHTML(title)}"
+    >
 
       ${
         image
@@ -1002,7 +1237,13 @@ function createSportNews(news) {
         </h3>
 
 
-        <p>
+        <p
+          ${
+            isEnglishMissing
+              ? 'class="english-unavailable"'
+              : ""
+          }
+        >
 
           ${escapeHTML(content)}
 
@@ -1021,12 +1262,16 @@ function createSportNews(news) {
 
       </div>
 
-    </article>
+    </a>
 
   `;
 
 }
 
+
+/* =========================
+   LOAD SPORT NEWS
+========================= */
 
 async function loadSportNews(
   category,
@@ -1140,25 +1385,34 @@ async function loadSportNews(
 
   if (
     breakingText &&
-    category === "Football" &&
     news[0]
   ) {
 
-    const breakingTitle =
-      currentLanguage === "en"
-        ? (
-            news[0].title_en ||
-            news[0].title_bn ||
-            news[0].title ||
-            ""
-          )
-        : (
-            news[0].title_bn ||
-            news[0].title ||
-            news[0].title_en ||
-            ""
-          );
+    let breakingTitle = "";
 
+
+    if (
+      currentLanguage === "en"
+    ) {
+
+      breakingTitle =
+        news[0].title_en ||
+        "English version is not available yet.";
+
+    } else {
+
+      breakingTitle =
+        news[0].title_bn ||
+        news[0].title ||
+        "";
+
+    }
+
+
+    /*
+      Football and Cricket can
+      both update the breaking bar.
+    */
 
     breakingText.textContent =
       breakingTitle;
