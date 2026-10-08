@@ -8,6 +8,11 @@ const sportDB = createClient(
 const FOOTBALL_API_URL =
   'https://pxnnzucxekcmwanqnjhf.supabase.co/functions/v1/football-api';
 
+
+/* =========================
+   HELPERS
+========================= */
+
 function sportEsc(value) {
   return String(value ?? '').replace(/[&<>'"]/g, char => ({
     '&': '&amp;',
@@ -15,29 +20,43 @@ function sportEsc(value) {
     '>': '&gt;',
     "'": '&#39;',
     '"': '&quot;'
-  }[char]);
+  }[char]));
 }
 
-function sportDate(value) {
+
+function formatDate(value) {
   if (!value) return '';
 
-  return new Date(value).toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  }).toUpperCase();
+  return new Date(value).toLocaleDateString(
+    'en-GB',
+    {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    }
+  ).toUpperCase();
 }
 
-function sportTime(value) {
+
+function formatTime(value) {
   if (!value) return '';
 
-  return new Date(value).toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  return new Date(value).toLocaleTimeString(
+    [],
+    {
+      hour: '2-digit',
+      minute: '2-digit'
+    }
+  );
 }
 
-function sportNewsCard(news, sport) {
+
+/* =========================
+   NEWS
+========================= */
+
+function createNewsCard(news, sport) {
+
   const icon =
     sport === 'cricket'
       ? '🏏'
@@ -62,18 +81,25 @@ function sportNewsCard(news, sport) {
               >
             `
             : `
-              <div class="pic">${icon}</div>
+              <div class="pic">
+                ${icon}
+              </div>
             `
         }
 
         <div class="pad">
+
           <label>
-            ${sportEsc(news.category || sport.toUpperCase())}
+            ${sportEsc(
+              news.category ||
+              sport.toUpperCase()
+            )}
           </label>
 
           <h3>
             ${sportEsc(news.title)}
           </h3>
+
         </div>
 
       </div>
@@ -85,13 +111,13 @@ function sportNewsCard(news, sport) {
           role="button"
           tabindex="0"
           aria-expanded="false"
-          title="Click to read more"
         >
           ${sportEsc(news.content || '')}
         </p>
 
         <small>
-          ${sportDate(news.created_at)} • SPORTNEXIA
+          ${formatDate(news.created_at)}
+          • SPORTNEXIA
         </small>
 
       </div>
@@ -100,63 +126,96 @@ function sportNewsCard(news, sport) {
   `;
 }
 
+
 function sportOpenNews(id) {
+
   window.location.href =
     `news.html?id=${encodeURIComponent(id)}`;
+
 }
 
-function sportSetupContentToggle() {
+
+function setupNewsToggle() {
+
   document
     .querySelectorAll('.news-content')
     .forEach(element => {
 
       const toggle = () => {
-        element.classList.toggle('expanded');
+
+        element.classList.toggle(
+          'expanded'
+        );
 
         element.setAttribute(
           'aria-expanded',
-          element.classList.contains('expanded')
+          element.classList.contains(
+            'expanded'
+          )
             ? 'true'
             : 'false'
         );
+
       };
 
-      element.addEventListener('click', event => {
-        event.stopPropagation();
-        toggle();
-      });
 
-      element.addEventListener('keydown', event => {
+      element.addEventListener(
+        'click',
+        event => {
 
-        if (
-          event.key === 'Enter' ||
-          event.key === ' '
-        ) {
-          event.preventDefault();
           event.stopPropagation();
-          toggle();
-        }
 
-      });
+          toggle();
+
+        }
+      );
+
+
+      element.addEventListener(
+        'keydown',
+        event => {
+
+          if (
+            event.key === 'Enter' ||
+            event.key === ' '
+          ) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            toggle();
+
+          }
+
+        }
+      );
 
     });
+
 }
 
+
 /* =========================
-   SPORT NEWS
+   LOAD SPORT NEWS
 ========================= */
 
 async function loadSportNews(sport) {
 
-  const newsContainer =
-    document.getElementById(`${sport}News`);
+  const container =
+    document.getElementById(
+      `${sport}News`
+    );
 
-  if (!newsContainer) return;
+  if (!container) return;
 
-  newsContainer.innerHTML =
-    `<div class="loading">
+
+  container.innerHTML = `
+    <div class="loading">
       Loading ${sport} news...
-    </div>`;
+    </div>
+  `;
+
 
   const {
     data,
@@ -164,85 +223,117 @@ async function loadSportNews(sport) {
   } = await sportDB
     .from('news')
     .select('*')
-    .ilike('category', `%${sport}%`)
-    .order('created_at', {
-      ascending: false
-    });
+    .ilike(
+      'category',
+      `%${sport}%`
+    )
+    .order(
+      'created_at',
+      {
+        ascending: false
+      }
+    );
+
 
   if (error) {
 
     console.error(
-      'SPORTNEXIA news error:',
+      'SPORTNEXIA News Error:',
       error
     );
 
-    newsContainer.innerHTML =
-      `<div class="error">
+    container.innerHTML = `
+      <div class="error">
         ${sportEsc(sport)}
-        news could not be loaded right now.
-      </div>`;
+        news could not be loaded.
+      </div>
+    `;
 
     return;
+
   }
 
-  const news = data || [];
+
+  const news =
+    data || [];
+
 
   if (!news.length) {
 
-    newsContainer.innerHTML =
-      `<div class="empty">
+    container.innerHTML = `
+      <div class="empty">
         No ${sportEsc(sport)}
         news published yet.
-      </div>`;
+      </div>
+    `;
 
     return;
+
   }
 
-  newsContainer.innerHTML =
+
+  container.innerHTML =
     news
       .slice(0, 9)
-      .map(item =>
-        sportNewsCard(item, sport)
+      .map(
+        item =>
+          createNewsCard(
+            item,
+            sport
+          )
       )
       .join('');
 
-  sportSetupContentToggle();
+
+  setupNewsToggle();
+
 
   const breakingText =
-    document.getElementById('breakingText');
+    document.getElementById(
+      'breakingText'
+    );
+
 
   if (
     breakingText &&
     news[0]
   ) {
+
     breakingText.textContent =
       news[0].title;
+
   }
+
 }
 
+
 /* =========================
-   FOOTBALL LIVE MATCHES
+   FOOTBALL MATCH CARD
 ========================= */
 
-function footballMatchCard(match) {
-
-  const home =
-    match.teams?.home || {};
-
-  const away =
-    match.teams?.away || {};
-
-  const goals =
-    match.goals || {};
+function createFootballMatch(match) {
 
   const fixture =
     match.fixture || {};
+
+  const teams =
+    match.teams || {};
+
+  const home =
+    teams.home || {};
+
+  const away =
+    teams.away || {};
+
+  const goals =
+    match.goals || {};
 
   const league =
     match.league || {};
 
   const status =
-    match.fixture?.status || {};
+    fixture.status || {};
+
 
   const isLive =
     status.live === true ||
@@ -252,11 +343,15 @@ function footballMatchCard(match) {
       'ET',
       'P',
       'LIVE'
-    ].includes(status.short);
+    ].includes(
+      status.short
+    );
+
 
   let statusText =
     status.long ||
-    'Upcoming';
+    'Match';
+
 
   if (isLive) {
 
@@ -267,16 +362,20 @@ function footballMatchCard(match) {
 
   }
 
-  const statusClass =
-    isLive
-      ? 'live'
-      : '';
 
   const homeScore =
-    goals.home ?? '-';
+    goals.home === null ||
+    goals.home === undefined
+      ? '-'
+      : goals.home;
+
 
   const awayScore =
-    goals.away ?? '-';
+    goals.away === null ||
+    goals.away === undefined
+      ? '-'
+      : goals.away;
+
 
   return `
     <article class="match-card">
@@ -284,11 +383,14 @@ function footballMatchCard(match) {
       <div class="match-top">
 
         <span class="league-name">
+
           ${
             league.logo
               ? `
                 <img
-                  src="${sportEsc(league.logo)}"
+                  src="${sportEsc(
+                    league.logo
+                  )}"
                   alt=""
                   style="
                     width:20px;
@@ -303,19 +405,30 @@ function footballMatchCard(match) {
           }
 
           ${sportEsc(
-            league.name || 'Football'
+            league.name ||
+            'Football'
           )}
+
         </span>
 
+
         <span
-          class="match-status ${statusClass}"
+          class="match-status ${
+            isLive
+              ? 'live'
+              : ''
+          }"
         >
-          ${sportEsc(statusText)}
+          ${sportEsc(
+            statusText
+          )}
         </span>
 
       </div>
 
+
       <div class="teams">
+
 
         <div class="team">
 
@@ -324,8 +437,12 @@ function footballMatchCard(match) {
               ? `
                 <img
                   class="team-logo"
-                  src="${sportEsc(home.logo)}"
-                  alt="${sportEsc(home.name)}"
+                  src="${sportEsc(
+                    home.logo
+                  )}"
+                  alt="${sportEsc(
+                    home.name
+                  )}"
                   loading="lazy"
                 >
               `
@@ -338,27 +455,34 @@ function footballMatchCard(match) {
 
           <span>
             ${sportEsc(
-              home.name || 'Home'
+              home.name ||
+              'Home Team'
             )}
           </span>
 
         </div>
 
+
         <div class="vs">
 
           <strong>
-            ${sportEsc(homeScore)}
+            ${sportEsc(
+              homeScore
+            )}
           </strong>
 
-          <span style="margin:0 5px;">
+          <span>
             -
           </span>
 
           <strong>
-            ${sportEsc(awayScore)}
+            ${sportEsc(
+              awayScore
+            )}
           </strong>
 
         </div>
+
 
         <div class="team">
 
@@ -367,8 +491,12 @@ function footballMatchCard(match) {
               ? `
                 <img
                   class="team-logo"
-                  src="${sportEsc(away.logo)}"
-                  alt="${sportEsc(away.name)}"
+                  src="${sportEsc(
+                    away.logo
+                  )}"
+                  alt="${sportEsc(
+                    away.name
+                  )}"
                   loading="lazy"
                 >
               `
@@ -381,23 +509,30 @@ function footballMatchCard(match) {
 
           <span>
             ${sportEsc(
-              away.name || 'Away'
+              away.name ||
+              'Away Team'
             )}
           </span>
 
         </div>
 
+
       </div>
+
 
       <div class="match-time">
 
         ${
           isLive
-            ? '🔴 Live now'
+            ? '🔴 LIVE NOW'
             : `
-              ${sportDate(fixture.date)}
+              ${formatDate(
+                fixture.date
+              )}
               •
-              ${sportTime(fixture.date)}
+              ${formatTime(
+                fixture.date
+              )}
             `
         }
 
@@ -406,6 +541,11 @@ function footballMatchCard(match) {
     </article>
   `;
 }
+
+
+/* =========================
+   LOAD REAL FOOTBALL API
+========================= */
 
 async function loadFootballMatches() {
 
@@ -416,85 +556,133 @@ async function loadFootballMatches() {
 
   if (!container) return;
 
-  container.innerHTML =
-    `<div class="loading">
-      Loading live football...
-    </div>`;
+
+  container.innerHTML = `
+    <div class="loading">
+      ⚽ Loading live football...
+    </div>
+  `;
+
 
   try {
 
     const response =
       await fetch(
-        FOOTBALL_API_URL
+        FOOTBALL_API_URL,
+        {
+          method: 'GET',
+          cache: 'no-store'
+        }
       );
 
+
     if (!response.ok) {
+
       throw new Error(
-        `API error: ${response.status}`
+        `HTTP ${response.status}`
       );
+
     }
+
 
     const data =
       await response.json();
 
+
     console.log(
-      'SPORTNEXIA Football API:',
+      'SPORTNEXIA FOOTBALL DATA:',
       data
     );
 
-    if (data.error) {
-      throw new Error(
-        data.error
+
+    if (
+      data.error ||
+      data.errors
+    ) {
+
+      console.error(
+        'Football API error:',
+        data.error ||
+        data.errors
       );
+
+      throw new Error(
+        'Football API returned an error'
+      );
+
     }
 
+
     const matches =
-      Array.isArray(data.response)
+      Array.isArray(
+        data.response
+      )
         ? data.response
         : [];
 
+
+    /* NO LIVE MATCH */
+
     if (!matches.length) {
 
-      container.innerHTML =
-        `
+      container.innerHTML = `
         <div class="empty">
-          ⚽ No live football matches right now.
+          ⚽ No live football
+          matches right now.
         </div>
-        `;
+      `;
 
       return;
+
     }
+
+
+    /* REAL MATCHES */
 
     container.innerHTML =
       matches
         .slice(0, 12)
-        .map(match =>
-          footballMatchCard(match)
+        .map(
+          match =>
+            createFootballMatch(
+              match
+            )
         )
         .join('');
+
 
   } catch (error) {
 
     console.error(
-      'Football API error:',
+      'SPORTNEXIA Football Error:',
       error
     );
 
-    container.innerHTML =
-      `
+
+    container.innerHTML = `
       <div class="error">
-        ⚠️ Live football could not be loaded.
-        Please try again later.
+
+        ⚠️ Live football
+        could not be loaded.
+
+        <br><br>
+
+        Please refresh
+        the page and try again.
+
       </div>
-      `;
+    `;
+
   }
+
 }
 
+
 /* =========================
-   CRICKET TEMPORARY
+   CRICKET
 ========================= */
 
-function loadTemporaryCricketMatches() {
+function loadCricketMatches() {
 
   const container =
     document.getElementById(
@@ -503,39 +691,61 @@ function loadTemporaryCricketMatches() {
 
   if (!container) return;
 
-  container.innerHTML =
-    `
+
+  container.innerHTML = `
     <div class="empty">
-      🏏 Cricket live scores will appear here.
+
+      🏏 Cricket live scores
+      will be added soon.
+
     </div>
-    `;
+  `;
+
 }
 
+
 /* =========================
-   PAGE INITIALIZATION
+   INITIALIZE PAGE
 ========================= */
 
-async function initSportPage(sport) {
+async function initSportPage(
+  sport
+) {
 
   console.log(
-    `SPORTNEXIA ${sport} page loaded`
+    `SPORTNEXIA ${sport} page started`
   );
 
-  await loadSportNews(sport);
 
-  if (sport === 'football') {
+  await loadSportNews(
+    sport
+  );
+
+
+  if (
+    sport === 'football'
+  ) {
 
     await loadFootballMatches();
 
-  } else if (sport === 'cricket') {
-
-    loadTemporaryCricketMatches();
+    return;
 
   }
+
+
+  if (
+    sport === 'cricket'
+  ) {
+
+    loadCricketMatches();
+
+  }
+
 }
 
+
 /* =========================
-   START
+   PAGE DETECTION
 ========================= */
 
 document.addEventListener(
@@ -543,27 +753,43 @@ document.addEventListener(
   () => {
 
     const path =
-      window.location.pathname.toLowerCase();
+      window.location.pathname
+        .toLowerCase();
 
-    if (path.includes('football')) {
 
-      initSportPage('football');
+    if (
+      path.includes(
+        'football'
+      )
+    ) {
+
+      initSportPage(
+        'football'
+      );
 
       return;
+
     }
 
-    if (path.includes('cricket')) {
 
-      initSportPage('cricket');
+    if (
+      path.includes(
+        'cricket'
+      )
+    ) {
 
-      return;
+      initSportPage(
+        'cricket'
+      );
+
     }
 
   }
 );
 
+
 /* =========================
-   GLOBAL FUNCTIONS
+   GLOBAL
 ========================= */
 
 window.sportOpenNews =
