@@ -5,25 +5,19 @@
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta
     name="description"
-    content="SPORTNEXIA - Football, Cricket and sports updates."
+    content="SPORTNEXIA - Football, Cricket and latest sports updates."
   >
 
   <meta
     name="keywords"
-    content="SPORTNEXIA, football, cricket, sports news, live scores, football news, cricket news"
+    content="SPORTNEXIA, sports news, football, cricket, football news, cricket news, live scores, sports updates"
   >
 
-  <meta
-    name="robots"
-    content="index, follow"
-  >
+  <meta name="robots" content="index, follow">
 
   <meta
     property="og:title"
@@ -39,259 +33,327 @@
 
   <link rel="stylesheet" href="style.css">
 
-
   <style>
 
-    .top-sport-nav {
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f7fb;
+    }
+
+    /* HEADER */
+
+    .site-header {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
+    }
+
+    /* MAIN NAVIGATION */
+
+    .sport-main-nav {
       width: 100%;
       background: #ffffff;
       border-bottom: 1px solid #e7eaf0;
+
       position: sticky;
       top: 0;
       z-index: 9999;
     }
 
-    .top-sport-nav-inner {
+    .sport-main-nav-inner {
       max-width: 1200px;
       margin: 0 auto;
+
       padding: 10px 16px;
+
       display: flex;
       align-items: center;
       gap: 8px;
+
       overflow-x: auto;
       scrollbar-width: none;
     }
 
-    .top-sport-nav-inner::-webkit-scrollbar {
+    .sport-main-nav-inner::-webkit-scrollbar {
       display: none;
     }
 
-    .top-sport-nav a {
-      display: inline-flex !important;
+    .sport-main-nav a {
+      display: inline-flex;
+
       align-items: center;
       justify-content: center;
+
       flex: 0 0 auto;
-      min-height: 38px;
-      text-decoration: none;
-      color: #172033;
-      background: #f4f6fa;
-      border: 1px solid #e5e8ef;
-      border-radius: 999px;
+
+      min-height: 40px;
+
       padding: 9px 14px;
+
+      border-radius: 999px;
+
+      border: 1px solid #e5e8ef;
+
+      background: #f4f6fa;
+
+      color: #172033;
+
+      text-decoration: none;
+
       font-size: 13px;
       font-weight: 700;
+
       white-space: nowrap;
-      transition: 0.2s ease;
     }
 
-    .top-sport-nav a:hover {
+    .sport-main-nav a:hover {
+      background: #eaf2ff;
+    }
+
+    .sport-main-nav .active-home {
       background: #238cff;
       color: #ffffff;
       border-color: #238cff;
     }
 
-    .top-sport-nav a.home-link {
-      background: #238cff;
-      color: #ffffff;
-      border-color: #238cff;
+    /* BREAKING BAR */
+
+    .breaking-bar {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
     }
 
-    .top-sport-nav a.live-link {
-      background: #fff1f1;
-      color: #d92d20;
-      border-color: #ffd0d0;
-    }
+    /* HERO */
 
-    .top-sport-nav a.live-link:hover {
-      background: #d92d20;
-      color: #ffffff;
-      border-color: #d92d20;
-    }
+    .sport-hero {
+      display: block !important;
 
-    .sports-intro {
-      background: #061224;
+      width: 100%;
+
+      background:
+        linear-gradient(
+          135deg,
+          #061224 0%,
+          #0a1d38 55%,
+          #09284b 100%
+        );
+
       color: #ffffff;
+
       text-align: center;
-      padding: 18px 15px;
+
+      padding: 45px 15px;
     }
 
-    .sports-intro p {
+    .sport-hero h1 {
       margin: 0;
-      color: #dbe8f7;
+
+      color: #ffffff !important;
+
+      font-size: 38px;
+      line-height: 1.2;
+
+      font-weight: 800;
+    }
+
+    .sport-hero p {
+      margin: 12px 0 0;
+
+      color: #c4d2e3 !important;
+
       font-size: 15px;
-      font-weight: 700;
-      line-height: 1.5;
     }
 
-    .new-latest-section {
-      background: #f5f7fb;
-      padding: 50px 20px 70px;
-    }
+    /* QUICK LINKS */
 
-    .new-latest-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .new-section-top {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .new-section-kicker {
-      display: block;
-      color: #238cff;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      margin-bottom: 8px;
-    }
-
-    .new-section-top h2 {
-      margin: 0;
-      color: #081426;
-      font-size: clamp(32px, 5vw, 54px);
-      line-height: 1;
-    }
-
-    .explore-link {
-      color: #238cff;
-      font-weight: 800;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .explore-link:hover {
-      text-decoration: underline;
-    }
-
-    #newsGrid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .quick-sports {
+    .home-sports-nav {
+      width: 100%;
       background: #ffffff;
-      padding: 45px 20px 55px;
+
+      padding: 25px 15px;
     }
 
-    .quick-sports-inner {
+    .home-sports-nav-inner {
       max-width: 1200px;
       margin: 0 auto;
-    }
 
-    .quick-sports-title {
-      margin: 0 0 25px;
-      color: #081426;
-      font-size: 28px;
-    }
-
-    .quick-sports-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 15px;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
     }
 
-    .quick-sport-card {
+    .home-sports-nav a {
       display: flex;
+
       align-items: center;
       justify-content: center;
-      min-height: 90px;
-      padding: 18px;
-      border-radius: 16px;
-      background: #f5f7fb;
-      border: 1px solid #e5e9f0;
-      color: #111827;
+
+      min-height: 52px;
+
+      padding: 12px;
+
+      border-radius: 12px;
+
+      background: #f4f6fa;
+
+      border: 1px solid #e4e8ef;
+
+      color: #172033;
+
       text-decoration: none;
-      font-size: 15px;
+
+      font-size: 14px;
+
       font-weight: 800;
+
       text-align: center;
-      transition: 0.2s ease;
     }
 
-    .quick-sport-card:hover {
-      transform: translateY(-2px);
-      background: #238cff;
-      color: #ffffff;
-      border-color: #238cff;
+    .home-sports-nav a:hover {
+      background: #eaf2ff;
     }
 
-    .new-home-footer {
-      background: #061224;
-      color: #ffffff;
-      padding: 45px 20px;
-    }
+    /* CONTENT */
 
-    .new-home-footer-inner {
+    .home-content {
       max-width: 1200px;
+
       margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+
+      padding: 35px 15px 70px;
+    }
+
+    .home-section-title {
+      margin: 0 0 20px;
+
+      color: #081426;
+
+      font-size: 30px;
+
+      font-weight: 800;
+    }
+
+    /* LATEST NEWS */
+
+    #latestNews {
+      display: block;
+    }
+
+    /* EXPLORE */
+
+    .explore-title {
+      margin-top: 45px;
+    }
+
+    .explore-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
       gap: 20px;
     }
 
-    .new-home-footer strong {
-      font-size: 20px;
-      letter-spacing: 1px;
+    .explore-card {
+      display: block;
+
+      padding: 25px;
+
+      border-radius: 16px;
+
+      background: #ffffff;
+
+      border: 1px solid #e5e8ef;
+
+      text-decoration: none;
+
+      color: #172033;
     }
 
-    .new-home-footer p {
+    .explore-card h3 {
+      margin: 0 0 8px;
+
+      font-size: 22px;
+    }
+
+    .explore-card p {
       margin: 0;
-      color: #9fb0c5;
+
+      color: #667085;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+
+    .site-footer {
+      background: #081426;
+
+      color: #ffffff;
+
+      text-align: center;
+
+      padding: 25px 15px;
+    }
+
+    .site-footer p {
+      margin: 0;
+
+      color: #aebbd0;
+
       font-size: 13px;
     }
+
+    /* MOBILE */
 
     @media (max-width: 800px) {
 
-      .top-sport-nav-inner {
+      .sport-main-nav-inner {
         padding: 9px 10px;
       }
 
-      .top-sport-nav a {
+      .sport-main-nav a {
         font-size: 12px;
         padding: 8px 12px;
       }
 
-      .sports-intro {
-        padding: 15px 10px;
+      .sport-hero {
+        padding: 35px 15px;
       }
 
-      .sports-intro p {
+      .sport-hero h1 {
+        font-size: 30px;
+      }
+
+      .sport-hero p {
         font-size: 13px;
       }
 
-      .new-latest-section {
-        padding: 40px 20px 60px;
+      .home-sports-nav-inner {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
       }
 
-      .new-section-top {
-        align-items: flex-start;
-        flex-direction: column;
+      .home-content {
+        padding: 30px 15px 55px;
       }
 
-      #newsGrid {
+      .home-section-title {
+        font-size: 26px;
+      }
+
+      .explore-grid {
         grid-template-columns: 1fr;
-      }
-
-      .quick-sports {
-        padding: 40px 20px 50px;
-      }
-
-      .quick-sports-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .new-home-footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
       }
 
     }
@@ -303,6 +365,8 @@
 
 <body>
 
+
+  <!-- HEADER -->
 
   <header class="site-header">
 
@@ -320,15 +384,15 @@
   </header>
 
 
-  <!-- SPORT NAVIGATION -->
+  <!-- MAIN NAVIGATION -->
 
-  <nav class="top-sport-nav">
+  <nav class="sport-main-nav">
 
-    <div class="top-sport-nav-inner">
+    <div class="sport-main-nav-inner">
 
       <a
         href="index.html"
-        class="home-link"
+        class="active-home"
       >
         🏠 Home
       </a>
@@ -337,22 +401,15 @@
         ⚽ Football News
       </a>
 
-      <a
-        href="football-live.html"
-        class="live-link"
-      >
+      <a href="football-live.html">
         🔴 Football Live
       </a>
 
-      <a href="cricket.html#cricketNews">
+      <a href="cricket.html">
         🏏 Cricket News
       </a>
 
-      <!-- FIXED CRICKET LIVE LINK -->
-      <a
-        href="cricket-live.html"
-        class="live-link"
-      >
+      <a href="cricket-live-new.html">
         🔴 Cricket Live
       </a>
 
@@ -361,7 +418,7 @@
   </nav>
 
 
-  <!-- BREAKING -->
+  <!-- BREAKING BAR -->
 
   <div class="breaking-bar">
 
@@ -372,7 +429,7 @@
       </span>
 
       <span id="breakingText">
-        Latest sports updates
+        সর্বশেষ স্পোর্টস আপডেট
       </span>
 
     </div>
@@ -380,9 +437,13 @@
   </div>
 
 
-  <!-- SMALL SPORTS INTRO -->
+  <!-- HERO -->
 
-  <section class="sports-intro">
+  <section class="sport-hero">
+
+    <h1>
+      SPORTNEXIA
+    </h1>
 
     <p>
       ⚽ Football • 🏏 Cricket • 🔴 Live Scores • 📰 Latest Sports News
@@ -391,135 +452,148 @@
   </section>
 
 
-  <!-- LATEST NEWS -->
+  <!-- QUICK SPORTS LINKS -->
 
-  <section class="new-latest-section">
+  <section class="home-sports-nav">
 
-    <div class="new-latest-inner">
+    <div class="home-sports-nav-inner">
 
-      <div class="new-section-top">
+      <a href="football.html">
+        ⚽ Football News
+      </a>
 
-        <div>
+      <a href="football-live.html">
+        🔴 Football Live
+      </a>
 
-          <span class="new-section-kicker">
-            FROM THE WORLD OF SPORTS
-          </span>
+      <a href="cricket.html">
+        🏏 Cricket News
+      </a>
 
-          <h2>
-            Latest News
-          </h2>
-
-        </div>
-
-        <a
-          href="football.html"
-          class="explore-link"
-        >
-          EXPLORE SPORTS →
-        </a>
-
-      </div>
-
-
-      <div id="newsGrid">
-
-        <div class="loading">
-          Loading latest news...
-        </div>
-
-      </div>
+      <a href="cricket-live-new.html">
+        🔴 Cricket Live
+      </a>
 
     </div>
 
   </section>
 
 
-  <!-- QUICK SPORTS -->
+  <!-- HOME CONTENT -->
 
-  <section class="quick-sports">
+  <main class="home-content">
 
-    <div class="quick-sports-inner">
+    <h2 class="home-section-title">
+      Latest News
+    </h2>
 
-      <h2 class="quick-sports-title">
-        Explore Sports
-      </h2>
+    <div id="latestNews">
 
-
-      <div class="quick-sports-grid">
-
-        <a
-          href="football.html"
-          class="quick-sport-card"
-        >
-          ⚽<br>
-          Football News
-        </a>
-
-
-        <a
-          href="football-live.html"
-          class="quick-sport-card"
-        >
-          🔴<br>
-          Football Live
-        </a>
-
-
-        <a
-          href="cricket.html#cricketNews"
-          class="quick-sport-card"
-        >
-          🏏<br>
-          Cricket News
-        </a>
-
-
-        <!-- FIXED CRICKET LIVE LINK -->
-        <a
-          href="cricket-live.html"
-          class="quick-sport-card"
-        >
-          🔴<br>
-          Cricket Live
-        </a>
-
+      <div class="loading">
+        Loading latest news...
       </div>
 
     </div>
 
-  </section>
+
+    <!-- EXPLORE SPORTS -->
+
+    <h2 class="home-section-title explore-title">
+      Explore Sports
+    </h2>
+
+    <div class="explore-grid">
+
+      <a
+        href="football.html"
+        class="explore-card"
+      >
+
+        <h3>
+          ⚽ Football
+        </h3>
+
+        <p>
+          Latest football news, updates and stories.
+        </p>
+
+      </a>
+
+
+      <a
+        href="cricket.html"
+        class="explore-card"
+      >
+
+        <h3>
+          🏏 Cricket
+        </h3>
+
+        <p>
+          Latest cricket news, updates and stories.
+        </p>
+
+      </a>
+
+
+      <a
+        href="football-live.html"
+        class="explore-card"
+      >
+
+        <h3>
+          🔴 Football Live
+        </h3>
+
+        <p>
+          Live football matches, scores and results.
+        </p>
+
+      </a>
+
+
+      <a
+        href="cricket-live-new.html"
+        class="explore-card"
+      >
+
+        <h3>
+          🔴 Cricket Live
+        </h3>
+
+        <p>
+          Live cricket matches, scores and results.
+        </p>
+
+      </a>
+
+    </div>
+
+  </main>
 
 
   <!-- FOOTER -->
 
-  <footer class="new-home-footer">
+  <footer class="site-footer">
 
-    <div class="new-home-footer-inner">
-
-      <strong>
-        SPORTNEXIA
-      </strong>
-
-      <p>
-        Football • Cricket • Sports Updates
-      </p>
-
-    </div>
+    <p>
+      © 2026 SPORTNEXIA. All rights reserved.
+    </p>
 
   </footer>
 
 
-  <!-- SUPABASE -->
+  <!-- SCRIPTS -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="config.js"></script>
 
-  <script src="reactions.js"></script>
+  <script src="sport.js"></script>
 
   <script src="app.js"></script>
 
 
 </body>
 
-</html>
+  </html>
