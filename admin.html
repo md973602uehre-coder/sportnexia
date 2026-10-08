@@ -2,17 +2,19 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SPORTNEXIA Admin Panel</title>
 
   <style>
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family:Arial,sans-serif;
       background:#f3f5f7;
       color:#111827;
     }
+
     header{
       background:#07111f;
       color:white;
@@ -20,9 +22,18 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
+      gap:15px;
     }
-    header h1{margin:0;font-size:23px}
-    header span{color:#38bdf8}
+
+    header h1{
+      margin:0;
+      font-size:23px;
+    }
+
+    header span{
+      color:#38bdf8;
+    }
+
     button{
       border:0;
       border-radius:8px;
@@ -30,11 +41,17 @@
       font-weight:bold;
       cursor:pointer;
     }
-    .logout{background:#ef4444;color:white}
+
+    .logout{
+      background:#ef4444;
+      color:white;
+    }
+
     .container{
       width:min(1000px,94%);
       margin:25px auto;
     }
+
     .box{
       background:white;
       padding:22px;
@@ -42,43 +59,57 @@
       margin-bottom:22px;
       box-shadow:0 5px 20px rgba(0,0,0,.06);
     }
+
     #loginPanel{
       width:min(500px,94%);
       margin:70px auto;
     }
-    #adminPanel{display:none}
+
+    #adminPanel{
+      display:none;
+    }
+
     label{
       display:block;
       margin:14px 0 7px;
       font-weight:bold;
     }
-    input,textarea,select{
+
+    input,
+    textarea,
+    select{
       width:100%;
       padding:12px;
       border:1px solid #d1d5db;
       border-radius:8px;
       font-size:15px;
     }
+
     textarea{
       min-height:130px;
       resize:vertical;
     }
-    .loginBtn,.publishBtn{
+
+    .loginBtn,
+    .publishBtn{
       width:100%;
       margin-top:18px;
       background:#0284c7;
       color:white;
       font-size:16px;
     }
+
     .two{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:22px;
     }
+
     .title{
       border-left:4px solid #0284c7;
       padding-left:10px;
     }
+
     .preview{
       display:none;
       width:100%;
@@ -88,14 +119,24 @@
       border-radius:10px;
       background:#eee;
     }
+
     .status{
       display:none;
       padding:12px;
       margin-top:12px;
       border-radius:8px;
     }
-    .success{background:#dcfce7;color:#166534}
-    .error{background:#fee2e2;color:#991b1b}
+
+    .success{
+      background:#dcfce7;
+      color:#166534;
+    }
+
+    .error{
+      background:#fee2e2;
+      color:#991b1b;
+    }
+
     .news{
       border:1px solid #ddd;
       background:#fafafa;
@@ -103,18 +144,23 @@
       border-radius:10px;
       margin-top:12px;
     }
+
     .delete{
       background:#dc2626;
       color:white;
       margin-top:10px;
     }
+
     .meta{
       color:#6b7280;
       font-size:13px;
       margin-top:8px;
     }
+
     @media(max-width:700px){
-      .two{grid-template-columns:1fr}
+      .two{
+        grid-template-columns:1fr;
+      }
     }
   </style>
 </head>
@@ -122,7 +168,10 @@
 <body>
 
 <header>
-  <h1>SPORT<span>NEXIA</span> Admin Panel</h1>
+
+  <h1>
+    SPORT<span>NEXIA</span> Admin Panel
+  </h1>
 
   <button
     id="logoutBtn"
@@ -131,12 +180,16 @@
   >
     Logout
   </button>
+
 </header>
 
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
 
-<div id="loginPanel" class="box">
+<div
+  id="loginPanel"
+  class="box"
+>
 
   <h2>🔐 Admin Login</h2>
 
@@ -149,7 +202,7 @@
   <input
     id="email"
     type="email"
-    value="mdnimeholder02@gmail.com"
+    value="mdnaimeholader02@gmail.com"
     autocomplete="email"
   >
 
@@ -169,18 +222,22 @@
     Login
   </button>
 
-  <div id="loginStatus" class="status"></div>
+  <div
+    id="loginStatus"
+    class="status"
+  ></div>
 
 </div>
 
 
-<!-- ADMIN -->
+<!-- ================= ADMIN PANEL ================= -->
 
 <div id="adminPanel">
 
   <div class="container">
 
-    <!-- PUBLISH -->
+
+    <!-- ================= PUBLISH ================= -->
 
     <div class="box">
 
@@ -189,21 +246,36 @@
       <label>Category</label>
 
       <select id="category">
-        <option value="Football">Football</option>
-        <option value="Cricket">Cricket</option>
-        <option value="Sports">Sports</option>
+
+        <option value="Football">
+          Football
+        </option>
+
+        <option value="Cricket">
+          Cricket
+        </option>
+
+        <option value="Sports">
+          Sports
+        </option>
+
       </select>
 
 
       <div class="two">
 
+
         <!-- BANGLA -->
 
         <div>
 
-          <h3 class="title">🇧🇩 বাংলা</h3>
+          <h3 class="title">
+            🇧🇩 বাংলা
+          </h3>
 
-          <label>বাংলা Title</label>
+          <label>
+            বাংলা Title
+          </label>
 
           <input
             id="titleBn"
@@ -211,14 +283,18 @@
             placeholder="বাংলা শিরোনাম"
           >
 
-          <label>বাংলা Content</label>
+          <label>
+            বাংলা Content
+          </label>
 
           <textarea
             id="contentBn"
             placeholder="বাংলা নিউজ লিখুন..."
           ></textarea>
 
-          <label>বাংলা Image</label>
+          <label>
+            বাংলা Image
+          </label>
 
           <input
             id="imageBn"
@@ -229,6 +305,7 @@
           <img
             id="previewBn"
             class="preview"
+            alt="Bangla preview"
           >
 
         </div>
@@ -238,9 +315,13 @@
 
         <div>
 
-          <h3 class="title">🇬🇧 English</h3>
+          <h3 class="title">
+            🇬🇧 English
+          </h3>
 
-          <label>English Title</label>
+          <label>
+            English Title
+          </label>
 
           <input
             id="titleEn"
@@ -248,14 +329,18 @@
             placeholder="English headline"
           >
 
-          <label>English Content</label>
+          <label>
+            English Content
+          </label>
 
           <textarea
             id="contentEn"
             placeholder="Write English news..."
           ></textarea>
 
-          <label>English Image</label>
+          <label>
+            English Image
+          </label>
 
           <input
             id="imageEn"
@@ -266,6 +351,7 @@
           <img
             id="previewEn"
             class="preview"
+            alt="English preview"
           >
 
         </div>
@@ -280,19 +366,24 @@
         🚀 Publish News
       </button>
 
-      <div id="publishStatus" class="status"></div>
+      <div
+        id="publishStatus"
+        class="status"
+      ></div>
 
     </div>
 
 
-    <!-- OLD NEWS -->
+    <!-- ================= OLD NEWS ================= -->
 
     <div class="box">
 
-      <h2>📚 Published News</h2>
+      <h2>
+        📚 Published News
+      </h2>
 
       <div id="newsList">
-        Loading...
+        Loading published news...
       </div>
 
     </div>
@@ -302,10 +393,18 @@
 </div>
 
 
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="config.js"></script>
 
+
 <script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
 
 const db = supabase.createClient(
   SUPABASE_URL,
@@ -313,11 +412,20 @@ const db = supabase.createClient(
 );
 
 
-/* IMPORTANT ADMIN EMAIL */
+/* ==========================================
+   NEW ADMIN
+========================================== */
 
 const ADMIN_EMAIL =
-  "mdnimeholder02@gmail.com";
+  "mdnaimeholader02@gmail.com";
 
+const ADMIN_UID =
+  "1d524237-7533-4d6b-a282-f5282d92b299";
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
 
 const loginPanel =
   document.getElementById("loginPanel");
@@ -344,71 +452,116 @@ const newsList =
   document.getElementById("newsList");
 
 
-function statusBox(box,msg,type){
+/* ==========================================
+   STATUS
+========================================== */
 
-  box.textContent = msg;
+function showStatus(
+  element,
+  message,
+  type
+){
 
-  box.className =
+  element.textContent =
+    message;
+
+  element.className =
     "status " + type;
 
-  box.style.display = "block";
+  element.style.display =
+    "block";
 }
 
+
+/* ==========================================
+   SHOW LOGIN
+========================================== */
 
 function showLogin(){
 
-  loginPanel.style.display = "block";
+  loginPanel.style.display =
+    "block";
 
-  adminPanel.style.display = "none";
+  adminPanel.style.display =
+    "none";
 
-  logoutBtn.style.display = "none";
-
+  logoutBtn.style.display =
+    "none";
 }
 
+
+/* ==========================================
+   SHOW ADMIN
+========================================== */
 
 function showAdmin(){
 
-  loginPanel.style.display = "none";
+  loginPanel.style.display =
+    "none";
 
-  adminPanel.style.display = "block";
+  adminPanel.style.display =
+    "block";
 
-  logoutBtn.style.display = "block";
-
+  logoutBtn.style.display =
+    "block";
 }
 
 
-/* LOGIN */
+/* ==========================================
+   LOGIN
+========================================== */
 
-loginBtn.onclick = async function(){
+loginBtn.onclick =
+async function(){
 
-  loginBtn.disabled = true;
-  loginBtn.textContent = "Logging in...";
+  loginBtn.disabled =
+    true;
 
-  loginStatus.style.display = "none";
+  loginBtn.textContent =
+    "Logging in...";
+
+  loginStatus.style.display =
+    "none";
+
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
 
   const password =
-    document.getElementById("password").value;
+    document
+      .getElementById("password")
+      .value;
 
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db.auth.signInWithPassword({
+
       email:email,
+
       password:password
+
     });
 
 
-  loginBtn.disabled = false;
-  loginBtn.textContent = "Login";
+  loginBtn.disabled =
+    false;
+
+  loginBtn.textContent =
+    "Login";
 
 
   if(error){
 
-    statusBox(
+    showStatus(
       loginStatus,
-      "Login failed: " + error.message,
+      "Login failed: " +
+      error.message,
       "error"
     );
 
@@ -416,17 +569,20 @@ loginBtn.onclick = async function(){
   }
 
 
+  /*
+    Check exact Admin UID
+  */
+
   if(
     !data.user ||
-    data.user.email.toLowerCase() !==
-    ADMIN_EMAIL.toLowerCase()
+    data.user.id !== ADMIN_UID
   ){
 
     await db.auth.signOut();
 
-    statusBox(
+    showStatus(
       loginStatus,
-      "এই Account Admin Account নয়।",
+      "এই Account SPORTNEXIA Admin Account নয়।",
       "error"
     );
 
@@ -441,136 +597,221 @@ loginBtn.onclick = async function(){
 };
 
 
-/* LOGOUT */
+/* ==========================================
+   LOGOUT
+========================================== */
 
-logoutBtn.onclick = async function(){
+logoutBtn.onclick =
+async function(){
 
-  logoutBtn.disabled = true;
-  logoutBtn.textContent = "Logging out...";
+  logoutBtn.disabled =
+    true;
+
+  logoutBtn.textContent =
+    "Logging out...";
 
 
-  const {error} =
+  const {
+    error
+  } =
     await db.auth.signOut();
 
 
   if(error){
 
     alert(
-      "Logout হয়নি: " + error.message
+      "Logout হয়নি: " +
+      error.message
     );
 
-    logoutBtn.disabled = false;
-    logoutBtn.textContent = "Logout";
+    logoutBtn.disabled =
+      false;
+
+    logoutBtn.textContent =
+      "Logout";
 
     return;
   }
 
 
-  /* Clear browser session */
+  /*
+    Clear Supabase session
+  */
 
   try{
 
-    Object.keys(localStorage).forEach(key=>{
+    Object.keys(
+      localStorage
+    ).forEach(
+      key => {
 
-      if(
-        key.includes("supabase") ||
-        key.includes("auth-token")
-      ){
-        localStorage.removeItem(key);
+        if(
+          key.includes("supabase") ||
+          key.includes("auth-token")
+        ){
+
+          localStorage.removeItem(
+            key
+          );
+
+        }
+
       }
-
-    });
+    );
 
   }catch(e){}
 
 
   showLogin();
 
-  document.getElementById("password").value = "";
 
-  logoutBtn.disabled = false;
-  logoutBtn.textContent = "Logout";
+  document.getElementById(
+    "password"
+  ).value = "";
+
+
+  logoutBtn.disabled =
+    false;
+
+  logoutBtn.textContent =
+    "Logout";
 
 };
 
 
-/* IMAGE PREVIEW */
+/* ==========================================
+   IMAGE PREVIEW
+========================================== */
 
-function preview(input, img){
+function setupPreview(
+  inputId,
+  previewId
+){
 
-  input.onchange = function(){
+  const input =
+    document.getElementById(
+      inputId
+    );
 
-    const file = input.files[0];
+  const image =
+    document.getElementById(
+      previewId
+    );
 
-    if(!file){
-      img.style.display = "none";
-      return;
-    }
 
-    img.src =
-      URL.createObjectURL(file);
+  input.onchange =
+    function(){
 
-    img.style.display = "block";
+      const file =
+        input.files[0];
 
-  };
+
+      if(!file){
+
+        image.style.display =
+          "none";
+
+        image.src = "";
+
+        return;
+      }
+
+
+      image.src =
+        URL.createObjectURL(
+          file
+        );
+
+      image.style.display =
+        "block";
+
+    };
 
 }
 
 
-preview(
-  document.getElementById("imageBn"),
-  document.getElementById("previewBn")
+setupPreview(
+  "imageBn",
+  "previewBn"
 );
 
-preview(
-  document.getElementById("imageEn"),
-  document.getElementById("previewEn")
+setupPreview(
+  "imageEn",
+  "previewEn"
 );
 
 
-/* UPLOAD */
+/* ==========================================
+   UPLOAD IMAGE
+========================================== */
 
-async function uploadImage(file,folder){
+async function uploadImage(
+  file,
+  folder
+){
 
-  if(!file) return null;
+  if(!file){
+
+    return null;
+
+  }
 
 
-  const ext =
+  const extension =
     file.name
       .split(".")
       .pop()
       .toLowerCase();
 
 
-  const path =
-    folder + "/" +
-    Date.now() + "-" +
+  const fileName =
+    Date.now() +
+    "-" +
     Math.random()
       .toString(36)
       .substring(2) +
-    "." + ext;
+    "." +
+    extension;
 
 
-  const {error} =
+  const path =
+    folder +
+    "/" +
+    fileName;
+
+
+  const {
+    error
+  } =
     await db.storage
       .from("news-images")
       .upload(
         path,
         file,
         {
-          cacheControl:"3600",
+          cacheControl:
+            "3600",
+
           upsert:false
         }
       );
 
 
-  if(error) throw error;
+  if(error){
+
+    throw error;
+
+  }
 
 
-  const {data} =
+  const {
+    data
+  } =
     db.storage
       .from("news-images")
-      .getPublicUrl(path);
+      .getPublicUrl(
+        path
+      );
 
 
   return data.publicUrl;
@@ -578,41 +819,89 @@ async function uploadImage(file,folder){
 }
 
 
-/* PUBLISH */
+/* ==========================================
+   PUBLISH NEWS
+========================================== */
 
-publishBtn.onclick = async function(){
+publishBtn.onclick =
+async function(){
 
-  publishBtn.disabled = true;
-  publishBtn.textContent = "Publishing...";
+  publishBtn.disabled =
+    true;
 
-  publishStatus.style.display = "none";
+  publishBtn.textContent =
+    "Publishing...";
+
+  publishStatus.style.display =
+    "none";
 
 
   try{
 
     const category =
-      document.getElementById("category").value;
+      document
+        .getElementById(
+          "category"
+        )
+        .value;
+
 
     const titleBn =
-      document.getElementById("titleBn").value.trim();
+      document
+        .getElementById(
+          "titleBn"
+        )
+        .value
+        .trim();
+
 
     const contentBn =
-      document.getElementById("contentBn").value.trim();
+      document
+        .getElementById(
+          "contentBn"
+        )
+        .value
+        .trim();
+
 
     const titleEn =
-      document.getElementById("titleEn").value.trim();
+      document
+        .getElementById(
+          "titleEn"
+        )
+        .value
+        .trim();
+
 
     const contentEn =
-      document.getElementById("contentEn").value.trim();
+      document
+        .getElementById(
+          "contentEn"
+        )
+        .value
+        .trim();
 
-    const fileBn =
-      document.getElementById("imageBn").files[0];
 
-    const fileEn =
-      document.getElementById("imageEn").files[0];
+    const imageBn =
+      document
+        .getElementById(
+          "imageBn"
+        )
+        .files[0];
 
 
-    if(!titleBn || !contentBn){
+    const imageEn =
+      document
+        .getElementById(
+          "imageEn"
+        )
+        .files[0];
+
+
+    if(
+      !titleBn ||
+      !contentBn
+    ){
 
       throw new Error(
         "বাংলা Title এবং Content দিন।"
@@ -620,7 +909,11 @@ publishBtn.onclick = async function(){
 
     }
 
-    if(!titleEn || !contentEn){
+
+    if(
+      !titleEn ||
+      !contentEn
+    ){
 
       throw new Error(
         "English Title এবং Content দিন।"
@@ -629,66 +922,108 @@ publishBtn.onclick = async function(){
     }
 
 
-    const imageBn =
+    const imageBnUrl =
       await uploadImage(
-        fileBn,
+        imageBn,
         "bangla"
       );
 
-    const imageEn =
+
+    const imageEnUrl =
       await uploadImage(
-        fileEn,
+        imageEn,
         "english"
       );
 
 
-    const {error} =
+    const {
+      error
+    } =
       await db
         .from("news")
         .insert({
 
-          category:category,
+          category:
+            category,
 
-          title:titleBn,
+          title:
+            titleBn,
 
-          content:contentBn,
+          content:
+            contentBn,
 
-          image_url:imageBn,
+          image_url:
+            imageBnUrl,
 
-          title_bn:titleBn,
+          title_bn:
+            titleBn,
 
-          content_bn:contentBn,
+          content_bn:
+            contentBn,
 
-          image_bn:imageBn,
+          image_bn:
+            imageBnUrl,
 
-          title_en:titleEn,
+          title_en:
+            titleEn,
 
-          content_en:contentEn,
+          content_en:
+            contentEn,
 
-          image_en:imageEn
+          image_en:
+            imageEnUrl
 
         });
 
 
-    if(error) throw error;
+    if(error){
+
+      throw error;
+
+    }
 
 
-    statusBox(
+    showStatus(
       publishStatus,
       "✅ News successfully published!",
       "success"
     );
 
 
-    document.getElementById("titleBn").value = "";
-    document.getElementById("contentBn").value = "";
-    document.getElementById("titleEn").value = "";
-    document.getElementById("contentEn").value = "";
-    document.getElementById("imageBn").value = "";
-    document.getElementById("imageEn").value = "";
+    document.getElementById(
+      "titleBn"
+    ).value = "";
 
-    document.getElementById("previewBn").style.display = "none";
-    document.getElementById("previewEn").style.display = "none";
+    document.getElementById(
+      "contentBn"
+    ).value = "";
+
+    document.getElementById(
+      "titleEn"
+    ).value = "";
+
+    document.getElementById(
+      "contentEn"
+    ).value = "";
+
+    document.getElementById(
+      "imageBn"
+    ).value = "";
+
+    document.getElementById(
+      "imageEn"
+    ).value = "";
+
+
+    document.getElementById(
+      "previewBn"
+    ).style.display =
+      "none";
+
+    document.getElementById(
+      "previewEn"
+    ).style.display =
+      "none";
 
 
     await loadNews();
@@ -696,24 +1031,34 @@ publishBtn.onclick = async function(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Publish error:",
+      error
+    );
 
-    statusBox(
+
+    showStatus(
       publishStatus,
-      "❌ " + error.message,
+      "❌ " +
+      error.message,
       "error"
     );
 
   }
 
 
-  publishBtn.disabled = false;
-  publishBtn.textContent = "🚀 Publish News";
+  publishBtn.disabled =
+    false;
+
+  publishBtn.textContent =
+    "🚀 Publish News";
 
 };
 
 
-/* LOAD OLD NEWS */
+/* ==========================================
+   LOAD NEWS
+========================================== */
 
 async function loadNews(){
 
@@ -721,7 +1066,10 @@ async function loadNews(){
     "Loading published news...";
 
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("news")
       .select(
@@ -729,104 +1077,166 @@ async function loadNews(){
       )
       .order(
         "created_at",
-        {ascending:false}
+        {
+          ascending:false
+        }
       );
 
 
   if(error){
 
-    newsList.innerHTML =
-      `<div class="status error" style="display:block">
-        ❌ News load হয়নি: ${escapeHtml(error.message)}
-      </div>`;
+    newsList.innerHTML = `
+
+      <div
+        class="status error"
+        style="display:block"
+      >
+
+        ❌ News load হয়নি:
+
+        ${escapeHtml(
+          error.message
+        )}
+
+      </div>
+
+    `;
 
     return;
   }
 
 
-  if(!data || data.length === 0){
+  if(
+    !data ||
+    data.length === 0
+  ){
 
-    newsList.innerHTML =
-      "<p>কোনো Published News নেই।</p>";
+    newsList.innerHTML = `
+
+      <p>
+        কোনো Published News নেই।
+      </p>
+
+    `;
 
     return;
   }
 
 
   newsList.innerHTML =
-    data.map(news=>{
+    data
+      .map(
+        news => {
 
-      const bn =
-        news.title_bn ||
-        news.title ||
-        "No Bangla Title";
-
-      const en =
-        news.title_en ||
-        "No English Title";
-
-      const date =
-        new Date(news.created_at)
-          .toLocaleString("en-GB");
+          const bn =
+            news.title_bn ||
+            news.title ||
+            "No Bangla Title";
 
 
-      return `
-        <div
-          class="news"
-          id="news-${news.id}"
-        >
+          const en =
+            news.title_en ||
+            "No English Title";
 
-          <h3>
-            🇧🇩 ${escapeHtml(bn)}
-          </h3>
 
-          <div>
-            🇬🇧 ${escapeHtml(en)}
-          </div>
+          const date =
+            news.created_at
+              ? new Date(
+                  news.created_at
+                ).toLocaleString(
+                  "en-GB"
+                )
+              : "";
 
-          <div class="meta">
-            ${escapeHtml(news.category || "SPORTS")}
-            •
-            ${escapeHtml(date)}
-          </div>
 
-          <button
-            class="delete"
-            onclick="deleteNews(${news.id})"
-          >
-            🗑️ Delete
-          </button>
+          return `
 
-        </div>
-      `;
+            <div
+              class="news"
+              id="news-${news.id}"
+            >
 
-    }).join("");
+              <h3>
+                🇧🇩
+                ${escapeHtml(bn)}
+              </h3>
+
+              <div>
+                🇬🇧
+                ${escapeHtml(en)}
+              </div>
+
+              <div class="meta">
+
+                ${escapeHtml(
+                  news.category ||
+                  "SPORTS"
+                )}
+
+                •
+
+                ${escapeHtml(date)}
+
+              </div>
+
+              <button
+                class="delete"
+                onclick="deleteNews(${Number(news.id)})"
+              >
+
+                🗑️ Delete
+
+              </button>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
 
 }
 
 
-/* DELETE */
+/* ==========================================
+   DELETE NEWS
+========================================== */
 
-async function deleteNews(id){
+async function deleteNews(
+  id
+){
 
-  if(
-    !confirm(
+  const ok =
+    confirm(
       "এই News টি Delete করতে চান?"
-    )
-  ) return;
+    );
 
 
-  const {error} =
+  if(!ok){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
     await db
       .from("news")
       .delete()
-      .eq("id",id);
+      .eq(
+        "id",
+        id
+      );
 
 
   if(error){
 
     alert(
-      "Delete হয়নি: " + error.message
+      "Delete হয়নি: " +
+      error.message
     );
 
     return;
@@ -838,38 +1248,53 @@ async function deleteNews(id){
       "news-" + id
     );
 
-  if(item) item.remove();
+
+  if(item){
+
+    item.remove();
+
+  }
 
 }
 
 
-/* ESCAPE */
+/* ==========================================
+   ESCAPE HTML
+========================================== */
 
-function escapeHtml(value){
+function escapeHtml(
+  value
+){
 
-  return String(value ?? "")
-    .replace(
-      /[&<>'"]/g,
-      c=>({
+  return String(
+    value ?? ""
+  ).replace(
+    /[&<>'"]/g,
+    character => ({
 
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        "'":"&#39;",
-        '"':"&quot;"
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      "'":"&#39;",
+      '"':"&quot;"
 
-      }[c])
-    );
+    }[character])
+  );
 
 }
 
 
-/* SESSION */
+/* ==========================================
+   CHECK SESSION
+========================================== */
 
 async function checkSession(){
 
-  const {data} =
+  const {
+    data
+  } =
     await db.auth.getSession();
+
 
   const user =
     data?.session?.user;
@@ -877,9 +1302,7 @@ async function checkSession(){
 
   if(
     user &&
-    user.email &&
-    user.email.toLowerCase() ===
-    ADMIN_EMAIL.toLowerCase()
+    user.id === ADMIN_UID
   ){
 
     showAdmin();
@@ -895,19 +1318,32 @@ async function checkSession(){
 }
 
 
-db.auth.onAuthStateChange(
-  async (event,session)=>{
+/* ==========================================
+   AUTH LISTENER
+========================================== */
 
-    if(event === "SIGNED_OUT"){
+db.auth.onAuthStateChange(
+  async (
+    event,
+    session
+  ) => {
+
+    if(
+      event ===
+      "SIGNED_OUT"
+    ){
 
       showLogin();
 
-      return;
     }
 
   }
 );
 
+
+/* ==========================================
+   START
+========================================== */
 
 checkSession();
 
