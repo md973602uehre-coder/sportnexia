@@ -39,10 +39,6 @@
 
   <style>
 
-    /* =====================================================
-       BASIC
-    ===================================================== */
-
     * {
       box-sizing: border-box;
     }
@@ -53,9 +49,7 @@
     }
 
 
-    /* =====================================================
-       HEADER
-    ===================================================== */
+    /* HEADER */
 
     .site-header {
       display: block !important;
@@ -64,171 +58,104 @@
     }
 
 
-    /* =====================================================
-       MAIN NAVIGATION
-    ===================================================== */
+    /* MAIN NAVIGATION */
 
     .sport-main-nav {
       width: 100%;
-
       background: #ffffff;
-
       border-bottom: 1px solid #e7eaf0;
-
       position: sticky;
-
       top: 0;
-
       z-index: 9999;
     }
 
-
     .sport-main-nav-inner {
       max-width: 1200px;
-
       margin: 0 auto;
-
       padding: 10px 16px;
-
       display: flex;
-
       align-items: center;
-
       gap: 8px;
-
       overflow-x: auto;
-
       scrollbar-width: none;
     }
-
 
     .sport-main-nav-inner::-webkit-scrollbar {
       display: none;
     }
 
-
     .sport-main-nav a {
       display: inline-flex;
-
       align-items: center;
-
       justify-content: center;
-
       flex: 0 0 auto;
-
       min-height: 40px;
-
       padding: 9px 14px;
-
       border-radius: 999px;
-
       border: 1px solid #e5e8ef;
-
       background: #f4f6fa;
-
       color: #172033;
-
       text-decoration: none;
-
       font-size: 13px;
-
       font-weight: 700;
-
       white-space: nowrap;
     }
-
 
     .sport-main-nav a:hover {
       background: #eaf2ff;
     }
 
-
     .sport-main-nav .active-home {
       background: #238cff;
-
       color: #ffffff;
-
       border-color: #238cff;
     }
 
 
-    /* =====================================================
-       BREAKING NEWS TICKER
-    ===================================================== */
+    /* BREAKING NEWS */
 
     .breaking-bar {
       width: 100%;
-
       height: 42px;
-
       display: flex !important;
-
       align-items: center;
-
       overflow: hidden;
-
       background: #ffffff;
-
       border-bottom: 1px solid #e5e7eb;
-
       position: relative;
     }
 
-
     .breaking-inner {
       width: 100%;
-
       height: 42px;
-
       display: flex;
-
       align-items: center;
-
       overflow: hidden;
     }
 
-
     .breaking-label {
       flex: 0 0 auto;
-
       height: 42px;
-
       display: flex;
-
       align-items: center;
-
       padding: 0 13px;
-
       background: #e51d2a;
-
       color: #ffffff;
-
       font-size: 11px;
-
       font-weight: 900;
-
       letter-spacing: .4px;
-
       z-index: 2;
     }
 
-
     .breaking-label::before {
       content: "";
-
       width: 7px;
-
       height: 7px;
-
       margin-right: 7px;
-
       border-radius: 50%;
-
       background: #ffffff;
-
       animation: breakingPulse 1.2s infinite;
     }
-
 
     @keyframes breakingPulse {
 
@@ -249,47 +176,30 @@
 
     }
 
-
     .breaking-window {
       flex: 1;
-
       height: 42px;
-
       overflow: hidden;
-
       white-space: nowrap;
-
       display: flex;
-
       align-items: center;
-
       position: relative;
     }
 
-
     .breaking-track {
       display: inline-block;
-
       white-space: nowrap;
-
       padding-left: 100%;
-
       animation: breakingMove 22s linear infinite;
     }
 
-
     .breaking-track span {
       display: inline-block;
-
       padding-right: 100px;
-
       color: #172033;
-
       font-size: 13px;
-
       font-weight: 700;
     }
-
 
     @keyframes breakingMove {
 
@@ -304,13 +214,10 @@
     }
 
 
-    /* =====================================================
-       FOOTBALL / SPORTS HERO
-    ===================================================== */
+    /* HERO */
 
     .sport-hero {
       display: block !important;
-
       width: 100%;
 
       background:
@@ -322,53 +229,36 @@
         );
 
       color: #ffffff;
-
       text-align: center;
-
       padding: 30px 15px;
     }
 
-
     .sport-hero h1 {
       margin: 0;
-
       color: #ffffff !important;
-
       font-size: 32px;
-
       line-height: 1.2;
-
       font-weight: 800;
     }
 
-
     .sport-hero p {
       margin: 8px 0 0;
-
       color: #c4d2e3 !important;
-
       font-size: 13px;
-
       line-height: 1.5;
     }
 
 
-    /* =====================================================
-       QUICK SPORTS LINKS
-    ===================================================== */
+    /* QUICK SPORTS LINKS */
 
     .home-sports-nav {
       width: 100%;
-
       background: #ffffff;
-
       padding: 25px 15px;
     }
 
-
     .home-sports-nav-inner {
       max-width: 1200px;
-
       margin: 0 auto;
 
       display: grid;
@@ -379,22 +269,17 @@
       gap: 12px;
     }
 
-
     .home-sports-nav a {
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       min-height: 52px;
-
       padding: 12px;
 
       border-radius: 12px;
 
       background: #f4f6fa;
-
       border: 1px solid #e4e8ef;
 
       color: #172033;
@@ -402,45 +287,33 @@
       text-decoration: none;
 
       font-size: 14px;
-
       font-weight: 800;
 
       text-align: center;
     }
-
 
     .home-sports-nav a:hover {
       background: #eaf2ff;
     }
 
 
-    /* =====================================================
-       CONTENT
-    ===================================================== */
+    /* CONTENT */
 
     .home-content {
       max-width: 1200px;
-
       margin: 0 auto;
-
       padding: 35px 15px 70px;
     }
 
-
     .home-section-title {
       margin: 0 0 20px;
-
       color: #081426;
-
       font-size: 30px;
-
       font-weight: 800;
     }
 
 
-    /* =====================================================
-       LATEST NEWS
-    ===================================================== */
+    /* LATEST NEWS */
 
     #latestNews {
       display: grid;
@@ -453,23 +326,17 @@
       min-height: 180px;
     }
 
-
     .news-loading {
       grid-column: 1 / -1;
-
       min-height: 180px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       color: #667085;
-
       font-size: 17px;
     }
-
 
     .home-news-card {
       overflow: hidden;
@@ -484,36 +351,36 @@
         0 4px 14px rgba(15, 23, 42, .05);
     }
 
-
     .home-news-card a {
       display: block;
-
       color: inherit;
-
       text-decoration: none;
     }
 
 
+    /* =====================================================
+       FULL IMAGE - NO CROP
+    ===================================================== */
+
     .home-news-card img {
-      display: block;
+      display: block !important;
 
-      width: 100%;
+      width: 100% !important;
 
-      height: 210px;
+      height: auto !important;
 
-      object-fit: cover;
+      max-height: none !important;
+
+      object-fit: contain !important;
     }
 
 
     .home-news-placeholder {
       width: 100%;
-
       height: 210px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       background: #eef2f7;
@@ -521,11 +388,9 @@
       font-size: 58px;
     }
 
-
     .home-news-body {
       padding: 18px;
     }
-
 
     .home-news-category {
       display: inline-block;
@@ -541,7 +406,6 @@
       text-transform: uppercase;
     }
 
-
     .home-news-title {
       margin: 0;
 
@@ -554,7 +418,6 @@
       font-weight: 800;
     }
 
-
     .home-news-date {
       display: block;
 
@@ -564,7 +427,6 @@
 
       font-size: 12px;
     }
-
 
     .news-empty,
     .news-error {
@@ -584,14 +446,11 @@
     }
 
 
-    /* =====================================================
-       EXPLORE SPORTS
-    ===================================================== */
+    /* EXPLORE */
 
     .explore-title {
       margin-top: 45px;
     }
-
 
     .explore-grid {
       display: grid;
@@ -601,7 +460,6 @@
 
       gap: 20px;
     }
-
 
     .explore-card {
       display: block;
@@ -619,13 +477,10 @@
       color: #172033;
     }
 
-
     .explore-card h3 {
       margin: 0 0 8px;
-
       font-size: 22px;
     }
-
 
     .explore-card p {
       margin: 0;
@@ -638,9 +493,7 @@
     }
 
 
-    /* =====================================================
-       FOOTER
-    ===================================================== */
+    /* FOOTER */
 
     .site-footer {
       background: #081426;
@@ -652,7 +505,6 @@
       padding: 25px 15px;
     }
 
-
     .site-footer p {
       margin: 0;
 
@@ -662,9 +514,7 @@
     }
 
 
-    /* =====================================================
-       MOBILE
-    ===================================================== */
+    /* MOBILE */
 
     @media (max-width: 800px) {
 
@@ -672,63 +522,49 @@
         padding: 9px 10px;
       }
 
-
       .sport-main-nav a {
         font-size: 12px;
-
         padding: 8px 12px;
       }
 
-
       .breaking-label {
         padding: 0 10px;
-
         font-size: 10px;
       }
 
-
       .breaking-track span {
         font-size: 12px;
-
         padding-right: 70px;
       }
-
 
       .sport-hero {
         padding: 25px 12px;
       }
 
-
       .sport-hero h1 {
         font-size: 27px;
       }
 
-
       .sport-hero p {
         font-size: 12px;
       }
-
 
       .home-sports-nav-inner {
         grid-template-columns:
           repeat(2, minmax(0, 1fr));
       }
 
-
       .home-content {
         padding: 30px 15px 55px;
       }
-
 
       .home-section-title {
         font-size: 26px;
       }
 
-
       #latestNews {
         grid-template-columns: 1fr;
       }
-
 
       .explore-grid {
         grid-template-columns: 1fr;
@@ -744,9 +580,7 @@
 <body>
 
 
-  <!-- =====================================================
-       HEADER
-  ===================================================== -->
+  <!-- HEADER -->
 
   <header class="site-header">
 
@@ -764,9 +598,7 @@
   </header>
 
 
-  <!-- =====================================================
-       MAIN NAVIGATION
-  ===================================================== -->
+  <!-- MAIN NAVIGATION -->
 
   <nav class="sport-main-nav">
 
@@ -779,21 +611,17 @@
         🏠 Home
       </a>
 
-
       <a href="football.html">
         ⚽ Football News
       </a>
-
 
       <a href="football-live.html">
         🔴 Football Live
       </a>
 
-
       <a href="cricket.html">
         🏏 Cricket News
       </a>
-
 
       <a href="cricket-live-new.html">
         🔴 Cricket Live
@@ -804,9 +632,7 @@
   </nav>
 
 
-  <!-- =====================================================
-       BREAKING NEWS
-  ===================================================== -->
+  <!-- BREAKING BAR -->
 
   <div class="breaking-bar">
 
@@ -815,7 +641,6 @@
       <div class="breaking-label">
         BREAKING
       </div>
-
 
       <div class="breaking-window">
 
@@ -841,9 +666,7 @@
   </div>
 
 
-  <!-- =====================================================
-       HERO
-  ===================================================== -->
+  <!-- HERO -->
 
   <section class="sport-hero">
 
@@ -858,9 +681,7 @@
   </section>
 
 
-  <!-- =====================================================
-       QUICK SPORTS LINKS
-  ===================================================== -->
+  <!-- QUICK SPORTS LINKS -->
 
   <section class="home-sports-nav">
 
@@ -870,16 +691,13 @@
         ⚽ Football News
       </a>
 
-
       <a href="football-live.html">
         🔴 Football Live
       </a>
 
-
       <a href="cricket.html">
         🏏 Cricket News
       </a>
-
 
       <a href="cricket-live-new.html">
         🔴 Cricket Live
@@ -890,16 +708,13 @@
   </section>
 
 
-  <!-- =====================================================
-       HOME CONTENT
-  ===================================================== -->
+  <!-- HOME CONTENT -->
 
   <main class="home-content">
 
     <h2 class="home-section-title">
       Latest News
     </h2>
-
 
     <div id="latestNews">
 
@@ -910,17 +725,13 @@
     </div>
 
 
-    <!-- ===================================================
-         EXPLORE SPORTS
-    ==================================================== -->
+    <!-- EXPLORE SPORTS -->
 
     <h2 class="home-section-title explore-title">
       Explore Sports
     </h2>
 
-
     <div class="explore-grid">
-
 
       <a
         href="football.html"
@@ -990,9 +801,7 @@
   </main>
 
 
-  <!-- =====================================================
-       FOOTER
-  ===================================================== -->
+  <!-- FOOTER -->
 
   <footer class="site-footer">
 
@@ -1003,18 +812,14 @@
   </footer>
 
 
-  <!-- =====================================================
-       SUPABASE
-  ===================================================== -->
+  <!-- SUPABASE -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="config.js"></script>
 
 
-  <!-- =====================================================
-       HOME NEWS LOADER
-  ===================================================== -->
+  <!-- HOME NEWS LOADER -->
 
   <script>
 
@@ -1027,17 +832,14 @@
             "latestNews"
           );
 
-
         const breakingTrack =
           document.getElementById(
             "breakingTrack"
           );
 
-
         if (!newsBox) {
           return;
         }
-
 
         try {
 
@@ -1046,7 +848,6 @@
               SUPABASE_URL,
               SUPABASE_PUBLISHABLE_KEY
             );
-
 
           const result =
             await client
@@ -1060,14 +861,12 @@
               )
               .limit(9);
 
-
           if (result.error) {
 
             console.error(
               "SPORTNEXIA NEWS ERROR:",
               result.error
             );
-
 
             newsBox.innerHTML = `
               <div class="news-error">
@@ -1078,10 +877,8 @@
             return;
           }
 
-
           const rows =
             result.data || [];
-
 
           if (!rows.length) {
 
@@ -1095,16 +892,13 @@
           }
 
 
-          /* =================================================
-             BREAKING NEWS
-          ================================================= */
+          /* BREAKING NEWS */
 
           const latestTitle =
             String(
               rows[0].title ||
               "Latest sports news and updates from SPORTNEXIA"
             );
-
 
           if (breakingTrack) {
 
@@ -1123,9 +917,7 @@
           }
 
 
-          /* =================================================
-             LATEST NEWS CARDS
-          ================================================= */
+          /* NEWS CARDS */
 
           newsBox.innerHTML =
             rows.map(
@@ -1137,12 +929,10 @@
                     "SPORTS"
                   );
 
-
                 const isCricket =
                   category
                     .toLowerCase()
                     .includes("cricket");
-
 
                 const title =
                   String(
@@ -1150,14 +940,12 @@
                     "SPORTNEXIA"
                   );
 
-
                 const image =
                   news.image_url
                     ? String(
                         news.image_url
                       )
                     : "";
-
 
                 const date =
                   news.created_at
@@ -1172,7 +960,6 @@
                         }
                       ).toUpperCase()
                     : "";
-
 
                 const safeTitle =
                   title
@@ -1193,7 +980,6 @@
                       "&quot;"
                     );
 
-
                 const safeCategory =
                   category
                     .replace(
@@ -1208,7 +994,6 @@
                       />/g,
                       "&gt;"
                     );
-
 
                 return `
 
@@ -1244,7 +1029,6 @@
                           `
                       }
 
-
                       <div
                         class="home-news-body"
                       >
@@ -1255,13 +1039,11 @@
                           ${safeCategory}
                         </span>
 
-
                         <h3
                           class="home-news-title"
                         >
                           ${safeTitle}
                         </h3>
-
 
                         <small
                           class="home-news-date"
@@ -1288,7 +1070,6 @@
             error
           );
 
-
           newsBox.innerHTML = `
             <div class="news-error">
               News could not be loaded right now.
@@ -1306,4 +1087,4 @@
 
 </body>
 
-  </html>
+</html>
