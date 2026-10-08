@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -10,7 +12,7 @@
 
   <meta
     name="description"
-    content="SPORTNEXIA Cricket - Live cricket scores, fixtures, results and latest cricket news."
+    content="SPORTNEXIA Cricket - Cricket news, live scores, fixtures and results."
   >
 
   <meta
@@ -23,50 +25,150 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="sport.css">
 
+  <style>
+
+    .page-navigation {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e9f0;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .page-navigation-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+
+      padding: 10px 16px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      overflow-x: auto;
+
+      scrollbar-width: none;
+    }
+
+    .page-navigation-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .page-navigation a,
+    .page-navigation button {
+
+      flex: 0 0 auto;
+
+      border: 1px solid #e3e7ee;
+
+      background: #f5f7fa;
+
+      color: #111827;
+
+      border-radius: 999px;
+
+      padding: 9px 14px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      text-decoration: none;
+
+      white-space: nowrap;
+
+      cursor: pointer;
+
+      font-family: inherit;
+    }
+
+    .page-navigation .home-button {
+      background: #238cff;
+      color: #ffffff;
+      border-color: #238cff;
+    }
+
+    .page-navigation .language-button.active {
+      background: #238cff;
+      color: #ffffff;
+      border-color: #238cff;
+    }
+
+    .page-navigation a:hover,
+    .page-navigation button:hover {
+      background: #238cff;
+      color: #ffffff;
+      border-color: #238cff;
+    }
+
+  </style>
+
 </head>
+
 
 <body class="sport-page">
 
+
   <!-- HEADER -->
+
   <header class="site-header">
 
     <div class="container header-inner">
 
-      <a href="index.html" class="brand">
-        <img
-          src="logo.png"
-          alt="SPORTNEXIA"
-          onerror="this.style.display='none'"
-        >
-
-        <span>SPORTNEXIA</span>
+      <a
+        href="index.html"
+        class="brand"
+      >
+        SPORT<span>NEXIA</span>
       </a>
-
-      <nav class="main-nav">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="football.html">
-          ⚽ Football
-        </a>
-
-        <a
-          href="cricket.html"
-          class="active"
-        >
-          🏏 Cricket
-        </a>
-
-      </nav>
 
     </div>
 
   </header>
 
 
-  <!-- BREAKING BAR -->
+  <!-- PAGE NAVIGATION -->
+
+  <nav class="page-navigation">
+
+    <div class="page-navigation-inner">
+
+      <a
+        href="index.html"
+        class="home-button"
+      >
+        🏠 Home
+      </a>
+
+      <a
+        href="javascript:history.back()"
+      >
+        ← Back
+      </a>
+
+      <button
+        type="button"
+        class="language-button active"
+        id="banglaButton"
+      >
+        বাংলা
+      </button>
+
+      <button
+        type="button"
+        class="language-button"
+        id="englishButton"
+      >
+        English
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <!-- BREAKING -->
+
   <div class="breaking-bar">
 
     <div class="container">
@@ -85,6 +187,7 @@
 
 
   <!-- HERO -->
+
   <section class="sport-hero cricket-hero">
 
     <div class="container">
@@ -98,9 +201,9 @@
       </h1>
 
       <p>
-        Follow the latest cricket matches,
-        fixtures, results, live scores and
-        breaking cricket news — all in one place.
+        Follow the latest cricket news,
+        live scores, fixtures and results
+        from around the world.
       </p>
 
     </div>
@@ -108,35 +211,8 @@
   </section>
 
 
-  <!-- SPORT TABS -->
-  <section class="sport-tabs-section">
+  <!-- CRICKET LIVE -->
 
-    <div class="container">
-
-      <div class="sport-tabs">
-
-        <a
-          href="football.html"
-          class="sport-tab"
-        >
-          ⚽ Football
-        </a>
-
-        <a
-          href="cricket.html"
-          class="sport-tab active"
-        >
-          🏏 Cricket
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- CRICKET MATCHES -->
   <main>
 
     <section class="matches-section">
@@ -146,7 +222,7 @@
         <div class="section-heading">
 
           <h2>
-            Cricket Matches
+            Cricket Live
           </h2>
 
           <p>
@@ -172,6 +248,7 @@
 
 
     <!-- CRICKET NEWS -->
+
     <section class="football-news">
 
       <div class="container">
@@ -207,6 +284,7 @@
 
 
   <!-- FOOTER -->
+
   <footer class="site-footer">
 
     <div class="container">
@@ -229,12 +307,14 @@
 
 
   <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="config.js"></script>
 
-  <!-- Cache-busted sport.js -->
-  <script src="sport.js?v=2"></script>
+  <script src="sport.js"></script>
+
 
 </body>
+
 </html>
