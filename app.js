@@ -12,11 +12,11 @@ const db = createClient(
 
 const esc = s =>
   String(s ?? '').replace(/[&<>'"]/g, c => ({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    "'":'&#39;',
-    '"':'&quot;'
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
   }[c]));
 
 
@@ -24,9 +24,9 @@ const dateFmt = s =>
   new Date(s).toLocaleDateString(
     'en-GB',
     {
-      day:'2-digit',
-      month:'short',
-      year:'numeric'
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
     }
   ).toUpperCase();
 
@@ -51,28 +51,25 @@ function card(news, featured = false) {
 
         ${
           news.image_url
-
-          ? `
-            <img
-              src="${esc(news.image_url)}"
-              alt="${esc(news.title)}"
-              loading="lazy"
-            >
-          `
-
-          : `
-            <div class="pic">
-              ${
-                (news.category || '')
-                  .toLowerCase()
-                  .includes('cricket')
-                  ? '🏏'
-                  : '⚽'
-              }
-            </div>
-          `
+            ? `
+              <img
+                src="${esc(news.image_url)}"
+                alt="${esc(news.title)}"
+                loading="lazy"
+              >
+            `
+            : `
+              <div class="pic">
+                ${
+                  (news.category || '')
+                    .toLowerCase()
+                    .includes('cricket')
+                    ? '🏏'
+                    : '⚽'
+                }
+              </div>
+            `
         }
-
 
         <div class="pad">
 
@@ -226,14 +223,32 @@ async function setupReactions() {
 
 async function load() {
 
-  const newsGrid =
-    document.getElementById(
-      'newsGrid'
-    );
+  /*
+    IMPORTANT:
 
+    Home page uses:
+    #latestNews
+
+    Older pages may use:
+    #newsGrid
+  */
+
+  const newsGrid =
+    document.getElementById('latestNews') ||
+    document.getElementById('newsGrid');
+
+
+  /*
+    If this page has no news container,
+    don't continue.
+  */
 
   if (!newsGrid) return;
 
+
+  /* =====================================================
+     GET NEWS FROM SUPABASE
+  ====================================================== */
 
   const {
     data,
@@ -247,10 +262,14 @@ async function load() {
     .order(
       'created_at',
       {
-        ascending:false
+        ascending: false
       }
     );
 
+
+  /* =====================================================
+     ERROR
+  ====================================================== */
 
   if (error) {
 
