@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
 
@@ -12,7 +12,7 @@
 
   <meta
     name="description"
-    content="SPORTNEXIA Cricket - Cricket news, live scores, fixtures and results."
+    content="SPORTNEXIA Cricket News - Latest cricket news and updates."
   >
 
   <meta
@@ -20,23 +20,36 @@
     content="index, follow"
   >
 
-  <title>Cricket | SPORTNEXIA</title>
+  <title>Cricket News | SPORTNEXIA</title>
 
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="sport.css">
 
   <style>
 
-    .page-navigation {
+    /* =========================
+       CRICKET PAGE NAV
+    ========================= */
+
+    .sport-page-nav {
+
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+
+      width: 100%;
       background: #ffffff;
-      border-bottom: 1px solid #e5e9f0;
+
+      border-bottom: 1px solid #e7eaf0;
 
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 9999;
+
     }
 
-    .page-navigation-inner {
+
+    .sport-page-nav-inner {
+
       max-width: 1200px;
       margin: 0 auto;
 
@@ -44,61 +57,243 @@
 
       display: flex;
       align-items: center;
+
       gap: 8px;
 
       overflow-x: auto;
-
       scrollbar-width: none;
+
     }
 
-    .page-navigation-inner::-webkit-scrollbar {
+
+    .sport-page-nav-inner::-webkit-scrollbar {
+
       display: none;
+
     }
 
-    .page-navigation a,
-    .page-navigation button {
+
+    .sport-page-nav a,
+    .sport-page-nav button {
+
+      display: inline-flex !important;
+
+      align-items: center;
+      justify-content: center;
 
       flex: 0 0 auto;
 
-      border: 1px solid #e3e7ee;
-
-      background: #f5f7fa;
-
-      color: #111827;
-
-      border-radius: 999px;
+      min-height: 38px;
 
       padding: 9px 14px;
 
-      font-size: 13px;
-      font-weight: 700;
+      border-radius: 999px;
+
+      border: 1px solid #e5e8ef;
+
+      background: #f4f6fa;
+
+      color: #172033;
 
       text-decoration: none;
+
+      font-size: 13px;
+
+      font-weight: 700;
 
       white-space: nowrap;
 
       cursor: pointer;
 
-      font-family: inherit;
+      transition: 0.2s ease;
+
     }
 
-    .page-navigation .home-button {
+
+    .sport-page-nav a:hover,
+    .sport-page-nav button:hover {
+
       background: #238cff;
       color: #ffffff;
       border-color: #238cff;
+
     }
 
-    .page-navigation .language-button.active {
+
+    .sport-page-nav .home-btn {
+
       background: #238cff;
       color: #ffffff;
       border-color: #238cff;
+
     }
 
-    .page-navigation a:hover,
-    .page-navigation button:hover {
-      background: #238cff;
+
+    .sport-page-nav .language-btn {
+
+      background: #ffffff;
+
+    }
+
+
+    /* =========================
+       CRICKET NEWS HEADER
+    ========================= */
+
+    .cricket-page-intro {
+
+      background: #061224;
+
       color: #ffffff;
-      border-color: #238cff;
+
+      text-align: center;
+
+      padding: 20px 15px;
+
+    }
+
+
+    .cricket-page-intro h1 {
+
+      margin: 0;
+
+      font-size: 30px;
+
+      line-height: 1.2;
+
+    }
+
+
+    .cricket-page-intro p {
+
+      margin: 8px 0 0;
+
+      color: #aebfd3;
+
+      font-size: 14px;
+
+    }
+
+
+    /* =========================
+       NEWS AREA
+    ========================= */
+
+    .cricket-news-section {
+
+      background: #f5f7fb;
+
+      padding: 45px 20px 70px;
+
+      min-height: 500px;
+
+    }
+
+
+    .cricket-news-inner {
+
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+    }
+
+
+    .cricket-news-title {
+
+      margin: 0 0 25px;
+
+      color: #081426;
+
+      font-size: 38px;
+
+      font-weight: 800;
+
+    }
+
+
+    #cricketNews {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          minmax(
+            0,
+            1fr
+          )
+        );
+
+      gap: 22px;
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+      .sport-page-nav-inner {
+
+        padding: 9px 10px;
+
+      }
+
+
+      .sport-page-nav a,
+      .sport-page-nav button {
+
+        font-size: 12px;
+
+        padding: 8px 12px;
+
+      }
+
+
+      .cricket-page-intro {
+
+        padding: 17px 12px;
+
+      }
+
+
+      .cricket-page-intro h1 {
+
+        font-size: 25px;
+
+      }
+
+
+      .cricket-page-intro p {
+
+        font-size: 13px;
+
+      }
+
+
+      .cricket-news-section {
+
+        padding: 35px 20px 55px;
+
+      }
+
+
+      .cricket-news-title {
+
+        font-size: 32px;
+
+      }
+
+
+      #cricketNews {
+
+        grid-template-columns: 1fr;
+
+      }
+
     }
 
   </style>
@@ -106,10 +301,12 @@
 </head>
 
 
-<body class="sport-page">
+<body>
 
 
-  <!-- HEADER -->
+  <!-- =========================
+       HEADER
+  ========================= -->
 
   <header class="site-header">
 
@@ -127,18 +324,22 @@
   </header>
 
 
-  <!-- PAGE NAVIGATION -->
+  <!-- =========================
+       PAGE NAVIGATION
+  ========================= -->
 
-  <nav class="page-navigation">
+  <nav class="sport-page-nav">
 
-    <div class="page-navigation-inner">
+    <div class="sport-page-nav-inner">
+
 
       <a
         href="index.html"
-        class="home-button"
+        class="home-btn"
       >
         🏠 Home
       </a>
+
 
       <a
         href="javascript:history.back()"
@@ -146,28 +347,33 @@
         ← Back
       </a>
 
-      <button
-        type="button"
-        class="language-button active"
-        id="banglaButton"
-      >
-        বাংলা
-      </button>
 
       <button
+        id="banglaButton"
+        class="language-btn"
         type="button"
-        class="language-button"
-        id="englishButton"
       >
-        English
+        🇧🇩 বাংলা
       </button>
+
+
+      <button
+        id="englishButton"
+        class="language-btn"
+        type="button"
+      >
+        🇬🇧 English
+      </button>
+
 
     </div>
 
   </nav>
 
 
-  <!-- BREAKING -->
+  <!-- =========================
+       BREAKING
+  ========================= -->
 
   <div class="breaking-bar">
 
@@ -186,127 +392,54 @@
   </div>
 
 
-  <!-- HERO -->
+  <!-- =========================
+       CRICKET INTRO
+  ========================= -->
 
-  <section class="sport-hero cricket-hero">
+  <section class="cricket-page-intro">
 
-    <div class="container">
+    <h1>
+      🏏 Cricket News
+    </h1>
 
-      <span class="hero-kicker">
-        SPORTNEXIA
-      </span>
+    <p>
+      Latest cricket news, updates and stories from SPORTNEXIA
+    </p>
 
-      <h1>
-        Cricket
-      </h1>
+  </section>
 
-      <p>
-        Follow the latest cricket news,
-        live scores, fixtures and results
-        from around the world.
-      </p>
+
+  <!-- =========================
+       CRICKET NEWS
+  ========================= -->
+
+  <section class="cricket-news-section">
+
+    <div class="cricket-news-inner">
+
+
+      <h2 class="cricket-news-title">
+        Latest Cricket News
+      </h2>
+
+
+      <div id="cricketNews">
+
+        <div class="loading">
+          Loading cricket news...
+        </div>
+
+      </div>
+
 
     </div>
 
   </section>
 
 
-  <!-- CRICKET LIVE -->
-
-  <main>
-
-    <section class="matches-section">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <h2>
-            Cricket Live
-          </h2>
-
-          <p>
-            LIVE • UPCOMING • RESULTS
-          </p>
-
-        </div>
-
-        <div
-          id="cricketMatches"
-          class="matches-grid"
-        >
-
-          <div class="loading">
-            Loading cricket matches...
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CRICKET NEWS -->
-
-    <section class="football-news">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <span class="hero-kicker">
-            LATEST STORIES
-          </span>
-
-          <h2>
-            Cricket News
-          </h2>
-
-        </div>
-
-        <div
-          id="cricketNews"
-          class="football-news-grid"
-        >
-
-          <div class="loading">
-            Loading cricket news...
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-
-  <footer class="site-footer">
-
-    <div class="container">
-
-      <strong>
-        SPORTNEXIA
-      </strong>
-
-      <p>
-        Football • Cricket • Sports Updates
-      </p>
-
-      <p>
-        © 2026 SPORTNEXIA. All rights reserved.
-      </p>
-
-    </div>
-
-  </footer>
-
-
-  <!-- SUPABASE -->
+  <!-- =========================
+       SUPABASE
+  ========================= -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
