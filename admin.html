@@ -1,1 +1,429 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SPORTNEXIA Admin</title><link rel="stylesheet" href="admin.css"></head><body><main class="wrap"><div class="brand">SPORT<span>NEXIA</span> <small>ADMIN</small></div><section id="loginBox" class="panel"><h1>Admin Login</h1><p>Private publishing panel.</p><input id="email" type="email" placeholder="Email"><input id="password" type="password" placeholder="Password"><button id="login">Login</button><div id="msg"></div></section><section id="app" class="panel hidden"><div class="top"><div><h1>Publish News</h1><p>Only the authorized Sportnexia account can publish.</p></div><button id="logout" class="secondary">Logout</button></div><form id="newsForm"><input id="title" placeholder="News title" required><select id="category"><option>Football</option><option>Cricket</option><option>Sports</option></select><textarea id="content" placeholder="News content" rows="8" required></textarea><label class="file">Featured image<input id="image" type="file" accept="image/*"></label><button type="submit">Publish News</button><div id="status"></div></form><h2>Your Published News</h2><div id="list"></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <title>SPORTNEXIA Admin</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #111827;
+    }
+
+    .admin-header {
+      background: #071426;
+      color: white;
+      padding: 18px 20px;
+    }
+
+    .admin-header-inner {
+      max-width: 900px;
+      margin: auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      color: white;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .brand span {
+      color: #238cff;
+    }
+
+    .logout-button {
+      border: 0;
+      background: #ef4444;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .admin-container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+
+    .admin-card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.07);
+    }
+
+    .admin-title {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+
+    .admin-subtitle {
+      margin: 0 0 28px;
+      color: #6b7280;
+    }
+
+    .language-section {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      background: #fafbfc;
+    }
+
+    .language-title {
+      margin: 0 0 18px;
+      font-size: 20px;
+    }
+
+    .bangla-title {
+      color: #008f5a;
+    }
+
+    .english-title {
+      color: #238cff;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #238cff;
+      box-shadow: 0 0 0 3px rgba(35,140,255,.10);
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .main-fields {
+      margin-top: 20px;
+    }
+
+    .publish-area {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .image-preview {
+      display: none;
+      width: 100%;
+      max-height: 350px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-top: 12px;
+      background: #f1f3f6;
+    }
+
+    .publish-button {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 16px;
+      background: #238cff;
+      color: white;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .publish-button:hover {
+      background: #147be8;
+    }
+
+    .publish-button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .status-message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 9px;
+      display: none;
+      font-weight: 700;
+    }
+
+    .status-success {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .required {
+      color: #ef4444;
+    }
+
+    @media (max-width: 600px) {
+
+      .admin-card {
+        padding: 18px;
+      }
+
+      .admin-title {
+        font-size: 25px;
+      }
+
+      .admin-header-inner {
+        align-items: flex-start;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header class="admin-header">
+
+    <div class="admin-header-inner">
+
+      <a
+        href="index.html"
+        class="brand"
+      >
+        SPORT<span>NEXIA</span>
+      </a>
+
+      <button
+        id="logoutButton"
+        class="logout-button"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ADMIN -->
+
+  <main class="admin-container">
+
+    <section class="admin-card">
+
+      <h1 class="admin-title">
+        Publish News
+      </h1>
+
+      <p class="admin-subtitle">
+        Publish Bengali and English versions together.
+      </p>
+
+
+      <!-- CATEGORY -->
+
+      <div class="main-fields">
+
+        <label for="category">
+          Category <span class="required">*</span>
+        </label>
+
+        <select id="category">
+
+          <option value="Football">
+            Football
+          </option>
+
+          <option value="Cricket">
+            Cricket
+          </option>
+
+          <option value="Sports">
+            Sports
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- BANGLA -->
+
+      <section class="language-section">
+
+        <h2 class="language-title bangla-title">
+          🇧🇩 বাংলা নিউজ
+        </h2>
+
+        <label for="title_bn">
+          বাংলা শিরোনাম <span class="required">*</span>
+        </label>
+
+        <input
+          id="title_bn"
+          type="text"
+          placeholder="বাংলা নিউজের শিরোনাম লিখুন"
+        >
+
+        <label for="content_bn">
+          বাংলা নিউজ <span class="required">*</span>
+        </label>
+
+        <textarea
+          id="content_bn"
+          placeholder="বাংলা নিউজের বিস্তারিত লিখুন"
+        ></textarea>
+
+      </section>
+
+
+      <!-- ENGLISH -->
+
+      <section class="language-section">
+
+        <h2 class="language-title english-title">
+          🇬🇧 English News
+        </h2>
+
+        <label for="title_en">
+          English Title <span class="required">*</span>
+        </label>
+
+        <input
+          id="title_en"
+          type="text"
+          placeholder="Enter English news title"
+        >
+
+        <label for="content_en">
+          English News <span class="required">*</span>
+        </label>
+
+        <textarea
+          id="content_en"
+          placeholder="Write English news content"
+        ></textarea>
+
+      </section>
+
+
+      <!-- IMAGE -->
+
+      <section class="language-section">
+
+        <h2 class="language-title">
+          🖼️ Featured Image
+        </h2>
+
+        <label for="image">
+          News Image
+        </label>
+
+        <input
+          id="image"
+          type="file"
+          accept="image/*"
+        >
+
+        <img
+          id="imagePreview"
+          class="image-preview"
+          alt="Image preview"
+        >
+
+      </section>
+
+
+      <!-- PUBLISH -->
+
+      <div class="publish-area">
+
+        <button
+          id="publishButton"
+          class="publish-button"
+          type="button"
+        >
+          🚀 Publish News
+        </button>
+
+        <div
+          id="statusMessage"
+          class="status-message"
+        ></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="admin.js"></script>
+
+
+</body>
+
+</html>
