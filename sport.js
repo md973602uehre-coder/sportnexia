@@ -1,116 +1,501 @@
-const { createClient } = supabase;
-
-const sportDB = createClient(
+const sportDB = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
 
-const FOOTBALL_API_URL =
-  'https://pxnnzucxekcmwanqnjhf.supabase.co/functions/v1/football-api';
+const FOOTBALL_API =
+  "https://pxnnzucxekcmwanqnjhf.supabase.co/functions/v1/football-api";
+
+const CRICKET_API =
+  "https://pxnnzucxekcmwanqnjhf.supabase.co/functions/v1/cricket-api";
 
 
 /* =========================
    HELPERS
 ========================= */
 
-function sportEsc(value) {
-  return String(value ?? '').replace(/[&<>'"]/g, char => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;'
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>'"]/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#39;",
+    '"': "&quot;"
   }[char]));
 }
 
-function formatDate(value) {
-  if (!value) return '';
 
-  return new Date(value).toLocaleDateString(
-    'en-GB',
-    {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-    }
-  ).toUpperCase();
-}
+function formatDate(dateString) {
+  if (!dateString) return "";
 
-function formatTime(value) {
-  if (!value) return '';
+  const date = new Date(dateString);
 
-  return new Date(value).toLocaleTimeString(
-    [],
-    {
-      hour: '2-digit',
-      minute: '2-digit'
-    }
-  );
+  if (Number.isNaN(date.getTime())) return "";
+
+  return date.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 }
 
 
 /* =========================
-   NEWS CARD
+   FOOTBALL MATCH CARD
 ========================= */
 
-function createNewsCard(news, sport) {
+function createFootballMatch(match) {
 
-  const icon =
-    sport === 'cricket'
-      ? '🏏'
-      : '⚽';
+  const fixture = match.fixture || {};
+  const teams = match.teams || {};
+  const goals = match.goals || {};
+  const league = match.league || {};
+  const status = fixture.status || {};
+
+  const home = teams.home || {};
+  const away = teams.away || {};
+
+  const homeScore =
+    goals.home !== null &&
+    goals.home !== undefined
+      ? goals.home
+      : "-";
+
+  const awayScore =
+    goals.away !== null &&
+    goals.away !== undefined
+      ? goals.away
+      : "-";
+
+  const statusShort =
+    status.short || "";
+
+  const liveStatuses = [
+    "1H",
+    "2H",
+    "ET",
+    "P",
+    "LIVE"
+  ];
+
+  const isLive =
+    status.live === true ||
+    liveStatuses.includes(statusShort);
+
+  let statusText = "";
+
+  if (isLive) {
+    statusText =
+      status.elapsed
+        ? `LIVE ${status.elapsed}'`
+        : "LIVE";
+  } else if (statusShort === "FT") {
+    statusText = "FULL TIME";
+  } else if (statusShort === "HT") {
+    statusText = "HALF TIME";
+  } else {
+    statusText =
+      status.long ||
+      formatDate(fixture.date) ||
+      "UPCOMING";
+  }
 
   return `
-    <article class="news-card">
+    <article class="match-card">
 
-      <div
-        class="news-click-area"
-        onclick="sportOpenNews('${sportEsc(news.id)}')"
-        style="cursor:pointer"
-      >
+      <div class="match-league">
+        ${escapeHTML(league.name || "Football")}
+      </div>
 
-        ${
-          news.image_url
-            ? `
-              <img
-                src="${sportEsc(news.image_url)}"
-                alt="${sportEsc(news.title)}"
-                loading="lazy"
-              >
-            `
-            : `
-              <div class="pic">
-                ${icon}
-              </div>
-            `
-        }
+      <div class="match-status ${isLive ? "live" : ""}">
+        ${escapeHTML(statusText)}
+      </div>
 
-        <div class="pad">
+      <div class="teams">
 
-          <label>
-            ${sportEsc(
-              news.category ||
-              sport.toUpperCase()
+        <div class="team">
+          ${
+            home.logo
+              ? `<img
+                  class="team-logo"
+                  src="${escapeHTML(home.logo)}"
+                  alt="${escapeHTML(home.name || "Home")}"
+                >`
+              : ""
+          }
+
+          <strong>
+            ${escapeHTML(home.name || "Home")}
+          </strong>
+        </div>
+
+        <div class="score">
+          <span>${escapeHTML(homeScore)}</span>
+          <span>:</span>
+          <span>${escapeHTML(awayScore)}</span>
+        </div>
+
+        <div class="team">
+          ${
+            away.logo
+              ? `<img
+                  class="team-logo"
+                  src="${escapeHTML(away.logo)}"
+                  alt="${escapeHTML(away.name || "Away")}"
+                >`
+              : ""
+          }
+
+          <strong>
+            ${escapeHTML(away.name || "Away")}
+          </strong>
+        </div>
+
+      </div>
+
+    </article>
+  `;
+}
+
+
+/* =========================
+   CRICKET MATCH CARD
+========================= */
+
+function createCricketMatch(match) {
+
+  const home = match.home || {};
+  const away = match.away || {};
+
+  const status =
+    String(match.status || "").toLowerCase();
+
+  const isLive =
+    status === "live" ||
+    status === "in_progress" ||
+    status === "in-play" ||
+    status === "inplay";
+
+  let statusText = "";
+
+  if (isLive) {
+    statusText = "LIVE";
+  } else if (status === "completed") {
+    statusText = "COMPLETED";
+  } else {
+    statusText =
+      formatDate(match.kickoff_utc) ||
+      "UPCOMING";
+  }
+
+  const homeScore =
+    match.score?.home ??
+    match.home_score ??
+    "-";
+
+  const awayScore =
+    match.score?.away ??
+    match.away_score ??
+    "-";
+
+  return `
+    <article class="match-card cricket-match-card">
+
+      <div class="match-league">
+        ${escapeHTML(
+          match.league?.name ||
+          match.league_name ||
+          "Cricket"
+        )}
+      </div>
+
+      <div class="match-status ${isLive ? "live" : ""}">
+        ${escapeHTML(statusText)}
+      </div>
+
+      <div class="teams">
+
+        <div class="team">
+
+          ${
+            home.logo_url
+              ? `<img
+                  class="team-logo"
+                  src="${escapeHTML(home.logo_url)}"
+                  alt="${escapeHTML(home.name || "Home")}"
+                >`
+              : ""
+          }
+
+          <strong>
+            ${escapeHTML(
+              home.short_name ||
+              home.name ||
+              "Home"
             )}
-          </label>
+          </strong>
 
-          <h3>
-            ${sportEsc(news.title)}
-          </h3>
+        </div>
+
+        <div class="score">
+
+          <span>
+            ${escapeHTML(homeScore)}
+          </span>
+
+          <span>:</span>
+
+          <span>
+            ${escapeHTML(awayScore)}
+          </span>
+
+        </div>
+
+        <div class="team">
+
+          ${
+            away.logo_url
+              ? `<img
+                  class="team-logo"
+                  src="${escapeHTML(away.logo_url)}"
+                  alt="${escapeHTML(away.name || "Away")}"
+                >`
+              : ""
+          }
+
+          <strong>
+            ${escapeHTML(
+              away.short_name ||
+              away.name ||
+              "Away"
+            )}
+          </strong>
 
         </div>
 
       </div>
 
-      <div class="pad news-text-area">
+    </article>
+  `;
+}
 
-        <p
-          class="news-content"
-          role="button"
-          tabindex="0"
-          aria-expanded="false"
-        >
-          ${sportEsc(news.content || '')}
+
+/* =========================
+   FOOTBALL MATCHES
+========================= */
+
+async function loadFootballMatches() {
+
+  const container =
+    document.getElementById("footballMatches");
+
+  if (!container) return;
+
+  container.innerHTML =
+    `<div class="loading">Loading football matches...</div>`;
+
+  try {
+
+    const response =
+      await fetch(FOOTBALL_API);
+
+    const data =
+      await response.json();
+
+    const apiErrors =
+      data.errors;
+
+    const hasApiErrors =
+      Array.isArray(apiErrors)
+        ? apiErrors.length > 0
+        : apiErrors &&
+          typeof apiErrors === "object"
+            ? Object.keys(apiErrors).length > 0
+            : Boolean(apiErrors);
+
+    if (data.error || hasApiErrors) {
+      throw new Error(
+        data.error ||
+        JSON.stringify(data.errors)
+      );
+    }
+
+    const matches =
+      Array.isArray(data.response)
+        ? data.response
+        : [];
+
+    if (!matches.length) {
+
+      container.innerHTML =
+        `<div class="empty">
+          No live football matches right now.
+        </div>`;
+
+      return;
+    }
+
+    container.innerHTML =
+      matches
+        .map(createFootballMatch)
+        .join("");
+
+  } catch (error) {
+
+    console.error(
+      "Football API error:",
+      error
+    );
+
+    container.innerHTML =
+      `<div class="error">
+        Football matches could not be loaded.
+      </div>`;
+  }
+}
+
+
+/* =========================
+   CRICKET MATCHES
+========================= */
+
+async function loadCricketMatches() {
+
+  const container =
+    document.getElementById("cricketMatches");
+
+  if (!container) return;
+
+  container.innerHTML =
+    `<div class="loading">Loading cricket matches...</div>`;
+
+  try {
+
+    const response =
+      await fetch(CRICKET_API);
+
+    const data =
+      await response.json();
+
+    if (!response.ok || data.error) {
+      throw new Error(
+        data.error ||
+        "Cricket API request failed"
+      );
+    }
+
+    const matches =
+      Array.isArray(data.data)
+        ? data.data
+        : Array.isArray(data)
+          ? data
+          : [];
+
+    if (!matches.length) {
+
+      container.innerHTML =
+        `<div class="empty">
+          No cricket matches available.
+        </div>`;
+
+      return;
+    }
+
+    /*
+      Live matches first,
+      then upcoming matches.
+    */
+
+    matches.sort((a, b) => {
+
+      const aLive =
+        ["live", "in_progress", "in-play", "inplay"]
+          .includes(
+            String(a.status || "").toLowerCase()
+          );
+
+      const bLive =
+        ["live", "in_progress", "in-play", "inplay"]
+          .includes(
+            String(b.status || "").toLowerCase()
+          );
+
+      if (aLive && !bLive) return -1;
+      if (!aLive && bLive) return 1;
+
+      return (
+        new Date(a.kickoff_utc || 0) -
+        new Date(b.kickoff_utc || 0)
+      );
+    });
+
+    container.innerHTML =
+      matches
+        .slice(0, 20)
+        .map(createCricketMatch)
+        .join("");
+
+  } catch (error) {
+
+    console.error(
+      "Cricket API error:",
+      error
+    );
+
+    container.innerHTML =
+      `<div class="error">
+        Cricket matches could not be loaded.
+      </div>`;
+  }
+}
+
+
+/* =========================
+   SPORT NEWS
+========================= */
+
+function createSportNews(news) {
+
+  return `
+    <article class="news-card">
+
+      ${
+        news.image_url
+          ? `
+            <img
+              src="${escapeHTML(news.image_url)}"
+              alt="${escapeHTML(news.title)}"
+              loading="lazy"
+            >
+          `
+          : `
+            <div class="pic">
+              ${
+                (news.category || "")
+                  .toLowerCase()
+                  .includes("cricket")
+                  ? "🏏"
+                  : "⚽"
+              }
+            </div>
+          `
+      }
+
+      <div class="pad">
+
+        <label>
+          ${escapeHTML(
+            news.category || "SPORTS"
+          )}
+        </label>
+
+        <h3>
+          ${escapeHTML(news.title)}
+        </h3>
+
+        <p>
+          ${escapeHTML(news.content || "")}
         </p>
 
         <small>
@@ -125,130 +510,40 @@ function createNewsCard(news, sport) {
 }
 
 
-/* =========================
-   OPEN NEWS
-========================= */
-
-function sportOpenNews(id) {
-
-  window.location.href =
-    `news.html?id=${encodeURIComponent(id)}`;
-
-}
-
-
-/* =========================
-   NEWS TEXT TOGGLE
-========================= */
-
-function setupNewsToggle() {
-
-  document
-    .querySelectorAll('.news-content')
-    .forEach(element => {
-
-      const toggle = () => {
-
-        element.classList.toggle(
-          'expanded'
-        );
-
-        element.setAttribute(
-          'aria-expanded',
-          element.classList.contains(
-            'expanded'
-          )
-            ? 'true'
-            : 'false'
-        );
-
-      };
-
-      element.addEventListener(
-        'click',
-        event => {
-
-          event.stopPropagation();
-
-          toggle();
-
-        }
-      );
-
-      element.addEventListener(
-        'keydown',
-        event => {
-
-          if (
-            event.key === 'Enter' ||
-            event.key === ' '
-          ) {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-            toggle();
-
-          }
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================
-   LOAD SPORT NEWS
-========================= */
-
-async function loadSportNews(sport) {
+async function loadSportNews(
+  category,
+  elementId
+) {
 
   const container =
-    document.getElementById(
-      `${sport}News`
-    );
+    document.getElementById(elementId);
 
   if (!container) return;
-
-  container.innerHTML = `
-    <div class="loading">
-      Loading ${sport} news...
-    </div>
-  `;
 
   const {
     data,
     error
   } = await sportDB
-    .from('news')
-    .select('*')
-    .ilike(
-      'category',
-      `%${sport}%`
-    )
+    .from("news")
+    .select("*")
+    .ilike("category", `%${category}%`)
     .order(
-      'created_at',
-      {
-        ascending: false
-      }
-    );
+      "created_at",
+      { ascending: false }
+    )
+    .limit(6);
 
   if (error) {
 
     console.error(
-      'SPORTNEXIA News Error:',
+      "News loading error:",
       error
     );
 
-    container.innerHTML = `
-      <div class="error">
-        ${sportEsc(sport)}
-        news could not be loaded.
-      </div>
-    `;
+    container.innerHTML =
+      `<div class="error">
+        News could not be loaded.
+      </div>`;
 
     return;
   }
@@ -258,568 +553,42 @@ async function loadSportNews(sport) {
 
   if (!news.length) {
 
-    container.innerHTML = `
-      <div class="empty">
-        No ${sportEsc(sport)}
-        news published yet.
-      </div>
-    `;
+    container.innerHTML =
+      `<div class="empty">
+        ${category} news will appear here.
+      </div>`;
 
     return;
   }
 
   container.innerHTML =
     news
-      .slice(0, 9)
-      .map(
-        item =>
-          createNewsCard(
-            item,
-            sport
-          )
-      )
-      .join('');
-
-  setupNewsToggle();
-
-  const breakingText =
-    document.getElementById(
-      'breakingText'
-    );
-
-  if (
-    breakingText &&
-    news[0]
-  ) {
-
-    breakingText.textContent =
-      news[0].title;
-
-  }
-
+      .map(createSportNews)
+      .join("");
 }
 
 
 /* =========================
-   FOOTBALL MATCH CARD
-========================= */
-
-function createFootballMatch(match) {
-
-  const fixture =
-    match.fixture || {};
-
-  const teams =
-    match.teams || {};
-
-  const home =
-    teams.home || {};
-
-  const away =
-    teams.away || {};
-
-  const goals =
-    match.goals || {};
-
-  const league =
-    match.league || {};
-
-  const status =
-    fixture.status || {};
-
-
-  const isLive =
-    status.live === true ||
-    [
-      '1H',
-      '2H',
-      'ET',
-      'P',
-      'LIVE'
-    ].includes(
-      status.short
-    );
-
-
-  let statusText =
-    status.long ||
-    'Match';
-
-
-  if (isLive) {
-
-    statusText =
-      status.elapsed
-        ? `LIVE ${status.elapsed}'`
-        : 'LIVE';
-
-  }
-
-
-  const homeScore =
-    goals.home === null ||
-    goals.home === undefined
-      ? '-'
-      : goals.home;
-
-
-  const awayScore =
-    goals.away === null ||
-    goals.away === undefined
-      ? '-'
-      : goals.away;
-
-
-  return `
-    <article class="match-card">
-
-      <div class="match-top">
-
-        <span class="league-name">
-
-          ${
-            league.logo
-              ? `
-                <img
-                  src="${sportEsc(
-                    league.logo
-                  )}"
-                  alt=""
-                  style="
-                    width:20px;
-                    height:20px;
-                    object-fit:contain;
-                    vertical-align:middle;
-                    margin-right:6px;
-                  "
-                >
-              `
-              : ''
-          }
-
-          ${sportEsc(
-            league.name ||
-            'Football'
-          )}
-
-        </span>
-
-
-        <span
-          class="match-status ${
-            isLive
-              ? 'live'
-              : ''
-          }"
-        >
-          ${sportEsc(
-            statusText
-          )}
-        </span>
-
-      </div>
-
-
-      <div class="teams">
-
-
-        <div class="team">
-
-          ${
-            home.logo
-              ? `
-                <img
-                  class="team-logo"
-                  src="${sportEsc(
-                    home.logo
-                  )}"
-                  alt="${sportEsc(
-                    home.name
-                  )}"
-                  loading="lazy"
-                >
-              `
-              : `
-                <div class="team-logo">
-                  ⚽
-                </div>
-              `
-          }
-
-          <span>
-            ${sportEsc(
-              home.name ||
-              'Home Team'
-            )}
-          </span>
-
-        </div>
-
-
-        <div class="vs">
-
-          <strong>
-            ${sportEsc(
-              homeScore
-            )}
-          </strong>
-
-          <span>
-            -
-          </span>
-
-          <strong>
-            ${sportEsc(
-              awayScore
-            )}
-          </strong>
-
-        </div>
-
-
-        <div class="team">
-
-          ${
-            away.logo
-              ? `
-                <img
-                  class="team-logo"
-                  src="${sportEsc(
-                    away.logo
-                  )}"
-                  alt="${sportEsc(
-                    away.name
-                  )}"
-                  loading="lazy"
-                >
-              `
-              : `
-                <div class="team-logo">
-                  ⚽
-                </div>
-              `
-          }
-
-          <span>
-            ${sportEsc(
-              away.name ||
-              'Away Team'
-            )}
-          </span>
-
-        </div>
-
-
-      </div>
-
-
-      <div class="match-time">
-
-        ${
-          isLive
-            ? '🔴 LIVE NOW'
-            : `
-              ${formatDate(
-                fixture.date
-              )}
-              •
-              ${formatTime(
-                fixture.date
-              )}
-            `
-        }
-
-      </div>
-
-    </article>
-  `;
-}
-
-
-/* =========================
-   REAL FOOTBALL API
-========================= */
-
-async function loadFootballMatches() {
-
-  const container =
-    document.getElementById(
-      'footballMatches'
-    );
-
-  if (!container) return;
-
-
-  container.innerHTML = `
-    <div class="loading">
-      ⚽ Loading live football...
-    </div>
-  `;
-
-
-  try {
-
-    const response =
-      await fetch(
-        FOOTBALL_API_URL,
-        {
-          method: 'GET',
-          cache: 'no-store'
-        }
-      );
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        `HTTP ${response.status}`
-      );
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    console.log(
-      'SPORTNEXIA FOOTBALL DATA:',
-      data
-    );
-
-
-    /*
-      IMPORTANT:
-      API-Football normally returns:
-
-      "errors": []
-
-      Empty array means NO error.
-    */
-
-    const apiErrors =
-      data.errors;
-
-    const hasApiErrors =
-      Array.isArray(apiErrors)
-        ? apiErrors.length > 0
-        : apiErrors &&
-          typeof apiErrors === 'object'
-            ? Object.keys(apiErrors).length > 0
-            : Boolean(apiErrors);
-
-
-    if (
-      data.error ||
-      hasApiErrors
-    ) {
-
-      console.error(
-        'Football API error:',
-        data.error ||
-        data.errors
-      );
-
-      throw new Error(
-        'Football API returned an error'
-      );
-
-    }
-
-
-    const matches =
-      Array.isArray(
-        data.response
-      )
-        ? data.response
-        : [];
-
-
-    /*
-      NO LIVE MATCH
-    */
-
-    if (!matches.length) {
-
-      container.innerHTML = `
-        <div class="empty">
-
-          ⚽ No live football
-          matches right now.
-
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    /*
-      REAL MATCHES
-    */
-
-    container.innerHTML =
-      matches
-        .slice(0, 12)
-        .map(
-          match =>
-            createFootballMatch(
-              match
-            )
-        )
-        .join('');
-
-
-  } catch (error) {
-
-    console.error(
-      'SPORTNEXIA Football Error:',
-      error
-    );
-
-
-    container.innerHTML = `
-      <div class="error">
-
-        ⚠️ Live football
-        could not be loaded.
-
-        <br><br>
-
-        Please refresh
-        the page and try again.
-
-      </div>
-    `;
-
-  }
-
-}
-
-
-/* =========================
-   CRICKET
-========================= */
-
-function loadCricketMatches() {
-
-  const container =
-    document.getElementById(
-      'cricketMatches'
-    );
-
-  if (!container) return;
-
-
-  container.innerHTML = `
-    <div class="empty">
-
-      🏏 Cricket live scores
-      will be added soon.
-
-    </div>
-  `;
-
-}
-
-
-/* =========================
-   INITIALIZE SPORT PAGE
-========================= */
-
-async function initSportPage(
-  sport
-) {
-
-  console.log(
-    `SPORTNEXIA ${sport} page started`
-  );
-
-
-  await loadSportNews(
-    sport
-  );
-
-
-  if (
-    sport === 'football'
-  ) {
-
-    await loadFootballMatches();
-
-    return;
-
-  }
-
-
-  if (
-    sport === 'cricket'
-  ) {
-
-    loadCricketMatches();
-
-  }
-
-}
-
-
-/* =========================
-   PAGE DETECTION
+   START
 ========================= */
 
 document.addEventListener(
-  'DOMContentLoaded',
+  "DOMContentLoaded",
   () => {
 
-    const path =
-      window.location.pathname
-        .toLowerCase();
+    loadFootballMatches();
 
+    loadCricketMatches();
 
-    if (
-      path.includes(
-        'football'
-      )
-    ) {
+    loadSportNews(
+      "Football",
+      "footballNews"
+    );
 
-      initSportPage(
-        'football'
-      );
-
-      return;
-
-    }
-
-
-    if (
-      path.includes(
-        'cricket'
-      )
-    ) {
-
-      initSportPage(
-        'cricket'
-      );
-
-    }
+    loadSportNews(
+      "Cricket",
+      "cricketNews"
+    );
 
   }
 );
-
-
-/* =========================
-   GLOBAL FUNCTIONS
-========================= */
-
-window.sportOpenNews =
-  sportOpenNews;
-
-window.loadSportNews =
-  loadSportNews;
-
-window.loadFootballMatches =
-  loadFootballMatches;
-
-window.initSportPage =
-  initSportPage;
