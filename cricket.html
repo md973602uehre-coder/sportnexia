@@ -23,6 +23,8 @@
   <title>Cricket News | SPORTNEXIA</title>
 
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sport.css">
+
 
   <style>
 
@@ -33,16 +35,21 @@
     .sport-page-nav {
 
       display: block !important;
+
       visibility: visible !important;
+
       opacity: 1 !important;
 
       width: 100%;
-      background: #ffffff;
+
+      background: #ffffff !important;
 
       border-bottom: 1px solid #e7eaf0;
 
       position: sticky;
+
       top: 0;
+
       z-index: 9999;
 
     }
@@ -51,16 +58,19 @@
     .sport-page-nav-inner {
 
       max-width: 1200px;
+
       margin: 0 auto;
 
       padding: 10px 16px;
 
-      display: flex;
+      display: flex !important;
+
       align-items: center;
 
       gap: 8px;
 
       overflow-x: auto;
+
       scrollbar-width: none;
 
     }
@@ -79,6 +89,7 @@
       display: inline-flex !important;
 
       align-items: center;
+
       justify-content: center;
 
       flex: 0 0 auto;
@@ -89,11 +100,11 @@
 
       border-radius: 999px;
 
-      border: 1px solid #e5e8ef;
+      border: 1px solid #e5e8ef !important;
 
-      background: #f4f6fa;
+      background: #f4f6fa !important;
 
-      color: #172033;
+      color: #172033 !important;
 
       text-decoration: none;
 
@@ -113,31 +124,157 @@
     .sport-page-nav a:hover,
     .sport-page-nav button:hover {
 
-      background: #238cff;
-      color: #ffffff;
-      border-color: #238cff;
+      background: #238cff !important;
+
+      color: #ffffff !important;
+
+      border-color: #238cff !important;
 
     }
 
 
     .sport-page-nav .home-btn {
 
-      background: #238cff;
-      color: #ffffff;
-      border-color: #238cff;
+      background: #238cff !important;
+
+      color: #ffffff !important;
+
+      border-color: #238cff !important;
 
     }
 
 
-    .sport-page-nav .language-btn {
+    .sport-page-nav .language-btn.active {
 
-      background: #ffffff;
+      background: #238cff !important;
+
+      color: #ffffff !important;
+
+      border-color: #238cff !important;
 
     }
 
 
     /* =========================
-       CRICKET NEWS HEADER
+       BREAKING TICKER
+    ========================= */
+
+    .breaking-bar {
+
+      display: flex !important;
+
+      align-items: center !important;
+
+      width: 100% !important;
+
+      overflow: hidden !important;
+
+      background: #f5f6fa !important;
+
+      border-bottom: 1px solid #e2e5eb !important;
+
+      height: 48px !important;
+
+      box-sizing: border-box !important;
+
+    }
+
+
+    .breaking-label {
+
+      flex: 0 0 auto !important;
+
+      background: #e50914 !important;
+
+      color: #ffffff !important;
+
+      font-weight: 800 !important;
+
+      font-size: 14px !important;
+
+      padding: 14px 16px !important;
+
+      height: 100% !important;
+
+      display: flex !important;
+
+      align-items: center !important;
+
+      box-sizing: border-box !important;
+
+      position: relative !important;
+
+      z-index: 2 !important;
+
+    }
+
+
+    .breaking-window {
+
+      flex: 1 !important;
+
+      min-width: 0 !important;
+
+      overflow: hidden !important;
+
+      white-space: nowrap !important;
+
+      position: relative !important;
+
+    }
+
+
+    .breaking-track {
+
+      display: inline-flex !important;
+
+      width: max-content !important;
+
+      min-width: 100% !important;
+
+      animation: cricketBreakingMove 24s linear infinite !important;
+
+      will-change: transform !important;
+
+    }
+
+
+    .breaking-track span {
+
+      display: inline-block !important;
+
+      padding-left: 28px !important;
+
+      padding-right: 80px !important;
+
+      color: #111827 !important;
+
+      font-size: 15px !important;
+
+      font-weight: 600 !important;
+
+    }
+
+
+    @keyframes cricketBreakingMove {
+
+      0% {
+
+        transform: translateX(100%);
+
+      }
+
+      100% {
+
+        transform: translateX(-100%);
+
+      }
+
+    }
+
+
+    /* =========================
+       CRICKET INTRO
     ========================= */
 
     .cricket-page-intro {
@@ -231,6 +368,30 @@
 
 
     /* =========================
+       NEWS CARD LINK
+    ========================= */
+
+    .news-card-link {
+
+      display: block;
+
+      text-decoration: none;
+
+      color: inherit;
+
+      cursor: pointer;
+
+    }
+
+
+    .news-card-link:hover {
+
+      text-decoration: none;
+
+    }
+
+
+    /* =========================
        MOBILE
     ========================= */
 
@@ -294,6 +455,29 @@
 
       }
 
+
+      .breaking-bar {
+
+        height: 44px !important;
+
+      }
+
+
+      .breaking-label {
+
+        font-size: 12px !important;
+
+        padding: 12px !important;
+
+      }
+
+
+      .breaking-track span {
+
+        font-size: 14px !important;
+
+      }
+
     }
 
   </style>
@@ -301,7 +485,7 @@
 </head>
 
 
-<body>
+<body class="sport-page">
 
 
   <!-- =========================
@@ -336,6 +520,7 @@
       <a
         href="index.html"
         class="home-btn"
+        id="homeButton"
       >
         🏠 Home
       </a>
@@ -343,6 +528,7 @@
 
       <a
         href="javascript:history.back()"
+        id="backButton"
       >
         ← Back
       </a>
@@ -375,17 +561,33 @@
        BREAKING
   ========================= -->
 
-  <div class="breaking-bar">
+  <div
+    class="breaking-bar"
+    id="breakingBar"
+  >
 
-    <div class="container">
+    <div class="breaking-label">
+      BREAKING
+    </div>
 
-      <span class="breaking-label">
-        BREAKING
-      </span>
 
-      <span id="breakingText">
-        Latest cricket updates
-      </span>
+    <div class="breaking-window">
+
+      <div
+        class="breaking-track"
+        id="breakingTrack"
+      >
+
+        <span id="breakingText">
+          সর্বশেষ ক্রিকেট আপডেট
+        </span>
+
+
+        <span>
+          সর্বশেষ ক্রিকেট আপডেট
+        </span>
+
+      </div>
 
     </div>
 
@@ -396,14 +598,18 @@
        CRICKET INTRO
   ========================= -->
 
-  <section class="cricket-page-intro">
+  <section
+    class="cricket-page-intro"
+    id="cricketIntro"
+  >
 
-    <h1>
-      🏏 Cricket News
+    <h1 id="cricketIntroTitle">
+      🏏 ক্রিকেট সংবাদ
     </h1>
 
-    <p>
-      Latest cricket news, updates and stories from SPORTNEXIA
+
+    <p id="cricketIntroDescription">
+      SPORTNEXIA-এর সর্বশেষ ক্রিকেট খবর, আপডেট ও সংবাদ।
     </p>
 
   </section>
@@ -418,15 +624,18 @@
     <div class="cricket-news-inner">
 
 
-      <h2 class="cricket-news-title">
-        Latest Cricket News
+      <h2
+        class="cricket-news-title"
+        id="cricketNewsTitle"
+      >
+        সর্বশেষ ক্রিকেট সংবাদ
       </h2>
 
 
       <div id="cricketNews">
 
         <div class="loading">
-          Loading cricket news...
+          খবর লোড হচ্ছে...
         </div>
 
       </div>
@@ -438,6 +647,33 @@
 
 
   <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <strong>
+        SPORTNEXIA
+      </strong>
+
+
+      <p id="footerSportsText">
+        ফুটবল • ক্রিকেট • খেলাধুলার আপডেট
+      </p>
+
+
+      <p>
+        © 2026 SPORTNEXIA. All rights reserved.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
        SUPABASE
   ========================= -->
 
@@ -446,6 +682,185 @@
   <script src="config.js"></script>
 
   <script src="sport.js"></script>
+
+
+  <!-- =========================
+       CRICKET PAGE LANGUAGE
+  ========================= -->
+
+  <script>
+
+    function updateCricketPageLanguage() {
+
+      const language =
+        localStorage.getItem(
+          "sportnexiaLanguage"
+        ) || "bn";
+
+
+      const isEnglish =
+        language === "en";
+
+
+      /* =========================
+         HTML LANGUAGE
+      ========================= */
+
+      document.documentElement.lang =
+        isEnglish
+          ? "en"
+          : "bn";
+
+
+      /* =========================
+         PAGE TITLE
+      ========================= */
+
+      document.title =
+        isEnglish
+          ? "Cricket News | SPORTNEXIA"
+          : "ক্রিকেট সংবাদ | SPORTNEXIA";
+
+
+      /* =========================
+         INTRO TITLE
+      ========================= */
+
+      const introTitle =
+        document.getElementById(
+          "cricketIntroTitle"
+        );
+
+
+      if (introTitle) {
+
+        introTitle.textContent =
+          isEnglish
+            ? "🏏 Cricket News"
+            : "🏏 ক্রিকেট সংবাদ";
+
+      }
+
+
+      /* =========================
+         INTRO DESCRIPTION
+      ========================= */
+
+      const introDescription =
+        document.getElementById(
+          "cricketIntroDescription"
+        );
+
+
+      if (introDescription) {
+
+        introDescription.textContent =
+          isEnglish
+            ? "Latest cricket news, updates and stories from SPORTNEXIA"
+            : "SPORTNEXIA-এর সর্বশেষ ক্রিকেট খবর, আপডেট ও সংবাদ।";
+
+      }
+
+
+      /* =========================
+         NEWS TITLE
+      ========================= */
+
+      const newsTitle =
+        document.getElementById(
+          "cricketNewsTitle"
+        );
+
+
+      if (newsTitle) {
+
+        newsTitle.textContent =
+          isEnglish
+            ? "Latest Cricket News"
+            : "সর্বশেষ ক্রিকেট সংবাদ";
+
+      }
+
+
+      /* =========================
+         FOOTER
+      ========================= */
+
+      const footerSports =
+        document.getElementById(
+          "footerSportsText"
+        );
+
+
+      if (footerSports) {
+
+        footerSports.textContent =
+          isEnglish
+            ? "Football • Cricket • Sports Updates"
+            : "ফুটবল • ক্রিকেট • খেলাধুলার আপডেট";
+
+      }
+
+    }
+
+
+    /* =========================
+       RUN ON LOAD
+    ========================= */
+
+    updateCricketPageLanguage();
+
+
+    /* =========================
+       LANGUAGE BUTTONS
+    ========================= */
+
+    const cricketBnButton =
+      document.getElementById(
+        "banglaButton"
+      );
+
+
+    const cricketEnButton =
+      document.getElementById(
+        "englishButton"
+      );
+
+
+    if (cricketBnButton) {
+
+      cricketBnButton.addEventListener(
+        "click",
+        () => {
+
+          setTimeout(
+            updateCricketPageLanguage,
+            50
+          );
+
+        }
+      );
+
+    }
+
+
+    if (cricketEnButton) {
+
+      cricketEnButton.addEventListener(
+        "click",
+        () => {
+
+          setTimeout(
+            updateCricketPageLanguage,
+            50
+          );
+
+        }
+      );
+
+    }
+
+  </script>
 
 
 </body>
