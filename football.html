@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="sport.css">
 
+
   <style>
 
     /* =========================
@@ -32,6 +33,7 @@
     ========================= */
 
     .page-navigation {
+
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
@@ -43,14 +45,18 @@
       border-bottom: 1px solid #e5e9f0;
 
       position: sticky;
+
       top: 0;
+
       z-index: 9999;
+
     }
 
 
     .page-navigation-inner {
 
       max-width: 1200px;
+
       margin: 0 auto;
 
       padding: 10px 16px;
@@ -64,11 +70,14 @@
       overflow-x: auto;
 
       scrollbar-width: none;
+
     }
 
 
     .page-navigation-inner::-webkit-scrollbar {
+
       display: none;
+
     }
 
 
@@ -78,6 +87,7 @@
       display: inline-flex !important;
 
       align-items: center;
+
       justify-content: center;
 
       flex: 0 0 auto;
@@ -105,6 +115,7 @@
       white-space: nowrap;
 
       cursor: pointer;
+
     }
 
 
@@ -115,6 +126,7 @@
       color: #ffffff !important;
 
       border-color: #238cff !important;
+
     }
 
 
@@ -125,6 +137,7 @@
       color: #ffffff !important;
 
       border-color: #238cff !important;
+
     }
 
 
@@ -136,6 +149,7 @@
       color: #ffffff !important;
 
       border-color: #238cff !important;
+
     }
 
 
@@ -146,12 +160,14 @@
     .football-news-page {
 
       padding: 35px 0 60px;
+
     }
 
 
     .football-news-page .section-heading {
 
       margin-bottom: 25px;
+
     }
 
 
@@ -167,6 +183,173 @@
       margin: 0;
 
       color: #6b7280;
+
+    }
+
+
+    /* =========================
+       NEWS CARD LINK
+    ========================= */
+
+    .news-card-link {
+
+      display: block;
+
+      text-decoration: none;
+
+      color: inherit;
+
+      cursor: pointer;
+
+    }
+
+
+    .news-card-link:hover {
+
+      text-decoration: none;
+
+    }
+
+
+    /* =========================
+       BREAKING TICKER
+    ========================= */
+
+    .breaking-bar {
+
+      display: flex !important;
+
+      align-items: center !important;
+
+      width: 100% !important;
+
+      overflow: hidden !important;
+
+      background: #f5f6fa !important;
+
+      border-bottom: 1px solid #e2e5eb !important;
+
+      height: 48px !important;
+
+      box-sizing: border-box !important;
+
+    }
+
+
+    .breaking-label {
+
+      flex: 0 0 auto !important;
+
+      background: #e50914 !important;
+
+      color: #ffffff !important;
+
+      font-weight: 800 !important;
+
+      font-size: 14px !important;
+
+      padding: 14px 16px !important;
+
+      height: 100% !important;
+
+      display: flex !important;
+
+      align-items: center !important;
+
+      box-sizing: border-box !important;
+
+      position: relative !important;
+
+      z-index: 2 !important;
+
+    }
+
+
+    .breaking-window {
+
+      flex: 1 !important;
+
+      min-width: 0 !important;
+
+      overflow: hidden !important;
+
+      white-space: nowrap !important;
+
+      position: relative !important;
+
+    }
+
+
+    .breaking-track {
+
+      display: inline-flex !important;
+
+      width: max-content !important;
+
+      min-width: 100% !important;
+
+      animation: footballBreakingMove 24s linear infinite !important;
+
+    }
+
+
+    .breaking-track span {
+
+      display: inline-block !important;
+
+      padding-left: 28px !important;
+
+      padding-right: 80px !important;
+
+      color: #111827 !important;
+
+      font-size: 15px !important;
+
+      font-weight: 600 !important;
+
+    }
+
+
+    @keyframes footballBreakingMove {
+
+      0% {
+
+        transform: translateX(100%);
+
+      }
+
+      100% {
+
+        transform: translateX(-100%);
+
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      .breaking-bar {
+
+        height: 44px !important;
+
+      }
+
+
+      .breaking-label {
+
+        font-size: 12px !important;
+
+        padding: 12px 12px !important;
+
+      }
+
+
+      .breaking-track span {
+
+        font-size: 14px !important;
+
+      }
 
     }
 
@@ -213,6 +396,7 @@
       <a
         href="index.html"
         class="home-button"
+        id="homeButton"
       >
         🏠 Home
       </a>
@@ -220,6 +404,7 @@
 
       <a
         href="javascript:history.back()"
+        id="backButton"
       >
         ← Back
       </a>
@@ -252,17 +437,32 @@
        BREAKING
   ========================= -->
 
-  <div class="breaking-bar">
+  <div
+    class="breaking-bar"
+    id="breakingBar"
+  >
 
-    <div class="container">
+    <div class="breaking-label">
+      BREAKING
+    </div>
 
-      <span class="breaking-label">
-        BREAKING
-      </span>
 
-      <span id="breakingText">
-        সর্বশেষ ফুটবল আপডেট
-      </span>
+    <div class="breaking-window">
+
+      <div
+        class="breaking-track"
+        id="breakingTrack"
+      >
+
+        <span id="breakingText">
+          সর্বশেষ ফুটবল আপডেট
+        </span>
+
+        <span>
+          সর্বশেষ ফুটবল আপডেট
+        </span>
+
+      </div>
 
     </div>
 
@@ -282,17 +482,24 @@
 
         <div class="section-heading">
 
-          <span class="hero-kicker">
+          <span
+            class="hero-kicker"
+            id="footballNewsKicker"
+          >
             সর্বশেষ খবর
           </span>
 
 
-          <h1>
+          <h1
+            id="footballNewsTitle"
+          >
             ফুটবল সংবাদ
           </h1>
 
 
-          <p>
+          <p
+            id="footballNewsDescription"
+          >
             বিশ্বের সর্বশেষ ফুটবল খবর ও আপডেট।
           </p>
 
@@ -305,7 +512,9 @@
         >
 
           <div class="loading">
+
             খবর লোড হচ্ছে...
+
           </div>
 
         </div>
@@ -331,7 +540,7 @@
       </strong>
 
 
-      <p>
+      <p id="footerSportsText">
         Football • Cricket • Sports Updates
       </p>
 
@@ -354,6 +563,185 @@
   <script src="config.js"></script>
 
   <script src="sport.js"></script>
+
+
+  <!-- =========================
+       FOOTBALL PAGE LANGUAGE
+  ========================= -->
+
+  <script>
+
+    function updateFootballPageLanguage() {
+
+      const language =
+        localStorage.getItem(
+          "sportnexiaLanguage"
+        ) || "bn";
+
+
+      const isEnglish =
+        language === "en";
+
+
+      /* =========================
+         HTML LANGUAGE
+      ========================= */
+
+      document.documentElement.lang =
+        isEnglish
+          ? "en"
+          : "bn";
+
+
+      /* =========================
+         PAGE TITLE
+      ========================= */
+
+      document.title =
+        isEnglish
+          ? "Football News | SPORTNEXIA"
+          : "ফুটবল সংবাদ | SPORTNEXIA";
+
+
+      /* =========================
+         KICKER
+      ========================= */
+
+      const kicker =
+        document.getElementById(
+          "footballNewsKicker"
+        );
+
+
+      if (kicker) {
+
+        kicker.textContent =
+          isEnglish
+            ? "LATEST STORIES"
+            : "সর্বশেষ খবর";
+
+      }
+
+
+      /* =========================
+         MAIN TITLE
+      ========================= */
+
+      const title =
+        document.getElementById(
+          "footballNewsTitle"
+        );
+
+
+      if (title) {
+
+        title.textContent =
+          isEnglish
+            ? "Football News"
+            : "ফুটবল সংবাদ";
+
+      }
+
+
+      /* =========================
+         DESCRIPTION
+      ========================= */
+
+      const description =
+        document.getElementById(
+          "footballNewsDescription"
+        );
+
+
+      if (description) {
+
+        description.textContent =
+          isEnglish
+            ? "Follow the latest football news and updates from around the world."
+            : "বিশ্বের সর্বশেষ ফুটবল খবর ও আপডেট।";
+
+      }
+
+
+      /* =========================
+         FOOTER
+      ========================= */
+
+      const footerSports =
+        document.getElementById(
+          "footerSportsText"
+        );
+
+
+      if (footerSports) {
+
+        footerSports.textContent =
+          isEnglish
+            ? "Football • Cricket • Sports Updates"
+            : "ফুটবল • ক্রিকেট • খেলাধুলার আপডেট";
+
+      }
+
+    }
+
+
+    /* =========================
+       RUN NOW
+    ========================= */
+
+    updateFootballPageLanguage();
+
+
+    /* =========================
+       LANGUAGE BUTTON LISTENERS
+    ========================= */
+
+    const bnButton =
+      document.getElementById(
+        "banglaButton"
+      );
+
+
+    const enButton =
+      document.getElementById(
+        "englishButton"
+      );
+
+
+    if (bnButton) {
+
+      bnButton.addEventListener(
+        "click",
+        () => {
+
+          setTimeout(
+            updateFootballPageLanguage,
+            50
+          );
+
+        }
+      );
+
+    }
+
+
+    if (enButton) {
+
+      enButton.addEventListener(
+        "click",
+        () => {
+
+          setTimeout(
+            updateFootballPageLanguage,
+            50
+          );
+
+        }
+      );
+
+    }
+
+  </script>
 
 
 </body>
