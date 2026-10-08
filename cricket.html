@@ -2,79 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Cricket | SPORTNEXIA</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
-    content="SPORTNEXIA Cricket - Live scores, fixtures, results and latest cricket news."
+    content="SPORTNEXIA Cricket - Live cricket scores, fixtures, results and latest cricket news."
   >
 
-  <meta name="robots" content="index, follow">
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <title>Cricket | SPORTNEXIA</title>
 
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="sport.css">
+
 </head>
 
-<body>
+<body class="sport-page">
 
   <!-- HEADER -->
-  <header>
-    <div class="nav">
+  <header class="site-header">
 
-      <a href="index.html" class="logo">
-        SPORT<span>NEXIA</span>
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <img
+          src="logo.png"
+          alt="SPORTNEXIA"
+          onerror="this.style.display='none'"
+        >
+
+        <span>SPORTNEXIA</span>
       </a>
 
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="football.html">Football</a>
-        <a href="cricket.html">Cricket</a>
+      <nav class="main-nav">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="football.html">
+          ⚽ Football
+        </a>
+
+        <a
+          href="cricket.html"
+          class="active"
+        >
+          🏏 Cricket
+        </a>
+
       </nav>
 
     </div>
+
   </header>
 
 
-  <!-- BREAKING -->
-  <div class="breaking">
-    <b>BREAKING</b>
-    <span id="breakingText">
-      Latest cricket updates from SPORTNEXIA
-    </span>
+  <!-- BREAKING BAR -->
+  <div class="breaking-bar">
+
+    <div class="container">
+
+      <span class="breaking-label">
+        BREAKING
+      </span>
+
+      <span id="breakingText">
+        Latest cricket updates
+      </span>
+
+    </div>
+
   </div>
 
 
-  <main class="sport-page">
+  <!-- HERO -->
+  <section class="sport-hero cricket-hero">
 
-    <!-- HERO -->
-    <section class="sport-hero cricket-hero">
+    <div class="container">
 
-      <div class="sport-hero-inner">
+      <span class="hero-kicker">
+        SPORTNEXIA
+      </span>
 
-        <div class="sport-kicker">
-          SPORTNEXIA • CRICKET
-        </div>
+      <h1>
+        Cricket
+      </h1>
 
-        <h1>
-          Cricket
-        </h1>
+      <p>
+        Follow the latest cricket matches,
+        fixtures, results, live scores and
+        breaking cricket news — all in one place.
+      </p>
 
-        <p>
-          Follow the latest cricket matches, fixtures, results,
-          live scores and breaking cricket news — all in one place.
-        </p>
+    </div>
 
-      </div>
-
-    </section>
+  </section>
 
 
-    <!-- SPORT TABS -->
-    <div class="sport-tabs">
+  <!-- SPORT TABS -->
+  <section class="sport-tabs-section">
 
-      <div class="sport-tabs-inner">
+    <div class="container">
+
+      <div class="sport-tabs">
 
         <a
           href="football.html"
@@ -94,182 +133,35 @@
 
     </div>
 
+  </section>
 
-    <!-- MATCHES -->
+
+  <!-- CRICKET MATCHES -->
+  <main>
+
     <section class="matches-section">
 
-      <div class="section-title">
+      <div class="container">
 
-        <h2>
-          Cricket Matches
-        </h2>
+        <div class="section-heading">
 
-        <span>
-          LIVE • UPCOMING • RESULTS
-        </span>
+          <h2>
+            Cricket Matches
+          </h2>
 
-      </div>
-
-
-      <div
-        class="matches-grid"
-        id="cricketMatches"
-      >
-
-        <div class="match-card">
-
-          <div class="match-top">
-
-            <span class="league-name">
-              Cricket
-            </span>
-
-            <span class="match-status">
-              Upcoming
-            </span>
-
-          </div>
-
-
-          <div class="teams">
-
-            <div class="team">
-
-              <div class="team-logo">
-                🏏
-              </div>
-
-              Team A
-
-            </div>
-
-
-            <div class="vs">
-              VS
-            </div>
-
-
-            <div class="team">
-
-              <div class="team-logo">
-                🏏
-              </div>
-
-              Team B
-
-            </div>
-
-          </div>
-
-
-          <div class="match-time">
-            Match information will appear here
-          </div>
+          <p>
+            LIVE • UPCOMING • RESULTS
+          </p>
 
         </div>
 
+        <div
+          id="cricketMatches"
+          class="matches-grid"
+        >
 
-        <div class="match-card">
-
-          <div class="match-top">
-
-            <span class="league-name">
-              Cricket
-            </span>
-
-            <span class="match-status live">
-              LIVE
-            </span>
-
-          </div>
-
-
-          <div class="teams">
-
-            <div class="team">
-
-              <div class="team-logo">
-                🏏
-              </div>
-
-              Team A
-
-            </div>
-
-
-            <div class="vs">
-              LIVE
-            </div>
-
-
-            <div class="team">
-
-              <div class="team-logo">
-                🏏
-              </div>
-
-              Team B
-
-            </div>
-
-          </div>
-
-
-          <div class="match-time">
-            Live score will appear here
-          </div>
-
-        </div>
-
-
-        <div class="match-card">
-
-          <div class="match-top">
-
-            <span class="league-name">
-              Cricket
-            </span>
-
-            <span class="match-status">
-              Upcoming
-            </span>
-
-          </div>
-
-
-          <div class="teams">
-
-            <div class="team">
-
-              <div class="team-logo">
-                🏏
-              </div>
-
-              Team A
-
-            </div>
-
-
-            <div class="vs">
-              VS
-            </div>
-
-
-            <div class="team">
-
-              <div class="team-logo">
-                🏏
-              </div>
-
-              Team B
-
-            </div>
-
-          </div>
-
-
-          <div class="match-time">
-            Match information will appear here
+          <div class="loading">
+            Loading cricket matches...
           </div>
 
         </div>
@@ -280,33 +172,28 @@
 
 
     <!-- CRICKET NEWS -->
-    <section class="football-news cricket-news">
+    <section class="football-news">
 
-      <div class="football-news-inner">
+      <div class="container">
 
-        <div class="football-news-title">
+        <div class="section-heading">
 
-          <div>
+          <span class="hero-kicker">
+            LATEST STORIES
+          </span>
 
-            <span>
-              LATEST STORIES
-            </span>
-
-            <h2>
-              Cricket News
-            </h2>
-
-          </div>
+          <h2>
+            Cricket News
+          </h2>
 
         </div>
 
-
         <div
-          class="football-news-grid"
           id="cricketNews"
+          class="football-news-grid"
         >
 
-          <div class="football-loading">
+          <div class="loading">
             Loading cricket news...
           </div>
 
@@ -320,15 +207,23 @@
 
 
   <!-- FOOTER -->
-  <footer>
+  <footer class="site-footer">
 
-    <b>
-      SPORT<span>NEXIA</span>
-    </b>
+    <div class="container">
 
-    <p>
-      Football • Cricket • Sports Updates
-    </p>
+      <strong>
+        SPORTNEXIA
+      </strong>
+
+      <p>
+        Football • Cricket • Sports Updates
+      </p>
+
+      <p>
+        © 2026 SPORTNEXIA. All rights reserved.
+      </p>
+
+    </div>
 
   </footer>
 
@@ -338,8 +233,8 @@
 
   <script src="config.js"></script>
 
-  <!-- SPORT ENGINE -->
-  <script src="sport.js"></script>
+  <!-- Cache-busted sport.js -->
+  <script src="sport.js?v=2"></script>
 
 </body>
 </html>
