@@ -52,7 +52,6 @@ button:disabled{opacity:.6;cursor:wait}.secondary{background:#354862}.danger{bac
 <script>
 (() => {
 "use strict";
-// Unique name avoids redeclaring ADMIN_UID from config.js.
 const EXPECTED_ADMIN_UID = "1d524237-7533-4d6b-a282-f5282d92b299";
 const EXPECTED_ADMIN_EMAIL = "mdnaimeholader02@gmail.com";
 const $ = id => document.getElementById(id);
@@ -70,7 +69,7 @@ function checkConfig(){
 async function verifyAdmin(){
  const {data,error}=await db.auth.getUser();if(error)throw error;const user=data&&data.user;
  if(!user)throw new Error("লগইন সেশন পাওয়া যায়নি। আবার Login করো।");
- if(user.id!==EXPECTED_ADMIN_UID||String(user.email||"").toLowerCase()!==EXPECTED_ADMIN_EMAIL){await db.auth.signOut();throw new Error("এই অ্যাকাউন্টটি Admin হিসেবে অনুমোদিত নয়। UID ও Email যাচাই করো।")}
+ if(user.id!==EXPECTED_ADMIN_UID||String(user.email||"").toLowerCase()!==EXPECTED_ADMIN_EMAIL){await db.auth.signOut();throw new Error("এই অ্যাকাউন্টটি Admin হিসেবে অনুমোদিত নয়। UID ও Email যাচাই করো")}
  return user;
 }
 async function handleLogin(event){
@@ -100,10 +99,13 @@ async function uploadImage(inputId){
 async function handlePublish(){
  if(publishBusy)return;publishBusy=true;publishBtn.disabled=true;publishBtn.textContent="Publishing...";
  try{
-  await verifyAdmin();const title_bn=$("titleBn").value.trim(),content_bn=$("contentBn").value.trim(),title_en=$("titleEn").value.trim(),content_en=$("contentEn").value.trim(),category=$("category").value;
+  await verifyAdmin();
+  const title_bn=$("titleBn").value.trim(),content_bn=$("contentBn").value.trim(),title_en=$("titleEn").value.trim(),content_en=$("contentEn").value.trim(),category=$("category").value;
   if(!title_bn||!content_bn||!title_en||!content_en)throw new Error("বাংলা ও English—দুই ভাষার শিরোনাম এবং খবর পূরণ করো।");
-  status(publishStatus,"খবর Publish হচ্ছে...");const image_bn=await uploadImage("imageBn"),image_en=await uploadImage("imageEn");
-  const row={title:title_en,title_bn,title_en,content:content_en,content_bn,content_en,category,image:image_en||image_bn,image_bn,image_en};
+  status(publishStatus,"খবর Publish হচ্ছে...");
+  const image_bn=await uploadImage("imageBn"),image_en=await uploadImage("imageEn");
+  // Actual database columns: image_url, image_bn, image_en. There is no "image" column.
+  const row={title:title_en,title_bn,title_en,content:content_en,content_bn,content_en,category,image_url:image_en||image_bn,image_bn,image_en};
   const {error}=await db.from("news").insert(row);if(error)throw error;
   status(publishStatus,"খবর সফলভাবে Publish হয়েছে।");
   ["titleBn","contentBn","titleEn","contentEn","imageBn","imageEn"].forEach(id=>$(id).value="");
@@ -130,7 +132,9 @@ $("newsList").addEventListener("click",event=>{const b=event.target.closest("[da
 try{
  checkConfig();
  db.auth.getSession().then(async({data,error})=>{
-  if(error)throw error;if(data.session){try{const user=await verifyAdmin();showAdmin(user);await loadNews()}catch(e){console.warn("Existing session is not admin:",e.message);await db.auth.signOut();showLogin("আগের সেশনটি Admin নয়। আবার Login করো।")}}else showLogin();
+  if(error)throw error;
+  if(data.session){try{const user=await verifyAdmin();showAdmin(user);await loadNews()}catch(e){console.warn("Existing session is not admin:",e.message);await db.auth.signOut();showLogin("আগের সেশনটি Admin নয়। আবার Login করো।")}}
+  else showLogin();
  }).catch(e=>{console.error("Session check error:",e);showLogin("Session check সমস্যা: "+(e.message||"Unknown error"))});
 }catch(e){console.error("Configuration error:",e);showLogin("Configuration সমস্যা: "+(e.message||"Unknown error"))}
 })();
